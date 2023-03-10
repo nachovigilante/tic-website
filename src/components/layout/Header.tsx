@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 const SearchBar = () => {
     return (
@@ -36,7 +36,7 @@ const Navbar = () => {
 
 const Header = () => {
     return (
-        <header className="bg-background-default py-4 px-8 flex items-center justify-between">
+        <header className="bg-background-default py-4 px-8 flex items-center justify-between fixed top-0 w-screen">
             <div className="flex justify-between gap-10 items-center">
                 <div className="w-9 h-9">
                     <Link href="/">
