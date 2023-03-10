@@ -1,0 +1,53 @@
+import Link from 'next/link';
+
+const SearchBar = () => {
+    return (
+        <div className="gap-5 font-space pl-3 pr-1 border-1 border-color-white rounded-lg bg-background-light flex items-center justify-between h-9">
+            <input
+                className="text-sm bg-transparent placeholder-white outline-none text-white w-[230px]"
+                type="text"
+                placeholder="Search or jump to..."
+            />
+            <div className="text-white border-1 border-color-white rounded-md bg-background-default h-6 w-6 flex justify-center items-center">
+                /
+            </div>
+        </div>
+    );
+};
+
+const Navbar = () => {
+    return (
+        <nav className="flex gap-10 font-space text-base font-medium">
+            <Link className="text-white" href="/">
+                Home
+            </Link>
+            <Link className="text-white" href="/subjects">
+                Ejes y materias
+            </Link>
+            <Link className="text-white" href="/projects">
+                Proyectos
+            </Link>
+            <Link className="text-white" href="/media">
+                Media
+            </Link>
+        </nav>
+    );
+};
+
+const Header = () => {
+    return (
+        <header className="bg-background-default py-4 px-8 flex items-center justify-between">
+            <div className="flex justify-between gap-10 items-center">
+                <div className="w-9 h-9">
+                    <Link href="/">
+                        <img src="/logo.svg" alt="TIC://" />
+                    </Link>
+                </div>
+                <SearchBar />
+            </div>
+            <Navbar />
+        </header>
+    );
+};
+
+export default Header;

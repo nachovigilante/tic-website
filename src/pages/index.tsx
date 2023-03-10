@@ -1,6 +1,6 @@
 import { type NextPage } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
+import Header from '~/components/layout/Header';
 
 const Home: NextPage = () => {
     return (
@@ -10,7 +10,7 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className="">
-                
+                <Header />
             </main>
         </>
     );

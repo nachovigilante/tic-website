@@ -23,7 +23,8 @@ const config = {
                 accent: '',
                 'accent-sec': '',
                 background: {
-                    dark: '',
+                    default: '#030026',
+                    light: '#121030',
                 },
             },
         },
