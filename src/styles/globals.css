@@ -4,6 +4,7 @@
 
 * {
     transition: all 0.1s ease-in-out;
+    scrollbar-gutter: stable;
 }
 
 ::-webkit-scrollbar {
@@ -11,7 +12,7 @@
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--bg-color);
+    background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
