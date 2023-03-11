@@ -1,10 +1,35 @@
 /** @type {import('tailwindcss').Config} */
 const config = {
-  content: ["./src/**/*.{js,ts,jsx,tsx}"],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+    content: ['./src/**/*.{js,ts,jsx,tsx}'],
+    theme: {
+        fontFamily: {
+            mono: ['Fira Code', 'monospace'],
+            space: ['Space Mono', 'monospace'],
+            raleway: ['Raleway', 'sans-serif'],
+        },
+        extend: {
+            borderWidth: {
+                1: '1px',
+                3: '3px',
+            },
+            borderRadius: {
+                default: '15px',
+            },
+            colors: {
+                primary: '#030026',
+                hover: '',
+                'sec-hover': '',
+                shadow: '',
+                accent: '',
+                'accent-sec': '',
+                background: {
+                    default: '#030026',
+                    light: '#121030',
+                },
+            },
+        },
+    },
+    plugins: [],
 };
 
 module.exports = config;
