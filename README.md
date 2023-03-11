@@ -38,7 +38,6 @@ Para poder correr el proyecto, se debe tener instalado [Node.js](https://nodejs.
 Cada componente debe tener los siguientes archivos:
 
 - `*.tsx`: Contiene el componente.
-- `*.module.scss`: Contiene los estilos del componente.
 
 Y deben seguir los siguientes patrones:
 
