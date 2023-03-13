@@ -14,10 +14,10 @@ const Home: NextPage = () => {
             <main className="pt-[67px] bg-background-light">
                 <Section className="text-white">
                     <div className="flex flex-col justify-center items-center mt-[-128px]">
-                        <h1 className="text-7xl font-extrabold font-raleway text-center mb-6 leading-[85px]">
+                        <h1 className="text-7xl font-black font-raleway text-center mb-5 leading-[85px]">
                             Tecnología Innovación y Creatividad
                         </h1>
-                        <h2 className="text-3xl font-space font-extralight">
+                        <h2 className="text-[27px] font-space font-light">
                             Especialización de la Escuela ORT
                         </h2>
                     </div>
