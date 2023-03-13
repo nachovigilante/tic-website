@@ -10,7 +10,7 @@ const Section = ({ children, className }: SectionProps) => {
         <section
             className={twMerge(
                 className,
-                "min-h-screen flex justify-center items-center",
+                "flex justify-center items-center",
             )}
         >
             <div className="w-[1200px] m-auto flex justify-center items-center">
