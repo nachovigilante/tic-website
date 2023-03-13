@@ -10,14 +10,10 @@ const Glassbox = ({
     props?: any;
 }) => {
     return (
-        <div
-            className={twMerge(
-                className,
-                "glass flex flex-col justify-between gap-5 py-10 px-9",
-            )}
-            {...props}
-        >
-            {children}
+        <div className={twMerge(className, "glass")} {...props}>
+            <div className="glass-container py-10 px-9 flex flex-col justify-between gap-5">
+                {children}
+            </div>
         </div>
     );
 };
