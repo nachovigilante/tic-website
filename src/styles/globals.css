@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .glass {        
+        @apply flex flex-col justify-between gap-5 py-5 px-7;
+        @apply text-white filter drop-shadow-lg backdrop-blur-2xl rounded-2xl;
+        background: linear-gradient(
+            70.62deg,
+            rgba(255, 255, 255, 0.1) 1.52%,
+            rgba(255, 255, 255, 0) 99.6%
+        );
+        background-image: url(/images/card_bg.png);
+        border: 1px solid rgba(255, 255, 255, 0.205);
+        border-bottom: 1px solid rgba(82, 75, 75, 0.205);
+        border-left: 1px solid rgba(82, 75, 75, 0.205);
+    }
+}
+
 * {
     transition: all 0.1s ease-in-out;
     scrollbar-gutter: stable;

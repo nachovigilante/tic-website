@@ -23,12 +23,23 @@ const Home: NextPage = () => {
                     </div>
                 </Section>
                 <Section className="bg-background-default">
-                    <div className="flex flex-col justify-center items-center">
-                        <h1 className="text-7xl font-extrabold font-raleway text-center mb-6 leading-[85px]">
-                            Tecnología Innovación y Creatividad
+                    <div className="glass max-w-4xl">
+                        <h1 className="text-3xl font-medium font-raleway">
+                            {
+                                "</Tecnología de la Información y la Comunicación>"
+                            }
                         </h1>
-                        <h2 className="text-3xl font-space font-extralight">
-                            Especialización de la Escuela ORT
+                        <h2 className="text-lg font-space font-extralight">
+                            ¿Te interesa conocer sobre Inteligencia Artificial?
+                            ¿Te gustaría producir tu propio videojuego con
+                            Realidad Virtual? ¿Querés usar drones, impresoras 3D
+                            y cámaras 360? ¿Queres construir tu robot o
+                            controlar tu casa de forma remota? ¿Crees que la
+                            tecnología está innovando todos los sectores y
+                            querés ser protagonista del futuro? Entonces, ¡TIC
+                            es para vos! En esta especialización los alumnos
+                            aprenden a desarrollar sus propios proyectos
+                            tecnológicos, utilizando las últimas tecnologías.
                         </h2>
                     </div>
                 </Section>
