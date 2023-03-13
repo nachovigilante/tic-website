@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-    .glass {        
-        @apply flex flex-col justify-between gap-5 py-5 px-7;
+    .glass {
         @apply text-white filter drop-shadow-lg backdrop-blur-2xl rounded-2xl;
         background: linear-gradient(
             70.62deg,
