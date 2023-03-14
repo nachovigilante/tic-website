@@ -1,8 +1,8 @@
 import ORT from "../../../public/images/ORT.svg";
 import TICX from "../../../public/images/TIC X.svg";
-import Github from "../../../public/images/github.svg";
-import Twitter from "../../../public/images/twitter.svg";
-import Instagram from "../../../public/images/instagram.svg";
+import Github from "../../../public/images/Github.svg";
+import Twitter from "../../../public/images/Twitter.svg";
+import Instagram from "../../../public/images/Instagram.svg";
 
 const Footer = () => {
     return (
