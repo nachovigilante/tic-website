@@ -16,6 +16,8 @@ import SatSVG from "../../public/images/sat.svg";
 import Nose2SVG from "../../public/images/nose2.svg";
 import HardwareSVG from "../../public/images/hardware.svg";
 
+import TICExperienceSVG from "../../public/images/tic-experience.svg";
+
 const Home: NextPage = () => {
     return (
         <>
@@ -24,7 +26,7 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            <main className="pt-[67px] bg-background-default">
+            <main className="pt-[67px] bg-background-dark">
                 <Section className="text-white min-h-screen">
                     <div className="opacity-100 flex flex-col justify-center items-center mt-[-128px] absolute z-10 max-w-[1000px]">
                         <h1 className="text-7xl font-black font-raleway text-center mb-5 leading-[85px]">
@@ -55,11 +57,11 @@ const Home: NextPage = () => {
                         </h2>
                     </TitledGlassBox>
                 </Section>
-                <Section className="text-white max-w-[1000px] m-auto">
-                    <h1 className="text-7xl font-black font-raleway text-center mb-5 leading-[85px]">
+                <Section className="text-white m-auto min-h-screen">
+                    <h1 className="text-7xl font-black font-raleway text-center mb-5 leading-[85px] max-w-[1000px]">
                         Descubrí las tecnologías que desarrollamos
                     </h1>
-                    <div className="flex flex-wrap gap-6 justify-center mt-12">
+                    <div className="flex flex-wrap gap-6 justify-center mt-12 max-w-[1000px]">
                         <JuegosSVG />
                         <VRSVG />
                         <IoTSVG />
@@ -72,6 +74,19 @@ const Home: NextPage = () => {
                         <Nose2SVG />
                         <HardwareSVG />
                     </div>
+                </Section>
+                <Section className="h-screen m-auto tic-experience-shadow">
+                    <div className="absolute z-10 flex justify-center flex-col items-center">
+                        <TICExperienceSVG className="max-w-[1000px]" />
+                        <h2 className="max-w-[1000px] text-white text-[27px] font-space font-light mt-12">
+                            Conocé los proyectos de la edición pasada
+                        </h2>
+                    </div>
+                    <div className="bg-colors-2 w-full h-full absolute" />
+                    <div className="tic-experience-shadow  w-full h-full absolute z-10" />
+                </Section>
+                <Section className="min-h-screen">
+                    <h1>AAAAAAAAAA</h1>
                 </Section>
             </main>
         </>
