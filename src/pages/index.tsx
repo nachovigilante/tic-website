@@ -1,8 +1,20 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Header from "~/components/layout/Header";
-import Glassbox, { TitledGlassBox } from "~/components/utils/Glassbox";
+import { TitledGlassBox } from "~/components/utils/Glassbox";
 import Section from "~/components/utils/Section";
+
+import JuegosSVG from "../../public/images/games.svg";
+import VRSVG from "../../public/images/vr.svg";
+import IoTSVG from "../../public/images/iot.svg";
+import IASVG from "../../public/images/ia.svg";
+import NoseSVG from "../../public/images/nose.svg";
+import BlockchainSVG from "../../public/images/blockchain.svg";
+import MobileSVG from "../../public/images/mobile.svg";
+import ArteSVG from "../../public/images/arte.svg";
+import SatSVG from "../../public/images/sat.svg";
+import Nose2SVG from "../../public/images/nose2.svg";
+import HardwareSVG from "../../public/images/hardware.svg";
 
 const Home: NextPage = () => {
     return (
@@ -42,6 +54,24 @@ const Home: NextPage = () => {
                             tecnológicos, utilizando las últimas tecnologías.
                         </h2>
                     </TitledGlassBox>
+                </Section>
+                <Section className="text-white max-w-[1000px] m-auto">
+                    <h1 className="text-7xl font-black font-raleway text-center mb-5 leading-[85px]">
+                        Descubrí las tecnologías que desarrollamos
+                    </h1>
+                    <div className="flex flex-wrap gap-6 justify-center mt-12">
+                        <JuegosSVG />
+                        <VRSVG />
+                        <IoTSVG />
+                        <IASVG />
+                        <NoseSVG />
+                        <BlockchainSVG />
+                        <MobileSVG />
+                        <ArteSVG />
+                        <SatSVG />
+                        <Nose2SVG />
+                        <HardwareSVG />
+                    </div>
                 </Section>
             </main>
         </>
