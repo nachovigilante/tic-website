@@ -1,6 +1,5 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Header from "~/components/layout/Header";
 import { TitledGlassBox } from "~/components/utils/Glassbox";
 import Section from "~/components/utils/Section";
 
@@ -25,7 +24,6 @@ const Home: NextPage = () => {
                 <title>TIC://</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Header />
             <main className="pt-[67px] bg-background-dark">
                 <Section className="text-white min-h-screen">
                     <div className="opacity-100 flex flex-col justify-center items-center mt-[-128px] absolute z-10 max-w-[1000px]">

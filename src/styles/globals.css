@@ -38,6 +38,18 @@
     .tic-experience-shadow {
         box-shadow: inset 0px -500px 210px -290px #020116;
     }
+
+    .purple-glow {
+        filter: drop-shadow(0 0 10px #8d31ab);
+    }
+
+    .blue-glow {
+        filter: drop-shadow(0 0 10px #4a99e9);
+    }
+
+    .pink-glow {
+        filter: drop-shadow(0 0 10px #dc0f60);
+    }
 }
 
 * {
