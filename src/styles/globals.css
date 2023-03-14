@@ -46,14 +46,15 @@
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: transparent;
+    background-color: #020116;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #555;
+    @apply glass;
+    filter: brightness(2) drop-shadow(0 0 3px #fff);
     border-radius: 10px;
 }
