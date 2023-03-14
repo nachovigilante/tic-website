@@ -13,7 +13,7 @@ const Section = ({ children, className }: SectionProps) => {
                 "flex justify-center items-center",
             )}
         >
-            <div className="w-[1200px] m-auto flex justify-center items-center">
+            <div className="w-[1200px] m-auto flex justify-center items-center flex-col">
                 {children}
             </div>
         </section>
