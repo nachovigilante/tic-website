@@ -3,19 +3,8 @@ import Head from "next/head";
 import { TitledGlassBox } from "~/components/utils/Glassbox";
 import Section from "~/components/utils/Section";
 
-import JuegosSVG from "../../public/images/games.svg";
-import VRSVG from "../../public/images/vr.svg";
-import IoTSVG from "../../public/images/iot.svg";
-import IASVG from "../../public/images/ia.svg";
-import NoseSVG from "../../public/images/nose.svg";
-import BlockchainSVG from "../../public/images/blockchain.svg";
-import MobileSVG from "../../public/images/mobile.svg";
-import ArteSVG from "../../public/images/arte.svg";
-import SatSVG from "../../public/images/sat.svg";
-import Nose2SVG from "../../public/images/nose2.svg";
-import HardwareSVG from "../../public/images/hardware.svg";
-
 import TICExperienceSVG from "../../public/images/tic-experience.svg";
+import Technologies from "~/components/utils/Technologies";
 
 const Home: NextPage = () => {
     return (
@@ -41,7 +30,7 @@ const Home: NextPage = () => {
                         className="max-w-4xl"
                         title="</Tecnología de la Información y la Comunicación>"
                     >
-                        <h2 className="text-lg font-space font-extralight">
+                        <p className="text-xl font-space font-extralight mt-4">
                             ¿Te interesa conocer sobre Inteligencia Artificial?
                             ¿Te gustaría producir tu propio videojuego con
                             Realidad Virtual? ¿Querés usar drones, impresoras 3D
@@ -52,26 +41,14 @@ const Home: NextPage = () => {
                             es para vos! En esta especialización los alumnos
                             aprenden a desarrollar sus propios proyectos
                             tecnológicos, utilizando las últimas tecnologías.
-                        </h2>
+                        </p>
                     </TitledGlassBox>
                 </Section>
                 <Section className="text-white m-auto min-h-screen">
                     <h1 className="text-7xl font-black font-raleway text-center mb-5 leading-[85px] max-w-[1000px]">
                         Descubrí las tecnologías que desarrollamos
                     </h1>
-                    <div className="flex flex-wrap gap-6 justify-center mt-12 max-w-[1000px]">
-                        <JuegosSVG />
-                        <VRSVG />
-                        <IoTSVG />
-                        <IASVG />
-                        <NoseSVG />
-                        <BlockchainSVG />
-                        <MobileSVG />
-                        <ArteSVG />
-                        <SatSVG />
-                        <Nose2SVG />
-                        <HardwareSVG />
-                    </div>
+                    <Technologies color />
                 </Section>
                 <Section className="h-screen m-auto tic-experience-shadow">
                     <div className="absolute z-10 flex justify-center flex-col items-center">
