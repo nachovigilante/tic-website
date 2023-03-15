@@ -12,9 +12,9 @@ const Footer = () => {
                 <TICX />
             </div>
             <div className="flex items-center justify-center gap-6 mt-4">
-                <Github className="purple-glow" />
-                <Twitter className="blue-glow" />
-                <Instagram className="pink-glow" />
+                <Github className="glow-lg-github" />
+                <Twitter className="glow-lg-twitter" />
+                <Instagram className="glow-lg-instagram" />
             </div>
         </footer>
     );
