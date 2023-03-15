@@ -4,7 +4,9 @@ import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import Glassbox, { TitledGlassBox } from "~/components/utils/Glassbox";
 import Section from "~/components/utils/Section";
-import Technologies from "~/components/utils/Technologies";
+import Technology, {
+    TechnologiesContainer,
+} from "~/components/utils/Technologies";
 
 const TechGlassBox = ({
     children,
@@ -36,10 +38,12 @@ const TechSection = ({
     titles,
     mirror,
     text,
+    tech,
 }: {
     titles: string[];
     mirror?: boolean;
     text: string;
+    tech: string;
 }) => {
     return (
         <div
@@ -48,13 +52,9 @@ const TechSection = ({
                 mirror ? "grid-cols-tech-reverse" : "grid-cols-tech-section",
             )}
         >
-            {mirror ? (
-                <div className="border-red border w-[500px] h-[410px]"></div>
-            ) : null}
+            {mirror ? <Technology tech={tech} size={250}/> : null}
             <TechGlassBox titles={titles}>{text}</TechGlassBox>
-            {mirror ? null : (
-                <div className="border-red border w-[500px] h-[410px]"></div>
-            )}
+            {mirror ? null : <Technology tech={tech} size={250}/>}
         </div>
     );
 };
@@ -78,7 +78,7 @@ const Tech: NextPage = () => {
                         <h2 className="text-[27px] font-space font-light">
                             Las tecnologías que desarrollamos
                         </h2>
-                        <Technologies />
+                        <TechnologiesContainer glow size={120} />
                     </div>
                     <div className="bg-colors-1 w-full h-[180%] absolute" />
                 </Section>
@@ -89,6 +89,7 @@ const Tech: NextPage = () => {
                 Klimatflykting gåtåg lätthelg. Mjuk betalvägg plötslig vuxendöd.
                 Den nya ekonomin serieotrohet. Givomat shoppingspion, respektive
                 klimatlarm.`}
+                    tech="hardware"
                 />
                 <TechSection
                     titles={["</Tecnología_Satelital>"]}
@@ -97,6 +98,7 @@ const Tech: NextPage = () => {
                 Klimatflykting gåtåg lätthelg. Mjuk betalvägg plötslig vuxendöd.
                 Den nya ekonomin serieotrohet. Givomat shoppingspion, respektive
                 klimatlarm.`}
+                    tech="sat"
                     mirror
                 />
                 <TechSection
@@ -106,6 +108,7 @@ const Tech: NextPage = () => {
                 Klimatflykting gåtåg lätthelg. Mjuk betalvägg plötslig vuxendöd.
                 Den nya ekonomin serieotrohet. Givomat shoppingspion, respektive
                 klimatlarm.`}
+                    tech="art"
                 />
                 <TechSection
                     titles={["</Videojuegos>", "</Realidad_Virtual>"]}
@@ -114,6 +117,7 @@ const Tech: NextPage = () => {
                 Klimatflykting gåtåg lätthelg. Mjuk betalvägg plötslig vuxendöd.
                 Den nya ekonomin serieotrohet. Givomat shoppingspion, respektive
                 klimatlarm.`}
+                    tech="vr"
                     mirror
                 />
                 <TechSection
@@ -127,6 +131,7 @@ const Tech: NextPage = () => {
                 Klimatflykting gåtåg lätthelg. Mjuk betalvägg plötslig vuxendöd.
                 Den nya ekonomin serieotrohet. Givomat shoppingspion, respektive
                 klimatlarm.`}
+                    tech="ia"
                 />
                 <Section className="flex justify-center h-[300px] mb-40">
                     <Link

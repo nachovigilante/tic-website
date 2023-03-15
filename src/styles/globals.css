@@ -38,18 +38,30 @@
     .tic-experience-shadow {
         box-shadow: inset 0px -500px 210px -290px #020116;
     }
-    
+
+    .profile-pic {
+        @apply rounded-full h-7 w-7;
+        border: 2px solid #fff;
+    }
 }
 
 @layer utilities {
     .no-ligature {
         font-variant-ligatures: none;
     }
+
+    .fade-bottom {
+        mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    }
 }
 
 * {
     transition: all 0.1s ease-in-out;
     scrollbar-gutter: stable;
+}
+
+body {
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
