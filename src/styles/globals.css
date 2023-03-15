@@ -38,7 +38,11 @@
     .tic-experience-shadow {
         box-shadow: inset 0px -500px 210px -290px #020116;
     }
-    
+
+    .profile-pic {
+        @apply rounded-full h-7 w-7;
+        border: 2px solid #fff;
+    }
 }
 
 @layer utilities {
