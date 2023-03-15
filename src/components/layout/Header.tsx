@@ -3,13 +3,13 @@ import Link from "next/link";
 
 const SearchBar = () => {
     return (
-        <div className="gap-5 font-space pl-3 pr-1 border-1 border-color-white rounded-lg bg-background-light flex items-center justify-between h-9">
+        <div className="gap-5 font-space pl-3 pr-1 border-1 border-color-white rounded-lg bg-black/20 flex items-center justify-between h-9">
             <input
                 className="text-sm bg-transparent placeholder-white outline-none text-white w-[230px]"
                 type="text"
                 placeholder="Search or jump to..."
             />
-            <div className="text-white border-1 border-color-white rounded-md bg-background-default h-6 w-6 flex justify-center items-center">
+            <div className="text-white border-1 border-color-white rounded-md bg-black/20 h-6 w-6 flex justify-center items-center">
                 /
             </div>
         </div>
@@ -58,11 +58,11 @@ const Header = () => {
                     rel="stylesheet"
                 />
             </Head>
-            <header className="bg-background-default/80 backdrop-blur-[8px] py-4 px-8 flex items-center justify-between fixed z-20 top-0 w-screen">
+            <header className="py-4 px-8 flex items-center justify-between fixed z-20 top-0 w-screen">
                 <div className="flex justify-between gap-10 items-center">
                     <div className="w-9 h-9">
                         <Link href="/">
-                            <img src="/logo.svg" alt="TIC://" />
+                            <img src="/X.svg" alt="TIC://" />
                         </Link>
                     </div>
                     <SearchBar />
