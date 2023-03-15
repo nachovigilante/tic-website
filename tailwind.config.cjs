@@ -19,6 +19,7 @@ const config = {
             },
             colors: {
                 primary: "#030026",
+                accent: "#e61366",
                 github: "#8d31ab",
                 twitter: "#1da1f2",
                 instagram: "#e1306c",
@@ -33,12 +34,17 @@ const config = {
                 orange: "#F1841F",
                 teal: "#02C2A1",
                 red: "#CC2624",
+                "dark-blue": "#0c043f",
 
                 background: {
                     dark: "#020116",
                     default: "#030026",
                     light: "#121030",
                 },
+            },
+            gridTemplateColumns: {
+                "tech-section": "2fr 1fr",
+                "tech-reverse": "1fr 2fr",
             },
         },
     },

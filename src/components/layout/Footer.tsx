@@ -6,7 +6,7 @@ import Instagram from "../../../public/images/Instagram.svg";
 
 const Footer = () => {
     return (
-        <footer className="flex flex-col justify-center bg-background-dark pb-16 gap-12">
+        <footer className="flex flex-col justify-center pb-16 gap-12 absolute z-10 w-full h-[300px] mt-[-300px]">
             <div className="flex items-center justify-center gap-5">
                 <ORT />
                 <TICX />

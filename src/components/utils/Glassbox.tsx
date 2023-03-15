@@ -29,7 +29,9 @@ export const TitledGlassBox = ({
 }) => {
     return (
         <Glassbox className={twMerge(className, "flex flex-col gap-5")}>
-            <h1 className="text-3xl font-medium font-raleway">{title}</h1>
+            <h1 className="text-3xl font-medium font-space no-ligature">
+                {title}
+            </h1>
             {children}
         </Glassbox>
     );

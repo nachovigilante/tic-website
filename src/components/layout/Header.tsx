@@ -22,7 +22,7 @@ const Navbar = () => {
             <Link className="text-white" href="/">
                 Home
             </Link>
-            <Link className="text-white" href="/subjects">
+            <Link className="text-white" href="/tech">
                 Ejes y materias
             </Link>
             <Link className="text-white" href="/projects">

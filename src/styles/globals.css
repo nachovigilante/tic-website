@@ -41,6 +41,12 @@
     
 }
 
+@layer utilities {
+    .no-ligature {
+        font-variant-ligatures: none;
+    }
+}
+
 * {
     transition: all 0.1s ease-in-out;
     scrollbar-gutter: stable;

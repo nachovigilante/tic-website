@@ -48,7 +48,7 @@ const Home: NextPage = () => {
                     <h1 className="text-7xl font-black font-raleway text-center mb-5 leading-[85px] max-w-[1000px]">
                         Descubrí las tecnologías que desarrollamos
                     </h1>
-                    <Technologies />
+                    <Technologies color />
                 </Section>
                 <Section className="h-screen m-auto tic-experience-shadow">
                     <div className="absolute z-10 flex justify-center flex-col items-center">
