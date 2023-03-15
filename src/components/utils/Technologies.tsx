@@ -11,7 +11,7 @@
 // import HardwareSVG from "../../../public/images/hardware.svg";
 import { twMerge } from "tailwind-merge";
 
-export type Technology = {
+export type TechnologyType = {
     code: string;
     name: string;
     /*logo: any;*/ logoURL: string;
@@ -96,18 +96,25 @@ export const technologies = [
         logoURL: "/images/hardware.svg",
         color: "glow-sm-red",
     },
-] as Technology[];
+] as TechnologyType[];
 
 type TechnologyProps = {
     tech: string;
     glow?: boolean;
     glowColor?: string;
     size?: number;
+    className?: string;
 };
 
-const Technology = ({ tech, glow, glowColor, size = 148 }: TechnologyProps) => {
+const Technology = ({
+    tech,
+    glow,
+    glowColor,
+    size = 148,
+    className,
+}: TechnologyProps) => {
     return (
-        <div className={twMerge("flex justify-center items-center")}>
+        <div className={twMerge(className, "flex justify-center items-center")}>
             {technologies.map((t) => {
                 if (t.code === tech) {
                     // const Logo = t.logo as React.FC<
