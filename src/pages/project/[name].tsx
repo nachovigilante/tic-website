@@ -13,6 +13,7 @@ type ProjectInfo = {
     technologies: string[];
     images: string[];
     main_color: string;
+    students: string[];
 };
 
 type ProjectProps = {
@@ -58,7 +59,7 @@ const Project: NextPage<ProjectProps> = ({ projectInfo }) => {
                 <Technology
                     tech={tech.code}
                     size={1200}
-                    className="absolute opacity-10 rotate-[35deg] right-[50px] top-[-120px] fade-bottom"
+                    className="absolute opacity-10 rotate-[35deg] right-[50px] top-[-120px] fade-bottom pointer-events-none"
                 />
                 <div className="max-w-[1000px] m-auto pt-10">
                     <span className="font-space no-ligature text-4xl text-bold">{`<${tech.name}/>`}</span>
@@ -89,38 +90,19 @@ const Project: NextPage<ProjectProps> = ({ projectInfo }) => {
                             </h3>
                             <div>
                                 <ul className="font-space text-xl font-light flex flex-col flex-wrap max-h-[150px] gap-x-10 gap-y-2">
-                                    <li className="flex gap-2">
+                                    {/* <li className="flex gap-2">
                                         <div className="profile-pic"></div>
                                         Carola O.
-                                    </li>
-                                    <li className="flex gap-2">
-                                        <div className="profile-pic"></div>
-                                        Facundo V.
-                                    </li>
-                                    <li className="flex gap-2">
-                                        <div className="profile-pic"></div>
-                                        Gonzalo B.
-                                    </li>
-                                    <li className="flex gap-2">
-                                        <div className="profile-pic"></div>
-                                        Julieta K.
-                                    </li>
-                                    <li className="flex gap-2">
-                                        <div className="profile-pic"></div>
-                                        Nicolas T.
-                                    </li>
-                                    <li className="flex gap-2">
-                                        <div className="profile-pic"></div>
-                                        Vincenzo P.
-                                    </li>
-                                    <li className="flex gap-2">
-                                        <div className="profile-pic"></div>
-                                        Daniel W.
-                                    </li>
-                                    <li className="flex gap-2">
-                                        <div className="profile-pic"></div>Luis
-                                        E.
-                                    </li>
+                                    </li> */}
+                                    {projectInfo.students.map((student) => (
+                                        <li
+                                            className="flex gap-2"
+                                            key={student}
+                                        >
+                                            <div className="profile-pic"></div>
+                                            {student}
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
@@ -157,14 +139,35 @@ const projects = [
         short_description: `Detección temprana de Tuberculosis en radiografías pulmonares mediante el uso de Inteligencia Artificial.`,
         images: ["/images/IARA.png", "/images/IARA 2.png"],
         main_color: "#000000",
+        students: [
+            "Carola O.",
+            "Facundo V.",
+            "Gonzalo B.",
+            "Julieta K.",
+            "Nicolas T.",
+            "Vincenzo P.",
+            "Daniel W.",
+            "Luis E.",
+        ],
     },
     {
         name: "Zerti",
         description: `An artificial intelligence (AI) deep learning approach for Tuberculosis (TB) detection in chest X-rays (CXR). IARA integrates multiple AI models to provide accurate and efficient predictions of TB in CXRs. The system is accessed via a web page designed to be user-friendly and intuitive to medical professionals, providing them with a reliable and valuable tool for TB detection.`,
         short_description: `Detección temprana de Tuberculosis en radiografías pulmonares mediante el uso de Inteligencia Artificial.`,
         technologies: ["blockchain"],
-        images: ["image1", "image2"],
+        images: ["/images/Zerti.png", "/images/IARA 2.png"],
         main_color: "#30175c",
+        students: [
+            "Naomi c.",
+            "Lucas G. R.",
+            "llan T.",
+            "Victoria s.",
+            "Candela L. B.",
+            "Nicolas H.",
+            "Matias A.",
+            "Matilde A.",
+            "Facundo F.",
+        ],
     },
 ];
 
