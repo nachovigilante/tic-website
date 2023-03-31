@@ -17,9 +17,11 @@ const useLogin = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    // "mode": "no-cors",
+                    // "Access-Control-Allow-Origin": "*",
                 },
                 body: JSON.stringify(credentials),
-                credentials: "include",
+                // credentials: "include",
             });
 
             if (!response.ok) {
@@ -27,9 +29,11 @@ const useLogin = () => {
                 throw new Error(message);
             }
 
-            const accessToken = ((await response.json()) as {
-                token: string;
-            }).token;
+            const accessToken = (
+                (await response.json()) as {
+                    token: string;
+                }
+            ).token;
             setAuth({ dni: credentials.dni, accessToken } as AuthType);
             return { accessToken, success: true };
         } catch (error) {

@@ -1,4 +1,4 @@
-const BASE_URL = "https://proyecto-final-ecru-six.vercel.app/";
+const BASE_URL = "https://proyecto-final-ecru-six.vercel.app";
 
 const apiQuery = async <T>(path: string, token: string) => {
     console.log(token);

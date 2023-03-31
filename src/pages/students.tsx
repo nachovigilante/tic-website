@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import { useEffect } from "react";
 import { useQuery } from "react-query";
 import Section from "~/components/utils/Section";
 
@@ -14,6 +15,10 @@ const StudentsPage: NextPage = () => {
         isError,
     } = useQuery(["students"], () => fetchStudents());
 
+    useEffect(() => {
+        console.log(students);
+    }, [students]);
+
     return (
         <>
             <Head>
@@ -25,13 +30,7 @@ const StudentsPage: NextPage = () => {
                     <h2>A</h2>
                     {isLoading && <p>Loading...</p>}
                     {isError && <p>Error</p>}
-                    {!isLoading && !isError && (
-                        <ul>
-                            {students?.map((student: Student) => (
-                                <li key={student.dni}>{student.name}</li>
-                            ))}
-                        </ul>
-                    )}
+                    {!isLoading && !isError && <ul></ul>}
                 </Section>
             </main>
         </>

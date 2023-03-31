@@ -31,6 +31,9 @@ const Navbar = () => {
             <Link className="text-white" href="/media">
                 Media
             </Link>
+            <Link className="text-white" href="/students">
+                Estudiantes
+            </Link>
         </nav>
     );
 };

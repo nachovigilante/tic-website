@@ -1,4 +1,10 @@
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import {
+    createContext,
+    Dispatch,
+    SetStateAction,
+    useEffect,
+    useState,
+} from "react";
 
 export type AuthType = {
     dni: string;
@@ -23,6 +29,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         dni: "",
         accessToken: "",
     });
+
+    useEffect(() => {
+        console.log("AuthContext: ", auth);
+    }, [auth]);
 
     return (
         <AuthContext.Provider value={{ auth, setAuth }}>
