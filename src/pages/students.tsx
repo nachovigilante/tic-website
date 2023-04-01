@@ -1,10 +1,49 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { useEffect } from "react";
 import { useQuery } from "react-query";
 import Section from "~/components/utils/Section";
 
 import { Student, useStudents } from "~/hooks/api/useStudents";
+
+import { Column, ColumnDefBase, createColumnHelper } from "@tanstack/react-table";
+import Table from "~/components/Table";
+
+const columnHelper = createColumnHelper<Student>();
+
+const columns = [
+    columnHelper.accessor("dni", {
+        header: () => <span>DNI</span>,
+    }),
+    columnHelper.accessor("name", {
+        header: () => <span>Nombre</span>,
+    }),
+    columnHelper.accessor("lastName", {
+        header: () => <span>Apellido</span>,
+    }),
+    columnHelper.accessor("mail", {
+        header: () => <span>Mail</span>,
+    }),
+    columnHelper.accessor("classYear", {
+        header: () => <span>Clase</span>,
+    }),
+];
+
+// const test = [
+//     {
+//         id: 1,
+//         name: "Juan",
+//         lastName: "Perez",
+//         mail: "juan@gmail.com",
+//         classYear: 1,
+//     },
+//     {
+//         id: 2,
+//         name: "Pedro",
+//         lastName: "Gomez",
+//         mail: "pedro@gmail.com",
+//         classYear: 2,
+//     },
+// ] as Student[];
 
 const StudentsPage: NextPage = () => {
     const { fetchStudents } = useStudents();
@@ -15,22 +54,22 @@ const StudentsPage: NextPage = () => {
         isError,
     } = useQuery(["students"], () => fetchStudents());
 
-    useEffect(() => {
-        console.log(students);
-    }, [students]);
-
     return (
         <>
             <Head>
                 <title>TIC:// Estudiantes</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className="pt-[67px] bg-background-dark">
-                <Section className="min-h-screen">
-                    <h2>A</h2>
+            <main className="bg-background-dark">
+                <Section className="min-h-screen pt-24">
                     {isLoading && <p>Loading...</p>}
                     {isError && <p>Error</p>}
-                    {!isLoading && !isError && <ul></ul>}
+                    {!isLoading && !isError && (
+                        <Table
+                            data={students || []}
+                            columns={columns as Column<Student, ColumnDefBase<Student>>[]}
+                        />
+                    )}
                 </Section>
             </main>
         </>
