@@ -1,5 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
+import ShortcutsContext from "~/contexts/ShortcutsContext";
+import links from "~/data/links";
 
 const SearchBar = () => {
     return (
@@ -19,26 +23,56 @@ const SearchBar = () => {
 const Navbar = () => {
     return (
         <nav className="flex gap-10 font-space text-base font-medium">
-            <Link className="text-white" href="/">
-                Home
-            </Link>
-            <Link className="text-white" href="/tech">
-                Ejes y materias
-            </Link>
-            <Link className="text-white" href="/projects">
-                Proyectos
-            </Link>
-            <Link className="text-white" href="/media">
-                Media
-            </Link>
-            <Link className="text-white" href="/students">
-                Estudiantes
-            </Link>
+            {links.map((link) => (
+                <Link className="text-white" href={link.path} key={link.name}>
+                    {link.name}
+                </Link>
+            ))}
         </nav>
     );
 };
 
 const Header = () => {
+    const { shortcuts, addShortcuts } = useContext(ShortcutsContext);
+    const router = useRouter();
+
+    const headerShortcuts = [
+        {
+            keystrokes: ["ctrl+shift+p"],
+            description: "Search",
+            action: () => {
+                console.log("Search");
+            },
+        },
+        {
+            keystrokes: ["ctrl+shift+h"],
+            description: "Go to home",
+            action: () => {
+                router
+                    .push("/")
+                    .then(() => {
+                        console.log("Go to home");
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    });
+            },
+        },
+    ];
+
+    useEffect(() => {
+        const shortcutsAdded = shortcuts.filter((shortcut) => {
+            return headerShortcuts.find((hs) => {
+                return hs.description === shortcut.description;
+            });
+        });
+
+        console.log(shortcutsAdded);
+        console.log(shortcuts);
+
+        if (shortcutsAdded.length === 0) addShortcuts(headerShortcuts);
+    }, []);
+
     return (
         <>
             <Head>
