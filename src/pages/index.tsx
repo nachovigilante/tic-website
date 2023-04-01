@@ -5,6 +5,7 @@ import Section from "~/components/utils/Section";
 
 import TICExperienceSVG from "../../public/images/tic-experience.svg";
 import { TechnologiesContainer } from "~/components/utils/Technologies";
+import useShortcuts from "~/hooks/shortcuts/useShortcuts";
 
 const Home: NextPage = () => {
     return (
