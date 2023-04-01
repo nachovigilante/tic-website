@@ -1,21 +1,25 @@
 import { type AppType } from "next/app";
-import { type Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
 
 import "~/styles/globals.css";
 import Header from "~/components/layout/Header";
 import Footer from "~/components/layout/Footer";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { AuthProvider } from "~/contexts/AuthContext";
+import { ShortcutsProvider } from "~/contexts/ShortcutsContext";
 
-const MyApp: AppType<{ session: Session | null }> = ({
-    Component,
-    pageProps: { session, ...pageProps },
-}) => {
+const queryClient = new QueryClient();
+
+const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
     return (
-        <SessionProvider session={session}>
-            <Header />
-            <Component {...pageProps} />
-            <Footer />
-        </SessionProvider>
+        <ShortcutsProvider>
+            <AuthProvider>
+                <QueryClientProvider client={queryClient}>
+                    <Header />
+                    <Component {...pageProps} />
+                    <Footer />
+                </QueryClientProvider>
+            </AuthProvider>
+        </ShortcutsProvider>
     );
 };
 
