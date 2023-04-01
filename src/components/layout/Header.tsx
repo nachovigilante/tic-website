@@ -95,7 +95,7 @@ const Header = () => {
                     rel="stylesheet"
                 />
             </Head>
-            <header className="py-4 px-8 flex items-center justify-between fixed z-20 top-0 w-screen">
+            <header className="py-4 px-8 flex items-center justify-between absolute z-20 top-0 w-screen">
                 <div className="flex justify-between gap-10 items-center">
                     <div className="w-9 h-9">
                         <Link href="/">
