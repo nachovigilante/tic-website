@@ -2,6 +2,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
+import Footer from "~/components/layout/Footer";
 import Glassbox, { TitledGlassBox } from "~/components/utils/Glassbox";
 import Section from "~/components/utils/Section";
 import Technology, {
@@ -52,9 +53,9 @@ const TechSection = ({
                 mirror ? "grid-cols-tech-reverse" : "grid-cols-tech-section",
             )}
         >
-            {mirror ? <Technology tech={tech} size={250}/> : null}
+            {mirror ? <Technology tech={tech} size={250} /> : null}
             <TechGlassBox titles={titles}>{text}</TechGlassBox>
-            {mirror ? null : <Technology tech={tech} size={250}/>}
+            {mirror ? null : <Technology tech={tech} size={250} />}
         </div>
     );
 };
@@ -141,8 +142,8 @@ const Tech: NextPage = () => {
                         Ver plan de estudios de TIC 2022
                     </Link>
                 </Section>
-                <Section className="h-[300px]" />
             </main>
+            <Footer />
         </>
     );
 };
