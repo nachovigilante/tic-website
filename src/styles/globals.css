@@ -53,6 +53,26 @@
     .fade-bottom {
         mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
     }
+
+    .scroll-sm {
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: #020116 transparent;
+    }
+
+    .scroll-sm::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .scroll-sm::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    .scroll-sm::-webkit-scrollbar-thumb {
+        background-color: white;
+        filter: brightness(2) drop-shadow(0 0 3px #fff);
+        border-radius: 10px;
+    }
 }
 
 * {

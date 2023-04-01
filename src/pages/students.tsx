@@ -5,7 +5,11 @@ import Section from "~/components/utils/Section";
 
 import { Student, useStudents } from "~/hooks/api/useStudents";
 
-import { Column, ColumnDefBase, createColumnHelper } from "@tanstack/react-table";
+import {
+    Column,
+    ColumnDefBase,
+    createColumnHelper,
+} from "@tanstack/react-table";
 import Table from "~/components/Table";
 
 const columnHelper = createColumnHelper<Student>();
@@ -61,13 +65,20 @@ const StudentsPage: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className="bg-background-dark">
-                <Section className="min-h-screen pt-24">
+                <div className="bg-colors-1 w-full h-full absolute" />
+                <Section className="min-h-screen pt-24 relative z-40">
                     {isLoading && <p>Loading...</p>}
                     {isError && <p>Error</p>}
                     {!isLoading && !isError && (
                         <Table
+                            className="w-full text-white text-lg bg-white/20 rounded-md backdrop-blur-xl"
                             data={students || []}
-                            columns={columns as Column<Student, ColumnDefBase<Student>>[]}
+                            columns={
+                                columns as Column<
+                                    Student,
+                                    ColumnDefBase<Student>
+                                >[]
+                            }
                         />
                     )}
                 </Section>
