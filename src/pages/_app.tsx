@@ -5,19 +5,25 @@ import Header from "~/components/layout/Header";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "~/contexts/AuthContext";
 import { ShortcutsProvider } from "~/contexts/ShortcutsContext";
+import Head from "next/head";
 
 const queryClient = new QueryClient();
 
 const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
     return (
-        <ShortcutsProvider>
-            <AuthProvider>
-                <QueryClientProvider client={queryClient}>
-                    <Header />
-                    <Component {...pageProps} />
-                </QueryClientProvider>
-            </AuthProvider>
-        </ShortcutsProvider>
+        <>
+            <Head>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <ShortcutsProvider>
+                <AuthProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <Header />
+                        <Component {...pageProps} />
+                    </QueryClientProvider>
+                </AuthProvider>
+            </ShortcutsProvider>
+        </>
     );
 };
 

@@ -35,6 +35,13 @@
         box-shadow: inset 0 490px 300px -280px #020116;
     }
 
+    .bg-colors-3 {
+        background-image: url(/images/bg.png);
+        background-size: 130%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
     .tic-experience-shadow {
         box-shadow: inset 0px -500px 210px -290px #020116;
     }
@@ -42,6 +49,10 @@
     .profile-pic {
         @apply rounded-full h-7 w-7;
         border: 2px solid #fff;
+    }
+
+    .input {
+        @apply bg-white/10 rounded-md p-3 placeholder:text-white/30 outline-none font-space;
     }
 }
 
@@ -58,6 +69,10 @@
         overflow-y: scroll;
         scrollbar-width: thin;
         scrollbar-color: #020116 transparent;
+    }
+
+    .theme-border {
+        box-shadow: inset 0px 0px 0px 2px white;
     }
 
     .scroll-sm::-webkit-scrollbar {

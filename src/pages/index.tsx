@@ -5,7 +5,6 @@ import Section from "~/components/utils/Section";
 
 import TICExperienceSVG from "../../public/images/tic-experience.svg";
 import { TechnologiesContainer } from "~/components/utils/Technologies";
-import useShortcuts from "~/hooks/shortcuts/useShortcuts";
 import Footer from "~/components/layout/Footer";
 
 const Home: NextPage = () => {
@@ -13,7 +12,6 @@ const Home: NextPage = () => {
         <>
             <Head>
                 <title>TIC://</title>
-                <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className="pt-[67px] bg-background-dark pb-[1000px]">
                 <Section className="text-white min-h-screen">
