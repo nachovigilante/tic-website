@@ -54,7 +54,9 @@ const Login: NextPage = () => {
         ) as HTMLInputElement;
 
         if (!validateDNI(dni.value)) {
-            setErrors({ type: "set", input: "dni" });
+            setTimeout(() => {
+                setErrors({ type: "set", input: "dni" });
+            }, 50);
             return;
         }
     };
@@ -93,7 +95,10 @@ const Login: NextPage = () => {
                             <p className="text-sm underline cursor-pointer self-center">
                                 No recuerdo mi contraseña
                             </p>
-                            <button className="input bg-accent" type="submit">
+                            <button
+                                className="relative input bg-accent hover:bg-accent-hover active:scale-[99%] active:bg-accent"
+                                type="submit"
+                            >
                                 Ingresar
                             </button>
                             <div className="flex flex-col gap-2 border-1 border-white/10 rounded-xl p-4 relative bottom-0">

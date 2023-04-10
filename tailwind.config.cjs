@@ -20,6 +20,7 @@ const config = {
             colors: {
                 primary: "#030026",
                 accent: "#e61366",
+                "accent-hover": "#ff007b",
                 github: "#8d31ab",
                 twitter: "#1da1f2",
                 instagram: "#e1306c",
