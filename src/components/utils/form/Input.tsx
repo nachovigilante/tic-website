@@ -14,8 +14,7 @@ export const Input = ({
     placeholder,
     error,
     onKeyDown,
-    value,
-    name,
+    ...props
 }: InputProps) => {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -37,9 +36,7 @@ export const Input = ({
                 }
                 placeholder={placeholder}
                 onKeyDown={onKeyDown}
-                value={value}
-                contentEditable={!value}
-                name={name}
+                {...props}
             />
             {type === "password" && (
                 <span

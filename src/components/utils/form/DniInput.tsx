@@ -8,40 +8,50 @@ const DniInput = ({
     error: boolean;
     clearError?: () => void;
 }) => {
-    const [dni, setDni] = useState("");
+    // const [dni, setDni] = useState("");
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const input = e.target as HTMLInputElement;
+
         if (e.key === "Backspace") {
-            if (dni.length === 0) return;
+            if (input.value.length === 0) return;
             clearError && clearError();
-            setDni(dni.slice(0, dni.length - 1));
         } else if (e.key >= "0" && e.key <= "9") {
-            if (dni.length >= 8) return;
+            if (input.value.length >= 10) {
+                e.preventDefault();
+                return;
+            }
+            if (input.value.length === 2 || input.value.length === 6) {
+                input.value += ".";
+            }
             clearError && clearError();
-            setDni(dni + e.key);
-        } else if (e.key !== "Enter" && e.key !== "Tab") {
+        } else if (e.key === ".") {
+            if (input.value.length !== 2 && input.value.length !== 6)
+                e.preventDefault();
+        } else if (
+            e.key !== "Enter" &&
+            e.key !== "Tab" &&
+            e.key !== "Shift" &&
+            e.key !== "Control" &&
+            e.key !== "Alt" &&
+            e.key !== "ArrowLeft" &&
+            e.key !== "ArrowRight" &&
+            e.key !== "ArrowUp" &&
+            e.key !== "ArrowDown"
+        ) {
             e.preventDefault();
         }
     };
-
-    useEffect(() => {
-        console.log(dni);
-    }, [dni]);
 
     return (
         <div className="w-full flex items-center justify-start relative">
             <Input
                 type="text"
-                placeholder={dni.length === 0 ? "DNI" : ""}
-                value={`${dni.slice(0, 2)}${
-                    dni.length > 2 ? "." : ""
-                }${dni.slice(2, 5)}${dni.length > 5 ? "." : ""}${dni.slice(
-                    5,
-                    8,
-                )}`}
+                placeholder="DNI"
                 onKeyDown={handleKeyDown}
                 error={error}
                 name="dni"
+                autoComplete="off"
             />
         </div>
     );

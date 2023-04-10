@@ -182,6 +182,8 @@ export const ShortcutsProvider = ({
     };
 
     const handleShortcuts = (e: KeyboardEvent) => {
+        if (!e.key) return;
+
         const key = e.key.toLowerCase();
         const ctrl = e.ctrlKey;
         const alt = e.altKey;
