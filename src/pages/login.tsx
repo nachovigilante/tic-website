@@ -1,22 +1,31 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
+import { twMerge } from "tailwind-merge";
 import useAuth from "~/hooks/auth/useAuth";
 import useLogin, { Credentials } from "~/hooks/auth/useLogin";
+import useErrors from "~/hooks/utils/useErrors";
 
 type InputProps = React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
->;
+> & {
+    error?: boolean;
+};
 
-const Input = ({ type, placeholder }: InputProps) => {
+const Input = ({ type, placeholder, error, onKeyDown }: InputProps) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <div className="w-full flex items-center justify-end">
+        <div
+            className={twMerge(
+                "input w-full flex items-center justify-end border-2 border-transparent",
+                error && "error",
+            )}
+        >
             <input
-                className="input relative w-full"
+                className="relative w-full border-none bg-transparent outline-none"
                 type={
                     type !== "password"
                         ? type
@@ -25,10 +34,11 @@ const Input = ({ type, placeholder }: InputProps) => {
                         : "password"
                 }
                 placeholder={placeholder}
+                onKeyDown={onKeyDown}
             />
             {type === "password" && (
                 <span
-                    className="border-red border h-5 w-5 absolute cursor-pointer mr-3"
+                    className="border-red border h-5 w-5 absolute cursor-pointer"
                     onMouseDown={() => setShowPassword(true)}
                     onMouseUp={() => setShowPassword(false)}
                 />
@@ -37,7 +47,7 @@ const Input = ({ type, placeholder }: InputProps) => {
     );
 };
 
-const DniInput = () => {
+const DniInput = ({ error }: { error: boolean }) => {
     const [dni, setDni] = useState("");
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -54,8 +64,7 @@ const DniInput = () => {
 
     return (
         <div className="w-full flex items-center justify-start relative">
-            <input
-                className="input relative w-full"
+            <Input
                 type="text"
                 placeholder={dni.length === 0 ? "DNI" : ""}
                 value={`${dni.slice(0, 2)}${
@@ -65,6 +74,7 @@ const DniInput = () => {
                     8,
                 )}`}
                 onKeyDown={handleKeyDown}
+                error={error}
             />
         </div>
     );
@@ -96,6 +106,22 @@ const Login: NextPage = () => {
         }
     }, [dni]);
 
+    type Errors = {
+        dni: boolean;
+        pass: boolean;
+    };
+
+    const { errors, setErrors } = useErrors<Errors>();
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setErrors({ type: "clear", all: true });
+
+        setTimeout(() => {
+            setErrors({ type: "set", input: "dni" });
+        }, 50);
+    };
+
     return (
         <>
             <Head>
@@ -103,23 +129,24 @@ const Login: NextPage = () => {
             </Head>
             <main className="pt-[67px] bg-background-dark overflow-y-hidden h-screen">
                 <div className="flex relative z-50 text-white font-raleway h-full">
-                    {/* <div className="flex flex-col justify-start gap-20 w-[400px] px-14 py-5 h-full">
-                        <div></div>
-                        <p className="font-semibold text-xl">
-                            Ingresa tu información para acceder a la plataforma
-                        </p>
-                    </div> */}
                     <form
                         action=""
-                        className="glass grid grid-cols-2 w-[1000px] h-[500px] m-auto"
+                        className="glass flex h-[500px] m-auto justify-between relative"
+                        onSubmit={handleSubmit}
                     >
-                        <div className="flex justify-center p-10"></div>
-                        <div className="bg-background-default rounded-r-2xl py-8 px-16 flex flex-col justify-start gap-5">
-                            <h1 className="text-4xl font-semibold mb-5">
+                        <div className="flex justify-center p-10 w-50">
+                            <h2 className="text-5xl font-black">TIC X</h2>
+                        </div>
+                        <div className="relative -top-[1px] left-[1px] h-[501px] bg-background-default border-background-default border rounded-r-2xl py-8 px-16 flex flex-col justify-start gap-5">
+                            <h2 className="text-4xl font-semibold mb-5">
                                 Ingresar
-                            </h1>
-                            <DniInput />
-                            <Input type="password" placeholder="Contraseña" />
+                            </h2>
+                            <DniInput error={errors.dni} />
+                            <Input
+                                type="password"
+                                placeholder="Contraseña"
+                                error={errors.pass}
+                            />
                             <p className="text-sm underline cursor-pointer self-center">
                                 No recuerdo mi contraseña
                             </p>

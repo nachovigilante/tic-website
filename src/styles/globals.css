@@ -52,7 +52,7 @@
     }
 
     .input {
-        @apply bg-white/10 rounded-md p-3 placeholder:text-white/30 outline-none font-space;
+        @apply bg-white/10 rounded-md p-3 placeholder:text-white/30 outline-none font-space font-medium;
     }
 }
 
@@ -87,6 +87,25 @@
         background-color: white;
         filter: brightness(2) drop-shadow(0 0 3px #fff);
         border-radius: 10px;
+    }
+
+    @keyframes error {
+        0% {
+            transform: translateX(0);
+        }
+        50% {
+            transform: translateX(5px);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    .error {
+        @apply text-red border-red border-2;
+
+        animation: error 0.15s ease-in-out;
+        animation-iteration-count: 3;
     }
 }
 
