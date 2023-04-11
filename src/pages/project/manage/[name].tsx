@@ -6,19 +6,21 @@ import Technology, {
     technologies,
     TechnologyType,
 } from "~/components/utils/Technologies";
+import { ProjectInfo } from "../[name]";
+import { twMerge } from "tailwind-merge";
 
-export type ProjectInfo = {
-    name: string;
-    description: string;
-    short_description: string;
-    technologies: string[];
-    images: string[];
-    main_color: string;
-    students: string[];
+type ProjectManageInfo = ProjectInfo & {
+    classes: string[];
+    grades: {
+        1: "A" | "S" | "D" | "-";
+        2: number | "-";
+        3: "A" | "S" | "D" | "-";
+        4: number | "-";
+    };
 };
 
 type ProjectProps = {
-    projectInfo: ProjectInfo;
+    projectInfo: ProjectManageInfo;
 };
 
 const hexToRgb = (hex: string) => {
@@ -30,6 +32,57 @@ const hexToRgb = (hex: string) => {
               b: parseInt(result[3]!, 16),
           }
         : null;
+};
+
+const Grade = ({ grade }: { grade: "A" | "S" | "D" | number | "-" }) => {
+    return (
+        <div
+            className={twMerge(
+                "rounded-full h-16 w-16 text-2xl font-semibold flex justify-center items-center",
+                grade === "A"
+                    ? "bg-green-500"
+                    : grade === "S"
+                    ? "bg-yellow"
+                    : grade === "D"
+                    ? "bg-red"
+                    : "bg-gray-500",
+            )}
+        >
+            <div className="text-shadow">{grade}</div>
+        </div>
+    );
+};
+
+const Grades = ({ grades }: { grades: ProjectManageInfo["grades"] }) => {
+    return (
+        <div className="flex gap-5 relative z-50">
+            {Object.entries(grades).map(([key, value]) => (
+                <Grade key={key} grade={value} />
+            ))}
+        </div>
+    );
+};
+
+const ProjectHeader = ({
+    name,
+    classes,
+    grades,
+}: {
+    name: string;
+    classes: string[];
+    grades: ProjectManageInfo["grades"];
+}) => {
+    return (
+        <div className="flex items-center">
+            <div className="flex flex-col items-center gap-10 mt-6">
+                <h1 className="font-raleway text-8xl font-semibold">{name}</h1>
+                <h2 className="font-mono font-semibold text-4xl">
+                    {classes.join(", ")}
+                </h2>
+            </div>
+            <Grades grades={grades} />
+        </div>
+    );
 };
 
 const Project: NextPage<ProjectProps> = ({ projectInfo }) => {
@@ -64,37 +117,34 @@ const Project: NextPage<ProjectProps> = ({ projectInfo }) => {
                 />
                 <div className="max-w-[1000px] m-auto pt-10">
                     <span className="font-space no-ligature text-4xl text-bold">{`<${tech.name}/>`}</span>
-                    <h1 className="font-raleway text-8xl font-semibold mt-6">
-                        {projectInfo.name}
-                    </h1>
-                    <p className="text-2xl mt-4">{projectInfo.description}</p>
+                    <ProjectHeader
+                        name={projectInfo.name}
+                        classes={projectInfo.classes}
+                        grades={projectInfo.grades}
+                    />
                     <div className="flex items-start justify-start gap-20 mt-20">
                         <div className="max-w-[300px]">
                             <h3 className="font-space text-2xl font-semibold mb-2">
-                                ¿Qué hace?
+                                Descripción corta
                             </h3>
                             <p className="text-lg">
                                 {projectInfo.short_description}
                             </p>
+                            <div className="h-0 overflow-hidden">
+                                <h3 className="font-space text-2xl font-semibold mb-2 mt-10">
+                                    Descripción larga
+                                </h3>
+                                <p className="text-2xl mt-4">
+                                    {projectInfo.description}
+                                </p>
+                            </div>
                         </div>
-                        <div className="min-w-[180px]">
-                            <h3 className="font-space text-2xl font-semibold mb-2">
-                                Etapa
-                            </h3>
-                            <p className="bg-[#e61366] px-2 py-1 rounded-md font-raleway font-semibold text-lg">
-                                En desarrollo
-                            </p>
-                        </div>
-                        <div className="flex-grow">
+                        <div>
                             <h3 className="font-space text-2xl font-semibold mb-2">
                                 Estudiantes
                             </h3>
                             <div>
                                 <ul className="font-space text-xl font-light flex flex-col flex-wrap max-h-[150px] gap-x-10 gap-y-2">
-                                    {/* <li className="flex gap-2">
-                                        <div className="profile-pic"></div>
-                                        Carola O.
-                                    </li> */}
                                     {projectInfo.students.map((student) => (
                                         <li
                                             className="flex gap-2"
@@ -108,27 +158,9 @@ const Project: NextPage<ProjectProps> = ({ projectInfo }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 grid-rows-2 justify-center items-center mt-40">
-                        <img src={projectInfo.images[0]} alt="" />
-                        <Technology tech={tech.code} size={220} />
-                        <img
-                            src="/images/project_decoration.svg"
-                            alt="decoration"
-                            className="m-auto"
-                        />
-                        <img src={projectInfo.images[1]} alt="" />
-                    </div>
-                    <div className="flex justify-center h-[500px] pt-[150px] pb-[600px]">
-                        <Link
-                            href="/"
-                            className="underline text-3xl font-space"
-                        >
-                            Ver más proyectos de {tech.name}
-                        </Link>
-                    </div>
+                    <div></div>
                 </div>
             </main>
-            <Footer />
         </>
     );
 };
@@ -151,6 +183,13 @@ const projects = [
             "Daniel W.",
             "Luis E.",
         ],
+        classes: ["5°A", "5°B", "5°E"],
+        grades: {
+            1: "A",
+            2: 8,
+            3: "S",
+            4: 10,
+        },
     },
     {
         name: "Zerti",
@@ -170,6 +209,13 @@ const projects = [
             "Matilde A.",
             "Facundo F.",
         ],
+        classes: "5°C",
+        grades: {
+            1: "A",
+            2: 8,
+            3: "-",
+            4: "-",
+        },
     },
 ];
 

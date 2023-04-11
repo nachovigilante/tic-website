@@ -107,6 +107,10 @@
         animation: error 0.15s ease-in-out;
         animation-iteration-count: 3;
     }
+
+    .text-shadow {
+        text-shadow: 0 0 5px rgba(0,0,0,0.4);
+    }
 }
 
 * {
