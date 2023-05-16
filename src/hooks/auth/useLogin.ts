@@ -8,6 +8,11 @@ export type Credentials = {
     pass: string;
 };
 
+export type TeacherCredentials = {
+    username: string;
+    pass: string;
+};
+
 const useLogin = () => {
     const { setAuth } = useAuth();
 
@@ -41,7 +46,40 @@ const useLogin = () => {
         }
     };
 
-    return login;
+    const teacherLogin = async (credentials: TeacherCredentials) => {
+        try {
+            const response = await fetch(`${BASE_URL}/teachers/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // "mode": "no-cors",
+                    // "Access-Control-Allow-Origin": "*",
+                },
+                body: JSON.stringify(credentials),
+                // credentials: "include",
+            });
+
+            if (!response.ok) {
+                const message = await response.text();
+                throw new Error(message);
+            }
+
+            const accessToken = (
+                (await response.json()) as {
+                    token: string;
+                }
+            ).token;
+            setAuth({
+                dni: credentials.username,
+                accessToken,
+            } as AuthType);
+            return { accessToken, success: true };
+        } catch (error) {
+            return { success: false, error: (error as Error).message };
+        }
+    };
+
+    return { login, teacherLogin };
 };
 
 export default useLogin;

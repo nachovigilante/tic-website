@@ -5,7 +5,10 @@ import { useEffect } from "react";
 import DniInput, { validateDNI } from "~/components/utils/form/DniInput";
 import { Input } from "~/components/utils/form/Input";
 import useAuth from "~/hooks/auth/useAuth";
-import useLogin, { Credentials } from "~/hooks/auth/useLogin";
+import useLogin, {
+    Credentials,
+    TeacherCredentials,
+} from "~/hooks/auth/useLogin";
 
 import useErrors from "~/hooks/utils/useErrors";
 
@@ -14,24 +17,20 @@ const Login: NextPage = () => {
     const {
         auth: { dni },
     } = useAuth();
-    const login = useLogin();
+    const { login, teacherLogin } = useLogin();
 
     useEffect(() => {
         if (dni) {
-            // NO PUEDO CREER QUE TENGA QUE HACER ESTO PORQUE ME LLORA EL LINTER
-            router
-                .push("/")
-                .then(() => console.log("redirected"))
-                .catch((err) => console.log(err));
+            void router.push("/");
         } else {
-            // login({ dni: "...", pass: "..." } as Credentials)
-            //     .then(() => {
-            //         router
-            //             .push("/")
-            //             .then(() => console.log("redirected"))
-            //             .catch((err) => console.log(err));
-            //     })
-            //     .catch((err) => console.log(err));
+            teacherLogin({
+                username: "nachovigilante@gmail.com",
+                pass: "tic",
+            } as TeacherCredentials)
+                .then(() => {
+                    void router.push("/");
+                })
+                .catch((err) => console.log(err));
         }
     }, [dni]);
 
