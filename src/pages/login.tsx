@@ -19,19 +19,15 @@ const Login: NextPage = () => {
     } = useAuth();
     const { login, teacherLogin } = useLogin();
 
+    const formatDni = (dni: string) => {
+        return dni.replace(/\./g, "");
+    };
+
     useEffect(() => {
+        console.log(dni);
         if (dni) {
             void router.push("/");
-        } else {
-            teacherLogin({
-                username: "nachovigilante@gmail.com",
-                pass: "tic",
-            } as TeacherCredentials)
-                .then(() => {
-                    void router.push("/");
-                })
-                .catch((err) => console.log(err));
-        }
+        } 
     }, [dni]);
 
     type Errors = {
@@ -58,6 +54,26 @@ const Login: NextPage = () => {
             }, 50);
             return;
         }
+
+        login({
+            dni: formatDni(dni.value),
+            pass: pass.value,
+        } as Credentials)
+            .then((res) => {
+                console.log(formatDni(dni.value), pass.value)
+                console.log(res)
+                if (res.success) {
+                    void router.push("/");
+                } else {
+                    setTimeout(() => {
+                        setErrors({ type: "set", input: "pass" });
+                    }, 50);
+                    return;
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (

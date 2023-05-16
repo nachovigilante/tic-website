@@ -1,7 +1,7 @@
 import { AuthType } from "../../contexts/AuthContext";
 import useAuth from "./useAuth";
 
-const BASE_URL = "https://proyecto-final-ecru-six.vercel.app";
+const BASE_URL = "https://proyecto-final-git-project-management-micaviegas.vercel.app";
 
 export type Credentials = {
     dni: string;
