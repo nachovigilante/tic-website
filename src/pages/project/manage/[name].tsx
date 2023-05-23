@@ -209,7 +209,7 @@ const projects = [
             "Matilde A.",
             "Facundo F.",
         ],
-        classes: "5°C",
+        classes: ["5°C"],
         grades: {
             1: "A",
             2: 8,
