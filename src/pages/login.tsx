@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import DniInput, { validateDNI } from "~/components/utils/form/DniInput";
 import { Input } from "~/components/utils/form/Input";
 import useAuth from "~/hooks/auth/useAuth";
@@ -17,17 +17,29 @@ const Login: NextPage = () => {
     const {
         auth: { dni },
     } = useAuth();
-    const { login, teacherLogin } = useLogin();
+    const { login } = useLogin();
+    const [isButtonLoading, setIsButtonLoading]= useState(false);
 
     const formatDni = (dni: string) => {
         return dni.replace(/\./g, "");
     };
 
     useEffect(() => {
-        console.log(dni);
         if (dni) {
             void router.push("/");
         } 
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Enter') { 
+                const submit = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+                submit.click();
+            }
+          };
+      
+        document.addEventListener('keydown', handleKeyDown);
+      
+        return () => { // avoids memory leaks
+            document.removeEventListener('keydown', handleKeyDown);
+        };      
     }, [dni]);
 
     type Errors = {
@@ -38,6 +50,7 @@ const Login: NextPage = () => {
     const { errors, setErrors } = useErrors<Errors>();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        setIsButtonLoading(true)
         e.preventDefault();
         setErrors({ type: "clear", all: true });
 
@@ -52,6 +65,7 @@ const Login: NextPage = () => {
             setTimeout(() => {
                 setErrors({ type: "set", input: "dni" });
             }, 50);
+            setIsButtonLoading(false)
             return;
         }
 
@@ -60,16 +74,14 @@ const Login: NextPage = () => {
             pass: pass.value,
         } as Credentials)
             .then((res) => {
-                console.log(formatDni(dni.value), pass.value)
-                console.log(res)
                 if (res.success) {
                     void router.push("/");
                 } else {
                     setTimeout(() => {
                         setErrors({ type: "set", input: "pass" });
                     }, 50);
-                    return;
                 }
+                setIsButtonLoading(false)
             })
             .catch((err) => {
                 console.log(err);
@@ -111,7 +123,7 @@ const Login: NextPage = () => {
                                 No recuerdo mi contraseña
                             </p>
                             <button
-                                className="relative input bg-accent hover:bg-accent-hover active:scale-[99%] active:bg-accent"
+                                className={"relative input active:scale-[99%] " + (isButtonLoading ? "bg-accent-active" : "bg-accent")}
                                 type="submit"
                             >
                                 Ingresar

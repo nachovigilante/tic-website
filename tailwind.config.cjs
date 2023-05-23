@@ -21,6 +21,7 @@ const config = {
                 primary: "#030026",
                 accent: "#e61366",
                 "accent-hover": "#ff007b",
+                "accent-active": "#c9005e",
                 github: "#8d31ab",
                 twitter: "#1da1f2",
                 instagram: "#e1306c",
