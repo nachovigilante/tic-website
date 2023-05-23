@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 import DniInput, { validateDNI } from "~/components/utils/form/DniInput";
 import { Input } from "~/components/utils/form/Input";
 import useAuth from "~/hooks/auth/useAuth";
@@ -18,7 +19,7 @@ const Login: NextPage = () => {
         auth: { dni },
     } = useAuth();
     const { login } = useLogin();
-    const [isButtonLoading, setIsButtonLoading]= useState(false);
+    const [isButtonLoading, setIsButtonLoading] = useState(false);
 
     const formatDni = (dni: string) => {
         return dni.replace(/\./g, "");
@@ -28,18 +29,6 @@ const Login: NextPage = () => {
         if (dni) {
             void router.push("/");
         } 
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Enter') { 
-                const submit = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-                submit.click();
-            }
-          };
-      
-        document.addEventListener('keydown', handleKeyDown);
-      
-        return () => { // avoids memory leaks
-            document.removeEventListener('keydown', handleKeyDown);
-        };      
     }, [dni]);
 
     type Errors = {
@@ -123,7 +112,7 @@ const Login: NextPage = () => {
                                 No recuerdo mi contraseña
                             </p>
                             <button
-                                className={"relative input active:scale-[99%] " + (isButtonLoading ? "bg-accent-active" : "bg-accent")}
+                                className={twMerge("relative input active:scale-[99%] bg-accent", isButtonLoading && "bg-accent-active")}
                                 type="submit"
                             >
                                 Ingresar
