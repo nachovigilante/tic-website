@@ -16,7 +16,7 @@ import useErrors from "~/hooks/utils/useErrors";
 const Login: NextPage = () => {
     const router = useRouter();
     const {
-        auth: { dni },
+        auth: { id },
     } = useAuth();
     const { login } = useLogin();
     const [isButtonLoading, setIsButtonLoading] = useState(false);
@@ -26,10 +26,10 @@ const Login: NextPage = () => {
     };
 
     useEffect(() => {
-        if (dni) {
+        if (id) {
             void router.push("/");
         } 
-    }, [dni]);
+    }, [id]);
 
     type Errors = {
         dni: boolean;

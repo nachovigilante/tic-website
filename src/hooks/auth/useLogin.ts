@@ -39,7 +39,7 @@ const useLogin = () => {
                     token: string;
                 }
             ).token;
-            setAuth({ dni: credentials.dni, accessToken } as AuthType);
+            setAuth({ id: credentials.dni, accessToken } as AuthType);
             return { accessToken, success: true };
         } catch (error) {
             return { success: false, error: (error as Error).message };
@@ -70,7 +70,7 @@ const useLogin = () => {
                 }
             ).token;
             setAuth({
-                dni: credentials.username,
+                id: credentials.username,
                 accessToken,
             } as AuthType);
             return { accessToken, success: true };
