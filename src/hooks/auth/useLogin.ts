@@ -13,6 +13,12 @@ export type TeacherCredentials = {
     pass: string;
 };
 
+export type LoginResponse = {
+    accessToken: string;
+    success: boolean;
+    error?: string;
+};
+
 const useLogin = () => {
     const { setAuth } = useAuth();
 
@@ -42,7 +48,7 @@ const useLogin = () => {
             setAuth({ id: credentials.dni, accessToken } as AuthType);
             return { accessToken, success: true };
         } catch (error) {
-            return { success: false, error: (error as Error).message };
+            return { success: false, error: (error as Error).message } as LoginResponse;
         }
     };
 
@@ -75,7 +81,7 @@ const useLogin = () => {
             } as AuthType);
             return { accessToken, success: true };
         } catch (error) {
-            return { success: false, error: (error as Error).message };
+            return { success: false, error: (error as Error).message } as LoginResponse;
         }
     };
 

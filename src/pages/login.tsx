@@ -9,6 +9,7 @@ import useAuth from "~/hooks/auth/useAuth";
 import useLogin, {
     Credentials,
     TeacherCredentials,
+    LoginResponse,
 } from "~/hooks/auth/useLogin";
 
 import useErrors from "~/hooks/utils/useErrors";
@@ -18,8 +19,9 @@ const Login: NextPage = () => {
     const {
         auth: { id },
     } = useAuth();
-    const { login } = useLogin();
+    const { login, teacherLogin } = useLogin();
     const [isButtonLoading, setIsButtonLoading] = useState(false);
+    const [isTeacher, setIsTeacher] = useState(false);
 
     const formatDni = (dni: string) => {
         return dni.replace(/\./g, "");
@@ -34,6 +36,7 @@ const Login: NextPage = () => {
     type Errors = {
         dni: boolean;
         pass: boolean;
+        user: boolean;
     };
 
     const { errors, setErrors } = useErrors<Errors>();
@@ -43,25 +46,51 @@ const Login: NextPage = () => {
         e.preventDefault();
         setErrors({ type: "clear", all: true });
 
-        const dni = e.currentTarget.elements.namedItem(
-            "dni",
-        ) as HTMLInputElement;
         const pass = e.currentTarget.elements.namedItem(
             "pass",
         ) as HTMLInputElement;
 
-        if (!validateDNI(dni.value)) {
-            setTimeout(() => {
-                setErrors({ type: "set", input: "dni" });
-            }, 50);
-            setIsButtonLoading(false)
-            return;
+        let credentials;
+        let loginPromise: (credentials: Credentials | TeacherCredentials) => Promise<LoginResponse>;
+
+        if (isTeacher) {
+            const user = e.currentTarget.elements.namedItem(
+                "user",
+            ) as HTMLInputElement;
+            if (!user.value) {
+                setTimeout(() => {
+                    setErrors({ type: "set", input: "user" });
+                }, 50);
+                setIsButtonLoading(false)
+                return;
+            }
+
+            credentials = {
+                username: user.value,
+                pass: pass.value,
+            } as TeacherCredentials;
+            loginPromise = teacherLogin as (credentials: Credentials | TeacherCredentials) => Promise<LoginResponse>; // no es redundante?
+        }
+        else {
+            const dni = e.currentTarget.elements.namedItem(
+                "dni",
+            ) as HTMLInputElement;
+            if (!validateDNI(dni.value) && !isTeacher) {
+                setTimeout(() => {
+                    setErrors({ type: "set", input: "dni" });
+                }, 50);
+                setIsButtonLoading(false)
+                return;
+            }
+            
+            credentials = {
+                dni: formatDni(dni.value),
+                pass: pass.value,
+            } as Credentials;
+            loginPromise = login as (credentials: Credentials | TeacherCredentials) => Promise<LoginResponse>; // no es redundante?
         }
 
-        login({
-            dni: formatDni(dni.value),
-            pass: pass.value,
-        } as Credentials)
+        loginPromise(credentials)
             .then((res) => {
                 if (res.success) {
                     void router.push("/");
@@ -89,34 +118,46 @@ const Login: NextPage = () => {
                         className="glass flex h-[500px] m-auto justify-between relative"
                         onSubmit={handleSubmit}
                     >
-                        <div className="flex justify-center p-10 w-50">
+                        <div className="flex flex-col items-center p-10 w-50">
                             <h2 className="text-5xl font-black">TIC X</h2>
+                            {isTeacher && <h3 className="text-2xl font-semibold my-5">For teachers</h3>}
                         </div>
                         <div className="relative -top-[1px] left-[1px] h-[501px] bg-background-default border-background-default border rounded-r-2xl py-8 px-16 flex flex-col justify-start gap-5">
                             <h2 className="text-4xl font-semibold mb-5">
                                 Ingresar
                             </h2>
-                            <DniInput
-                                error={errors.dni}
-                                clearError={() =>
-                                    setErrors({ type: "clear", input: "dni" })
-                                }
-                            />
+                            {
+                                isTeacher ? (
+                                    <Input
+                                        type="text"
+                                        placeholder="Usuario"
+                                        error={errors.user}
+                                        name="user"
+                                    />
+                                ) : (
+                                    <DniInput
+                                        error={errors.dni}
+                                        clearError={() =>
+                                            setErrors({ type: "clear", input: "dni" })
+                                        }
+                                    />
+                                )
+                            }
                             <Input
                                 type="password"
                                 placeholder="Contraseña"
                                 error={errors.pass}
                                 name="pass"
                             />
-                            <p className="text-sm underline cursor-pointer self-center">
-                                No recuerdo mi contraseña
-                            </p>
                             <button
                                 className={twMerge("relative input active:scale-[99%] bg-accent", isButtonLoading && "bg-accent-active")}
                                 type="submit"
                             >
                                 Ingresar
                             </button>
+                            <p className="text-sm underline cursor-pointer self-center" onClick={() => setIsTeacher(!isTeacher)}>
+                                {isTeacher ? "Ingresar como alumno" : "Ingresar como docente"}
+                            </p>
                             <div className="flex flex-col gap-2 border-1 border-white/10 rounded-xl p-4 relative bottom-0">
                                 <h4 className="text-md font-semibold">
                                     ¿No tenés cuenta?
