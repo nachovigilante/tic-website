@@ -33,6 +33,7 @@ export default function RootLayout({
                     href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
                     rel="stylesheet"
                 />
+                <link rel="icon" href="/favicon.ico" />
                 <ProvidersWrapper>{children}</ProvidersWrapper>
             </body>
         </html>
