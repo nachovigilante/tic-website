@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import DniInput, { validateDNI } from "~/components/utils/form/DniInput";

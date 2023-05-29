@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 import ShortcutsContext from "~/contexts/ShortcutsContext";
 import links from "~/data/links";
@@ -48,14 +48,7 @@ const Header = () => {
             keystrokes: ["ctrl+shift+h"],
             description: "Go to home",
             action: () => {
-                router
-                    .push("/")
-                    .then(() => {
-                        console.log("Go to home");
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    });
+                router.push("/");
             },
         },
     ];

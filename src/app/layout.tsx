@@ -1,3 +1,4 @@
+import ProvidersWrapper from "~/components/layout/ProvidersWrapper";
 import "../styles/globals.css";
 import { Metadata } from "next";
 
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="es">
-            <body>{children}</body>
+            <ProvidersWrapper>
+                <body>{children}</body>
+            </ProvidersWrapper>
         </html>
     );
 }
