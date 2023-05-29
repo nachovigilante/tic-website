@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
@@ -67,37 +66,17 @@ const Header = () => {
     }, []);
 
     return (
-        <>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link
-                href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
-                rel="stylesheet"
-            />
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link
-                href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
-                rel="stylesheet"
-            />
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link
-                href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
-                rel="stylesheet"
-            />
-            <header className="py-4 px-8 flex items-center justify-between absolute z-20 top-0 w-screen">
-                <div className="flex justify-between gap-10 items-center">
-                    <div className="w-9 h-9">
-                        <Link href="/">
-                            <img src="/X.svg" alt="TIC://" />
-                        </Link>
-                    </div>
-                    <SearchBar />
+        <header className="py-4 px-8 flex items-center justify-between absolute z-20 top-0 w-screen">
+            <div className="flex justify-between gap-10 items-center">
+                <div className="w-9 h-9">
+                    <Link href="/">
+                        <img src="/X.svg" alt="TIC://" />
+                    </Link>
                 </div>
-                <Navbar />
-            </header>
-        </>
+                <SearchBar />
+            </div>
+            <Navbar />
+        </header>
     );
 };
 
