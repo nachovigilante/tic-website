@@ -1,110 +1,25 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { twMerge } from "tailwind-merge";
-import DniInput, { validateDNI } from "~/components/utils/form/DniInput";
-import { Input } from "~/components/utils/form/Input";
+import { useEffect } from "react";
 import useAuth from "~/hooks/auth/useAuth";
-import useLogin, {
-    Credentials,
-    TeacherCredentials,
-    LoginResponse,
-} from "~/hooks/auth/useLogin";
 
-import useErrors from "~/hooks/utils/useErrors";
+import { LoginTeacher } from "~/components/form/LoginTeacher";
+import { LoginStudent } from "~/components/form/LoginStudent";
 
 const Login: NextPage = () => {
     const router = useRouter();
     const {
         auth: { id },
     } = useAuth();
-    const { login, teacherLogin } = useLogin();
-    const [isButtonLoading, setIsButtonLoading] = useState(false);
-    const [isTeacher, setIsTeacher] = useState(false);
 
-    const formatDni = (dni: string) => {
-        return dni.replace(/\./g, "");
+    const redirectToHome = () => {
+        void router.push("/");
     };
 
     useEffect(() => {
-        if (id) {
-            void router.push("/");
-        } 
+        if (id) redirectToHome();
     }, [id]);
-
-    type Errors = {
-        dni: boolean;
-        pass: boolean;
-        user: boolean;
-    };
-
-    const { errors, setErrors } = useErrors<Errors>();
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        setIsButtonLoading(true)
-        e.preventDefault();
-        setErrors({ type: "clear", all: true });
-
-        const pass = e.currentTarget.elements.namedItem(
-            "pass",
-        ) as HTMLInputElement;
-
-        let credentials;
-        let loginPromise: (credentials: Credentials | TeacherCredentials) => Promise<LoginResponse>;
-
-        if (isTeacher) {
-            const user = e.currentTarget.elements.namedItem(
-                "user",
-            ) as HTMLInputElement;
-            if (!user.value) {
-                setTimeout(() => {
-                    setErrors({ type: "set", input: "user" });
-                }, 50);
-                setIsButtonLoading(false)
-                return;
-            }
-
-            credentials = {
-                username: user.value,
-                pass: pass.value,
-            } as TeacherCredentials;
-            loginPromise = teacherLogin as (credentials: Credentials | TeacherCredentials) => Promise<LoginResponse>; // no es redundante?
-        }
-        else {
-            const dni = e.currentTarget.elements.namedItem(
-                "dni",
-            ) as HTMLInputElement;
-            if (!validateDNI(dni.value) && !isTeacher) {
-                setTimeout(() => {
-                    setErrors({ type: "set", input: "dni" });
-                }, 50);
-                setIsButtonLoading(false)
-                return;
-            }
-            
-            credentials = {
-                dni: formatDni(dni.value),
-                pass: pass.value,
-            } as Credentials;
-            loginPromise = login as (credentials: Credentials | TeacherCredentials) => Promise<LoginResponse>; // no es redundante?
-        }
-
-        loginPromise(credentials)
-            .then((res) => {
-                if (res.success) {
-                    void router.push("/");
-                } else {
-                    setTimeout(() => {
-                        setErrors({ type: "set", input: "pass" });
-                    }, 50);
-                }
-                setIsButtonLoading(false)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
 
     return (
         <>
@@ -113,62 +28,8 @@ const Login: NextPage = () => {
             </Head>
             <main className="pt-[67px] bg-background-dark overflow-y-hidden h-screen">
                 <div className="flex relative z-50 text-white font-raleway h-full">
-                    <form
-                        action=""
-                        className="glass flex h-[500px] m-auto justify-between relative"
-                        onSubmit={handleSubmit}
-                    >
-                        <div className="flex flex-col items-center p-10 w-50">
-                            <h2 className="text-5xl font-black">TIC X</h2>
-                            {isTeacher && <h3 className="text-2xl font-semibold my-5">For teachers</h3>}
-                        </div>
-                        <div className="relative -top-[1px] left-[1px] h-[501px] bg-background-default border-background-default border rounded-r-2xl py-8 px-16 flex flex-col justify-start gap-5">
-                            <h2 className="text-4xl font-semibold mb-5">
-                                Ingresar
-                            </h2>
-                            {
-                                isTeacher ? (
-                                    <Input
-                                        type="text"
-                                        placeholder="Usuario"
-                                        error={errors.user}
-                                        name="user"
-                                    />
-                                ) : (
-                                    <DniInput
-                                        error={errors.dni}
-                                        clearError={() =>
-                                            setErrors({ type: "clear", input: "dni" })
-                                        }
-                                    />
-                                )
-                            }
-                            <Input
-                                type="password"
-                                placeholder="Contraseña"
-                                error={errors.pass}
-                                name="pass"
-                            />
-                            <button
-                                className={twMerge("relative input active:scale-[99%] bg-accent", isButtonLoading && "bg-accent-active")}
-                                type="submit"
-                            >
-                                Ingresar
-                            </button>
-                            <p className="text-sm underline cursor-pointer self-center" onClick={() => setIsTeacher(!isTeacher)}>
-                                {isTeacher ? "Ingresar como alumno" : "Ingresar como docente"}
-                            </p>
-                            <div className="flex flex-col gap-2 border-1 border-white/10 rounded-xl p-4 relative bottom-0">
-                                <h4 className="text-md font-semibold">
-                                    ¿No tenés cuenta?
-                                </h4>
-                                <p className="text-sm">
-                                    Acercate a pedir tu clave a algún profe de
-                                    Proyecto Final de 5to año
-                                </p>
-                            </div>
-                        </div>
-                    </form>
+                    <LoginTeacher redirectToHome={redirectToHome} />
+                    <LoginStudent redirectToHome={redirectToHome} />
                 </div>
                 <div className="bg-colors-1 w-full h-[140%] absolute -mt-[1000px]" />
             </main>
