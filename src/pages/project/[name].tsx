@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import Footer from "~/components/layout/Footer";
+import Footer from "~/components/layouts/MainLayout/Footer";
 import Technology, {
     technologies,
     TechnologyType,
