@@ -2,7 +2,7 @@ import "~/styles/globals.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "~/contexts/AuthContext";
 import { ShortcutsProvider } from "~/contexts/ShortcutsContext";
-import { MyAppProps } from "~/components/types";
+import { type MyAppProps } from "~/components/types";
 import { Layouts } from "~/components/layouts/Layouts";
 import Head from "next/head";
 

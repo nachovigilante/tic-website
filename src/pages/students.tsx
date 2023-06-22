@@ -1,9 +1,9 @@
-import { NextPage } from "next";
 import Head from "next/head";
+import { type MyPage } from "~/components/types";
 import { useQuery } from "react-query";
 import Section from "~/components/utils/Section";
 
-import { Student, useStudents } from "~/hooks/api/useStudents";
+import { type Student, useStudents } from "~/hooks/api/useStudents";
 
 import {
     Column,
@@ -49,7 +49,7 @@ const columns = [
 //     },
 // ] as Student[];
 
-const StudentsPage: NextPage = () => {
+const StudentsPage: MyPage = () => {
     const { fetchStudents } = useStudents();
 
     const {
@@ -88,3 +88,4 @@ const StudentsPage: NextPage = () => {
 };
 
 export default StudentsPage;
+StudentsPage.Layout = "Main"

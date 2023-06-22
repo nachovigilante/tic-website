@@ -1,8 +1,7 @@
-import { type NextPage } from "next";
 import Head from "next/head";
+import { MyPage } from "~/components/types";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
-import Footer from "~/components/layout/Footer";
 import Glassbox, { TitledGlassBox } from "~/components/utils/Glassbox";
 import Section from "~/components/utils/Section";
 import Technology, {
@@ -60,7 +59,7 @@ const TechSection = ({
     );
 };
 
-const Tech: NextPage = () => {
+const Tech: MyPage = () => {
     return (
         <>
             <Head>
@@ -143,9 +142,9 @@ const Tech: NextPage = () => {
                     </Link>
                 </Section>
             </main>
-            <Footer />
         </>
     );
 };
 
 export default Tech;
+Tech.Layout = "Main"

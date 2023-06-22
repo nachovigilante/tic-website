@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from "react";
 
 const AdminLayout = ({ children }: PropsWithChildren) => {
     return (
