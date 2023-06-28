@@ -7,7 +7,7 @@ import {
 } from "react";
 
 export type AuthType = {
-    dni: string;
+    id: string;
     accessToken: string;
 };
 
@@ -22,7 +22,7 @@ const AuthContext = createContext({
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [auth, setAuth] = useState({
-        dni: "",
+        id: "",
         accessToken: "",
     });
 
