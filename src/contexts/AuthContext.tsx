@@ -1,8 +1,7 @@
 import {
     createContext,
-    Dispatch,
-    SetStateAction,
-    useEffect,
+    type Dispatch,
+    type SetStateAction,
     useState,
 } from "react";
 
@@ -25,12 +24,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         id: "",
         accessToken: "",
     });
-
-    const debug = true;
-
-    useEffect(() => {
-        if (debug) console.log("AuthContext: ", auth);
-    }, [auth]);
 
     return (
         <AuthContext.Provider value={{ auth, setAuth }}>

@@ -7,7 +7,7 @@ const Glassbox = ({
 }: {
     children: React.ReactNode;
     className?: string;
-    props?: any;
+    props?: React.HTMLAttributes<HTMLDivElement>;
 }) => {
     return (
         <div className={twMerge(className, "glass")} {...props}>

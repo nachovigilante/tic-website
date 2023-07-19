@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import Footer from "~/components/layout/Footer";
-import Glassbox, { TitledGlassBox } from "~/components/utils/Glassbox";
+import Glassbox from "~/components/utils/Glassbox";
 import Section from "~/components/utils/Section";
 import Technology, {
     TechnologiesContainer,
@@ -20,7 +20,12 @@ const TechGlassBox = ({
 }) => {
     return (
         <Glassbox>
-            <div className="text-3xl font-medium font-space no-ligature flex flex-col gap-2">
+            <div
+                className={twMerge(
+                    "text-3xl font-medium font-space no-ligature flex flex-col gap-2",
+                    className,
+                )}
+            >
                 {titles.map((title, index) => (
                     <h2 key={index}>{title}</h2>
                 ))}

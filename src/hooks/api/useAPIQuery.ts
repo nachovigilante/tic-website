@@ -21,7 +21,7 @@ const apiQuery = async <T>(path: string, token: string) => {
     return (await response.json()) as T;
 };
 
-const apiMutation = async <T>(path: string, token: string, body: any) => {
+const apiMutation = async <T>(path: string, token: string, body: Body) => {
     if (!token) throw new Error("Can't query without a token");
 
     const response = await fetch(`${BASE_URL}${path}`, {
@@ -46,7 +46,7 @@ const useAPIQuery = <T>() => {
         }
     };
 
-    const mutate = async (path: string, token: string, body: any) => {
+    const mutate = async (path: string, token: string, body: Body) => {
         try {
             return await apiMutation<T>(path, token, body);
         } catch (error) {

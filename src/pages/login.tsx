@@ -1,7 +1,7 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useAuth from "~/hooks/auth/useAuth";
 
 import type { LoginProps } from "~/components/login/LoginForm";
@@ -15,9 +15,9 @@ const Login: NextPage = () => {
     } = useAuth();
     const [isTeacher, setIsTeacher] = useState(false);
 
-    const redirectToHome = () => {
+    const redirectToHome = useCallback(() => {
         void router.push("/");
-    };
+    }, [router]);
 
     const toggleRole = () => {
         setIsTeacher(!isTeacher);
@@ -25,11 +25,11 @@ const Login: NextPage = () => {
 
     useEffect(() => {
         if (id) redirectToHome();
-    }, [id]);
+    }, [id, redirectToHome]);
 
     const loginProps: LoginProps = {
         redirectToHome,
-        toggleRole
+        toggleRole,
     };
 
     return (
@@ -40,10 +40,10 @@ const Login: NextPage = () => {
             <main className="pt-[67px] bg-background-dark overflow-y-hidden h-screen">
                 <div className="flex relative z-50 text-white font-raleway h-full">
                     {isTeacher ? (
-                        <LoginTeacher {...loginProps} /> 
+                        <LoginTeacher {...loginProps} />
                     ) : (
-                        <LoginStudent  {...loginProps} />
-                    )}         
+                        <LoginStudent {...loginProps} />
+                    )}
                 </div>
                 <div className="bg-colors-1 w-full h-[140%] absolute -mt-[1000px]" />
             </main>

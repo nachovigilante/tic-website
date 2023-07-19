@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useCallback, useEffect, useReducer } from "react";
 
 export type ShortcutType = {
     keystrokes: string[];
@@ -154,18 +154,6 @@ export const ShortcutsProvider = ({
         },
         [] as ShortcutType[],
     );
-    const debug = true;
-
-    useEffect(() => {
-        if (debug) console.log(shortcuts);
-    }, [shortcuts]);
-
-    useEffect(() => {
-        document.addEventListener("keydown", handleShortcuts);
-        return () => {
-            document.removeEventListener("keydown", handleShortcuts);
-        };
-    }, [shortcuts]);
 
     const addShortcut = (shortcut: ShortcutType) => {
         dispatch({
@@ -181,43 +169,49 @@ export const ShortcutsProvider = ({
         });
     };
 
-    const handleShortcuts = (e: KeyboardEvent) => {
-        if (!e.key) return;
+    const handleShortcuts = useCallback(
+        (e: KeyboardEvent) => {
+            if (!e.key) return;
 
-        const key = e.key.toLowerCase();
-        const ctrl = e.ctrlKey;
-        const alt = e.altKey;
-        const shift = e.shiftKey;
+            const key = e.key.toLowerCase();
+            const ctrl = e.ctrlKey;
+            const alt = e.altKey;
+            const shift = e.shiftKey;
 
-        const convertedShortcuts = shortcuts.map((shortcut) => {
-            return {
-                ...shortcut,
-                keystrokes: convertKeystrokes(shortcut.keystrokes),
-            };
-        });
-
-        const shortcut = convertedShortcuts.find((shortcut) => {
-            return shortcut.keystrokes.some((keystroke) => {
-                return (
-                    keystroke.key === key &&
-                    keystroke.ctrl === ctrl &&
-                    keystroke.alt === alt &&
-                    keystroke.shift === shift
-                );
+            const convertedShortcuts = shortcuts.map((shortcut) => {
+                return {
+                    ...shortcut,
+                    keystrokes: convertKeystrokes(shortcut.keystrokes),
+                };
             });
-        });
 
-        if (shortcut) {
-            e.preventDefault();
-            if (debug)
-                console.log(
-                    `Shortcut action launched: ${shortcut.description}`,
-                );
-            shortcut.action();
-        } else {
-            console.log("No shortcut found");
-        }
-    };
+            const shortcut = convertedShortcuts.find((shortcut) => {
+                return shortcut.keystrokes.some((keystroke) => {
+                    return (
+                        keystroke.key === key &&
+                        keystroke.ctrl === ctrl &&
+                        keystroke.alt === alt &&
+                        keystroke.shift === shift
+                    );
+                });
+            });
+
+            if (shortcut) {
+                e.preventDefault();
+                shortcut.action();
+            } else {
+                console.log("No shortcut found");
+            }
+        },
+        [shortcuts],
+    );
+
+    useEffect(() => {
+        document.addEventListener("keydown", handleShortcuts);
+        return () => {
+            document.removeEventListener("keydown", handleShortcuts);
+        };
+    }, [shortcuts, handleShortcuts]);
 
     return (
         <ShortcutsContext.Provider

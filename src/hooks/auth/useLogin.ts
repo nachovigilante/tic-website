@@ -1,4 +1,4 @@
-import { AuthType } from "../../contexts/AuthContext";
+import { type AuthType } from "../../contexts/AuthContext";
 import useAuth from "./useAuth";
 
 const BASE_URL = "https://proyecto-final-git-project-management-micaviegas.vercel.app";
