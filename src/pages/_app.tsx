@@ -1,15 +1,15 @@
-import { type AppType } from "next/app";
-
 import "~/styles/globals.css";
-import Header from "~/components/layout/Header";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "~/contexts/AuthContext";
 import { ShortcutsProvider } from "~/contexts/ShortcutsContext";
+import { type MyAppProps } from "~/components/types";
+import { Layouts } from "~/components/layouts/Layouts";
 import Head from "next/head";
 
 const queryClient = new QueryClient();
 
-const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
+const MyApp = ({ Component, pageProps }: MyAppProps) => {
+    const Layout = Layouts[Component.Layout] ?? ((page) => page);
     return (
         <>
             <Head>
@@ -18,8 +18,9 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
             <ShortcutsProvider>
                 <AuthProvider>
                     <QueryClientProvider client={queryClient}>
-                        <Header />
-                        <Component {...pageProps} />
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
                     </QueryClientProvider>
                 </AuthProvider>
             </ShortcutsProvider>

@@ -7,8 +7,9 @@ import useAuth from "~/hooks/auth/useAuth";
 import type { LoginProps } from "~/components/login/LoginForm";
 import { LoginTeacher } from "~/components/login/LoginTeacher";
 import { LoginStudent } from "~/components/login/LoginStudent";
+import { type MyPage } from "~/components/types";
 
-const Login: NextPage = () => {
+const Login: MyPage = () => {
     const router = useRouter();
     const {
         auth: { id },
@@ -52,3 +53,4 @@ const Login: NextPage = () => {
 };
 
 export default Login;
+Login.Layout = "Main";

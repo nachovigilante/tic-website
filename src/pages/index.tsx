@@ -1,13 +1,12 @@
-import { type NextPage } from "next";
 import Head from "next/head";
+import { MyPage } from "~/components/types";
 import { TitledGlassBox } from "~/components/utils/Glassbox";
 import Section from "~/components/utils/Section";
 
 import TICExperienceSVG from "../../public/images/tic-experience.svg";
 import { TechnologiesContainer } from "~/components/utils/Technologies";
-import Footer from "~/components/layout/Footer";
 
-const Home: NextPage = () => {
+const Home: MyPage = () => {
     return (
         <>
             <Head>
@@ -61,9 +60,9 @@ const Home: NextPage = () => {
                     <div className="tic-experience-shadow  w-full h-full absolute z-10" />
                 </Section>
             </main>
-            <Footer />
         </>
     );
 };
 
 export default Home;
+Home.Layout = "Main";
