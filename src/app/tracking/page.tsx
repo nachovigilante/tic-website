@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import StudentsPage from "~/components/StudentsPage";
 
 export const metadata: Metadata = {
     title: "TIC://PF/Seguimiento",
@@ -7,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 const Page = () => {
-    return <StudentsPage />;
+    return <h1>Tracking</h1>;
 };
 
 export default Page;

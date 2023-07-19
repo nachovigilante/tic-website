@@ -1,11 +1,4 @@
-import {
-    GetStaticPaths,
-    GetStaticProps,
-    GetStaticPropsContext,
-    Metadata,
-} from "next";
 import Link from "next/link";
-import { ParsedUrlQuery } from "querystring";
 import Footer from "~/components/layout/Footer";
 import Technology, {
     technologies,
@@ -22,14 +15,6 @@ export type ProjectInfo = {
     students: string[];
 };
 
-type ProjectProps = {
-    projectInfo: ProjectInfo;
-};
-
-interface Params extends ParsedUrlQuery {
-    slug: string;
-}
-
 const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
@@ -41,8 +26,52 @@ const hexToRgb = (hex: string) => {
         : null;
 };
 
-const Page = ({ projectInfo }: ProjectProps) => {
-    // console.log(projectInfo);
+const projects = {
+    iara: {
+        name: `IARA`,
+        description: `An artificial intelligence (AI) deep learning approach for Tuberculosis (TB) detection in chest X-rays (CXR). IARA integrates multiple AI models to provide accurate and efficient predictions of TB in CXRs. The system is accessed via a web page designed to be user-friendly and intuitive to medical professionals, providing them with a reliable and valuable tool for TB detection.`,
+        technologies: ["ia"],
+        short_description: `Detección temprana de Tuberculosis en radiografías pulmonares mediante el uso de Inteligencia Artificial.`,
+        images: ["/images/IARA.png", "/images/IARA 2.png"],
+        main_color: "#000000",
+        students: [
+            "Carola O.",
+            "Facundo V.",
+            "Gonzalo B.",
+            "Julieta K.",
+            "Nicolas T.",
+            "Vincenzo P.",
+            "Daniel W.",
+            "Luis E.",
+        ],
+    },
+    zerti: {
+        name: `Zerti`,
+        description: `An artificial intelligence (AI) deep learning approach for Tuberculosis (TB) detection in chest X-rays (CXR). IARA integrates multiple AI models to provide accurate and efficient predictions of TB in CXRs. The system is accessed via a web page designed to be user-friendly and intuitive to medical professionals, providing them with a reliable and valuable tool for TB detection.`,
+        short_description: `Detección temprana de Tuberculosis en radiografías pulmonares mediante el uso de Inteligencia Artificial.`,
+        technologies: ["blockchain"],
+        images: ["/images/Zerti.png", "/images/IARA 2.png"],
+        main_color: "#30175c",
+        students: [
+            "Naomi c.",
+            "Lucas G. R.",
+            "llan T.",
+            "Victoria s.",
+            "Candela L. B.",
+            "Nicolas H.",
+            "Matias A.",
+            "Matilde A.",
+            "Facundo F.",
+        ],
+    },
+} as Record<string, ProjectInfo>;
+
+const Page = ({ params }: { params: { slug: string } }) => {
+    if (!projects[params.slug]) {
+        return <div>404</div>;
+    }
+
+    const projectInfo = projects[params.slug]!;
 
     const tech = technologies.find(
         (t) => t.code === projectInfo.technologies[0],
@@ -138,94 +167,6 @@ const Page = ({ projectInfo }: ProjectProps) => {
             <Footer />
         </>
     );
-};
-
-const projects = [
-    {
-        name: "IARA",
-        description: `An artificial intelligence (AI) deep learning approach for Tuberculosis (TB) detection in chest X-rays (CXR). IARA integrates multiple AI models to provide accurate and efficient predictions of TB in CXRs. The system is accessed via a web page designed to be user-friendly and intuitive to medical professionals, providing them with a reliable and valuable tool for TB detection.`,
-        technologies: ["ia"],
-        short_description: `Detección temprana de Tuberculosis en radiografías pulmonares mediante el uso de Inteligencia Artificial.`,
-        images: ["/images/IARA.png", "/images/IARA 2.png"],
-        main_color: "#000000",
-        students: [
-            "Carola O.",
-            "Facundo V.",
-            "Gonzalo B.",
-            "Julieta K.",
-            "Nicolas T.",
-            "Vincenzo P.",
-            "Daniel W.",
-            "Luis E.",
-        ],
-    },
-    {
-        name: "Zerti",
-        description: `An artificial intelligence (AI) deep learning approach for Tuberculosis (TB) detection in chest X-rays (CXR). IARA integrates multiple AI models to provide accurate and efficient predictions of TB in CXRs. The system is accessed via a web page designed to be user-friendly and intuitive to medical professionals, providing them with a reliable and valuable tool for TB detection.`,
-        short_description: `Detección temprana de Tuberculosis en radiografías pulmonares mediante el uso de Inteligencia Artificial.`,
-        technologies: ["blockchain"],
-        images: ["/images/Zerti.png", "/images/IARA 2.png"],
-        main_color: "#30175c",
-        students: [
-            "Naomi c.",
-            "Lucas G. R.",
-            "llan T.",
-            "Victoria s.",
-            "Candela L. B.",
-            "Nicolas H.",
-            "Matias A.",
-            "Matilde A.",
-            "Facundo F.",
-        ],
-    },
-];
-
-export const getStaticPaths: GetStaticPaths = () => {
-    const paths = projects.map((project) => ({
-        params: { slug: project.name.toLowerCase() },
-    }));
-
-    console.log("Paths: ", paths);
-
-    return {
-        paths,
-        fallback: true,
-    };
-};
-
-export const getStaticProps: GetStaticProps<ProjectProps, Params> = (
-    context,
-) => {
-    console.log("Params props: ", context.params);
-
-    const slug = context.params!.slug;
-
-    const projectInfo = projects.find((project) => {
-        // console.log(slug, project.name.toLowerCase());
-
-        return project.name.toLowerCase() === slug;
-    });
-
-    console.log("Project info: ", projectInfo);
-
-    return {
-        props: {
-            projectInfo: projectInfo!,
-        },
-    };
-};
-
-export const generateMetadata = ({
-    params,
-}: {
-    params: { slug: string };
-}): Metadata => {
-    console.log("Params metadata: ", params);
-    console.log(`New title: TIC://Proyectos/${params.slug}`);
-
-    return {
-        title: `TIC://Proyectos/${params.slug}`,
-    };
 };
 
 export default Page;
