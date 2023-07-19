@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "~/contexts/AuthContext";
-import { ShortcutsProvider } from "~/contexts/ShortcutsContext";
+import { ShortcutsProvider } from "~/utils/ShortcutsContext";
 import Header from "./Header";
 
 const queryClient = new QueryClient();

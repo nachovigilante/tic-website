@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
-import ShortcutsContext from "~/contexts/ShortcutsContext";
+import { useEffect } from "react";
 import links from "~/data/links";
+import useShortcuts from "~/utils/useShortcuts";
 
 const SearchBar = () => {
     return (
@@ -32,7 +32,7 @@ const Navbar = () => {
 };
 
 const Header = () => {
-    const { addShortcuts } = useContext(ShortcutsContext);
+    const { addShortcuts } = useShortcuts();
     const router = useRouter();
 
     const headerShortcuts = [
