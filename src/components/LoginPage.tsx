@@ -7,8 +7,7 @@ import DniInput, { validateDNI } from "~/components/utils/form/DniInput";
 import { Input } from "~/components/utils/form/Input";
 import useAuth from "~/hooks/auth/useAuth";
 import useLogin, {
-    Credentials,
-    TeacherCredentials,
+    type Credentials,
 } from "~/hooks/auth/useLogin";
 
 import useErrors from "~/hooks/utils/useErrors";

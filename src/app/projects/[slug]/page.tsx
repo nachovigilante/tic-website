@@ -2,7 +2,7 @@ import Link from "next/link";
 import Footer from "~/components/layout/Footer";
 import Technology, {
     technologies,
-    TechnologyType,
+    type TechnologyType,
 } from "~/components/utils/Technologies";
 
 export type ProjectInfo = {
@@ -17,11 +17,12 @@ export type ProjectInfo = {
 
 const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if (!result || !result[1] || !result[2] || !result[3]) return null;
     return result
         ? {
-              r: parseInt(result[1]!, 16),
-              g: parseInt(result[2]!, 16),
-              b: parseInt(result[3]!, 16),
+              r: parseInt(result[1], 16),
+              g: parseInt(result[2], 16),
+              b: parseInt(result[3], 16),
           }
         : null;
 };
@@ -67,11 +68,12 @@ const projects = {
 } as Record<string, ProjectInfo>;
 
 const Page = ({ params }: { params: { slug: string } }) => {
-    if (!projects[params.slug]) {
+    const projectInfo = projects[params.slug];
+
+    if (!projectInfo) {
+        console.error("Invalid project");
         return <div>404</div>;
     }
-
-    const projectInfo = projects[params.slug]!;
 
     const tech = technologies.find(
         (t) => t.code === projectInfo.technologies[0],
@@ -79,17 +81,16 @@ const Page = ({ params }: { params: { slug: string } }) => {
 
     const parsedColor = hexToRgb(projectInfo.main_color);
 
-    // console.log(parsedColor);
+    if (!parsedColor) {
+        console.error("Invalid color");
+        return <div>404</div>;
+    }
 
     return (
         <>
             <main
                 style={{
-                    background: `linear-gradient(-35deg, rgba(${
-                        parsedColor!.r
-                    }, ${parsedColor!.g}, ${
-                        parsedColor!.b
-                    }, 1) 40%, rgba(45, 45, 45, 1) 100%)`,
+                    background: `linear-gradient(-35deg, rgba(${parsedColor.r}, ${parsedColor.g}, ${parsedColor.b}, 1) 40%, rgba(45, 45, 45, 1) 100%)`,
                 }}
                 className="min-h-screen pt-[67px] text-white overflow-x-hidden"
             >

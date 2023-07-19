@@ -1,6 +1,6 @@
 import ProvidersWrapper from "~/components/layout/ProvidersWrapper";
 import "../styles/globals.css";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "TIC://",

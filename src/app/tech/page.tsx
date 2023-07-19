@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "TIC://Tecnologías",
@@ -24,7 +24,12 @@ const TechGlassBox = ({
 }) => {
     return (
         <Glassbox>
-            <div className="text-3xl font-medium font-space no-ligature flex flex-col gap-2">
+            <div
+                className={twMerge(
+                    "text-3xl font-medium font-space no-ligature flex flex-col gap-2",
+                    className,
+                )}
+            >
                 {titles.map((title, index) => (
                     <h2 key={index}>{title}</h2>
                 ))}
@@ -142,7 +147,7 @@ const Page = () => {
                         Ver plan de estudios de TIC 2022
                     </Link>
                 </Section>
-                <Section className="h-[500px]"/>
+                <Section className="h-[500px]" />
             </main>
             <Footer />
         </>

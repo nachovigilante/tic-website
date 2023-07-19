@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import ShortcutsContext from "~/contexts/ShortcutsContext";
 import links from "~/data/links";
 
@@ -32,7 +32,7 @@ const Navbar = () => {
 };
 
 const Header = () => {
-    const { shortcuts, addShortcuts } = useContext(ShortcutsContext);
+    const { addShortcuts } = useContext(ShortcutsContext);
     const router = useRouter();
 
     const headerShortcuts = [
@@ -52,18 +52,7 @@ const Header = () => {
         },
     ];
 
-    useEffect(() => {
-        const shortcutsAdded = shortcuts.filter((shortcut) => {
-            return headerShortcuts.find((hs) => {
-                return hs.description === shortcut.description;
-            });
-        });
-
-        console.log(shortcutsAdded);
-        console.log(shortcuts);
-
-        if (shortcutsAdded.length === 0) addShortcuts(headerShortcuts);
-    }, []);
+    addShortcuts(headerShortcuts);
 
     return (
         <header className="py-4 px-8 flex items-center justify-between absolute z-20 top-0 w-screen">
