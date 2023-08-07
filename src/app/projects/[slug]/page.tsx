@@ -170,4 +170,14 @@ const Page = ({ params }: { params: { slug: string } }) => {
     );
 };
 
+export function generateMetadata({
+    params,
+}: {
+    params: { slug: string };
+}) {
+    return {
+        title: "TIC:// " + projects[params.slug]!.name,
+    };
+}
+
 export default Page;
