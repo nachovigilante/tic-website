@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import links from "~/data/links";
+import { links } from "~/data/links";
 import useShortcuts from "~/utils/useShortcuts";
 
 const SearchBar = () => {

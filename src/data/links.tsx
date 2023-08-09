@@ -3,7 +3,7 @@ type LinkType = {
     path: string;
 };
 
-const links = [
+export const links = [
     {
         name: "Home",
         path: "/",
@@ -26,4 +26,26 @@ const links = [
     },
 ] as LinkType[];
 
-export default links;
+export type AdminLinkType = {
+    name: string;
+    path: string;
+    svgPath: string;
+};
+
+export const adminLinks = [
+    {
+        name: "Seguimiento",
+        path: "/admin/seguimiento",
+        svgPath: "/images/admin/seguimiento.svg",
+    },
+    {
+        name: "Notas",
+        path: "/admin/notas",
+        svgPath: "/images/admin/notas.svg",
+    },
+    {
+        name: "Asistencias",
+        path: "/admin/asistencias",
+        svgPath: "/images/admin/asistencias.svg",
+    },
+] as AdminLinkType[];
