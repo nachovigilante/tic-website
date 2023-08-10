@@ -1,7 +1,8 @@
 import { AuthType } from "../../contexts/AuthContext";
 import useAuth from "./useAuth";
 
-const BASE_URL = "https://proyecto-final-git-project-management-micaviegas.vercel.app";
+const BASE_URL =
+    "https://proyecto-final-git-project-management-micaviegas.vercel.app";
 
 export type Credentials = {
     dni: string;
@@ -39,7 +40,7 @@ const useLogin = () => {
                     token: string;
                 }
             ).token;
-            setAuth({ dni: credentials.dni, accessToken } as AuthType);
+            setAuth({ id: credentials.dni, accessToken } as AuthType);
             return { accessToken, success: true };
         } catch (error) {
             return { success: false, error: (error as Error).message };
@@ -70,7 +71,7 @@ const useLogin = () => {
                 }
             ).token;
             setAuth({
-                dni: credentials.username,
+                id: credentials.username,
                 accessToken,
             } as AuthType);
             return { accessToken, success: true };
