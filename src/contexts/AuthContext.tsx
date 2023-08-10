@@ -7,12 +7,7 @@ import {
 } from "react";
 
 export type AuthType = {
-    id: number;
-    dni: string;
-    name: string;
-    lastName: string;
-    mail: string;
-    classYear: string;
+    id: string;
     accessToken: string;
 };
 
@@ -22,26 +17,12 @@ type AuthContextType = {
 };
 
 const AuthContext = createContext({
-    auth: {
-        id: 0,
-        dni: "",
-        name: "",
-        lastName: "",
-        mail: "",
-        classYear: "",
-        accessToken: "",
-        // refreshToken: "",
-    },
+    auth: {},
 } as AuthContextType);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [auth, setAuth] = useState({
-        classYear: "",
-        dni: "",
-        id: 0,
-        lastName: "",
-        mail: "",
-        name: "",
+        id: "",
         accessToken: "",
     });
 

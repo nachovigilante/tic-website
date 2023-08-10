@@ -1,9 +1,8 @@
-import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
-import ShortcutsContext from "~/contexts/ShortcutsContext";
-import links from "~/data/links";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { links } from "~/data/links";
+import useShortcuts from "~/utils/useShortcuts";
 
 const SearchBar = () => {
     return (
@@ -33,7 +32,7 @@ const Navbar = () => {
 };
 
 const Header = () => {
-    const { shortcuts, addShortcuts } = useContext(ShortcutsContext);
+    const { addShortcuts } = useShortcuts();
     const router = useRouter();
 
     const headerShortcuts = [
@@ -48,65 +47,25 @@ const Header = () => {
             keystrokes: ["ctrl+shift+h"],
             description: "Go to home",
             action: () => {
-                router
-                    .push("/")
-                    .then(() => {
-                        console.log("Go to home");
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    });
+                router.push("/");
             },
         },
     ];
 
-    useEffect(() => {
-        const shortcutsAdded = shortcuts.filter((shortcut) => {
-            return headerShortcuts.find((hs) => {
-                return hs.description === shortcut.description;
-            });
-        });
-
-        console.log(shortcutsAdded);
-        console.log(shortcuts);
-
-        if (shortcutsAdded.length === 0) addShortcuts(headerShortcuts);
-    }, []);
+    addShortcuts(headerShortcuts);
 
     return (
-        <>
-            <Head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
-                    rel="stylesheet"
-                />
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
-                    rel="stylesheet"
-                />
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
-                    rel="stylesheet"
-                />
-            </Head>
-            <header className="py-4 px-8 flex items-center justify-between absolute z-20 top-0 w-screen">
-                <div className="flex justify-between gap-10 items-center">
-                    <div className="w-9 h-9">
-                        <Link href="/">
-                            <img src="/X.svg" alt="TIC://" />
-                        </Link>
-                    </div>
-                    <SearchBar />
+        <header className="py-4 px-8 flex items-center justify-between absolute z-20 top-0 w-screen">
+            <div className="flex justify-between gap-10 items-center">
+                <div className="w-9 h-9">
+                    <Link href="/">
+                        <img src="/X.svg" alt="TIC://" />
+                    </Link>
                 </div>
-                <Navbar />
-            </header>
-        </>
+                <SearchBar />
+            </div>
+            <Navbar />
+        </header>
     );
 };
 
