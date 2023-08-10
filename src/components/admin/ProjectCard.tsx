@@ -23,7 +23,7 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
 const ProjectCard = ({ project }: { project: Project }) => {
     return (
         <div className="flex flex-col bg-satellite rounded-xl p-5 w-44 gap-2 shadow-lg">
-            <span className="text-[10px]">{"</" + project.category + ">"}</span>
+            <span className="text-[10px] no-ligature">{"</" + project.category + ">"}</span>
             <span className="text-xl font-bold">{project.name}</span>
             <Image src="/images/IARA.png" alt="IARA" width={200} height={200} />
             <div className="flex flex-col space-y-2">

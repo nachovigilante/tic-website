@@ -37,16 +37,35 @@ const config = {
                 teal: "#02C2A1",
                 red: "#CC2624",
                 "dark-blue": "#0c043f",
+                "button-grey": "#292929",
+
+                satellite: "#ed5b5b",
 
                 background: {
                     dark: "#020116",
                     default: "#030026",
                     light: "#121030",
+                    alt: "#070245",
+                    active: "#373457",
                 },
             },
             gridTemplateColumns: {
                 "tech-section": "2fr 1fr",
                 "tech-reverse": "1fr 2fr",
+            },
+            keyframes: {
+                "fade-in": {
+                    "0%": { opacity: "0" },
+                    "100%": { opacity: "1" },
+                },
+                "fade-out": {
+                    "0%": { opacity: "1" },
+                    "100%": { opacity: "0" },
+                },
+            },
+            animation: {
+                fadein: "fade-in 1s forwards",
+                fadeout: "fade-out 1s forwards",
             },
         },
     },

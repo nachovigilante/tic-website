@@ -27,7 +27,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             height={25}
                         />
                         {!isCollapsed && (
-                            <span className="animate-fadein">
+                            <span className="animate-fadein no-ligature">
                                 {"<Proyecto/>"}
                             </span>
                         )}
