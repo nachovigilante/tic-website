@@ -1,7 +1,7 @@
 const BASE_URL = "https://proyecto-final-micaviegas.vercel.app/";
 
 const apiQuery = async <T>(path: string, token: string) => {
-    console.log(token);
+    // console.log(token);
     if (!token) throw new Error("Can't query without a token");
 
     const response = await fetch(`${BASE_URL}${path}`, {
