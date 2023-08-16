@@ -4,6 +4,8 @@ const apiQuery = async <T>(path: string, token: string) => {
     // console.log(token);
     if (!token) throw new Error("Can't query without a token");
 
+    console.log(`Fetching data at ${BASE_URL}${path}`);
+
     const response = await fetch(`${BASE_URL}${path}`, {
         method: "GET",
         headers: {

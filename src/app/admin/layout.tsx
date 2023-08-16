@@ -1,15 +1,18 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import { useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { twMerge } from "tailwind-merge";
 import AdminLinkList from "~/components/admin/LinkList";
+
+const queryClient = new QueryClient();
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const [isCollapsed, setIsCollapsed] = useState(true);
 
     return (
-        <>
+        <QueryClientProvider client={queryClient}>
             <div className="flex flex-row max-h-[100vh] min-h-[100vh]">
                 <div
                     className={twMerge(
@@ -36,7 +39,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </div>
                 <div className="flex flex-1 overflow-y-auto">{children}</div>
             </div>
-        </>
+        </QueryClientProvider>
     );
 };
 

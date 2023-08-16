@@ -1,34 +1,60 @@
-"use client"
+"use client";
 
 import ProjectCard from "~/components/admin/ProjectCard";
 import SearchBar from "~/components/admin/Searchbar";
-import { projects, type Project } from "~/hooks/api/useProjects";
-import { useState } from "react";
+import { type Project, useProjects } from "~/hooks/api/useProjects";
+import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 
 const Page = () => {
-    const [filteredProjects, setFilteredProjects] =
-        useState<Project[]>(projects);
+    const queryClient = useQueryClient();
+    const { fetchProjects } = useProjects();
 
-    const filterProjects = (search: string) => {
-        const filtered = projects.filter((project) => {
-            const name = project.name.toLowerCase();
-            const category = project.category.toLowerCase();
+    // Queries
+    const {
+        data: projects,
+        isLoading,
+        isError,
+    } = useQuery({ queryKey: ["todos"], queryFn: fetchProjects });
 
-            return name.includes(search) || category.includes(search);
-        });
-        setFilteredProjects(filtered);
-    };
+    const [filteredProjects, setFilteredProjects] = useState<Project[]>(
+        projects || [],
+    );
+
+    // const filterProjects = (search: string) => {
+    //     if (!projects) return;
+
+    //     console.log(projects);
+
+    //     const filtered = projects.filter((project) => {
+    //         const name = project.name.toLowerCase();
+    //         const category = project.category.toLowerCase();
+
+    //         return name.includes(search) || category.includes(search);
+    //     });
+    //     setFilteredProjects(filtered);
+    // };
+
+    useEffect(() => {
+        if (!projects) return;
+
+        console.log(projects);
+    }, [projects]);
+
+    if (isLoading) return <div>Loading...</div>;
+
+    if (isError) return <div>Error</div>;
 
     return (
         <main
             className="bg-background-dark w-[100%] min-h-screen font-space text-white p-14 space-y-5"
             style={{ backgroundImage: "url('/images/Cloudy.png')" }}
         >
-            <SearchBar onChange={filterProjects} />
+            {/* <SearchBar onChange={() => {})} /> */}
             <div className="flex flex-row width-[100%] gap-10 flex-wrap">
-                {filteredProjects.map((project) => (
+                {/* {projects!.map((project) => (
                     <ProjectCard project={project} key={project.id} />
-                ))}
+                ))} */}
             </div>
         </main>
     );
