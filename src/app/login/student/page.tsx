@@ -1,42 +1,45 @@
 "use client";
 
+import DniInput, { validateDNI } from "~/components/utils/form/DniInput";
 import { Input } from "~/components/utils/form/Input";
 import useLogin from "~/hooks/auth/useLogin";
 import useErrors from "~/hooks/utils/useErrors";
-import { LoginForm, type Errors } from "~/components/login/LoginForm";
+import {
+    LoginForm,
+    type Errors,
+} from "~/components/login/LoginForm";
 import { useRouter } from "next/navigation";
 
-const LoginTeacher = () => {
+const formatDni = (dni: string) => {
+    return dni.replace(/\./g, "");
+};
+
+const Page = () => {
     const { errors, setErrors } = useErrors<Errors>();
-    const { teacherLogin } = useLogin();
+    const { login } = useLogin();
     const router = useRouter();
 
-    const SideBar = () => (
-        <>
-            <h2 className="text-5xl font-black">TIC X</h2>
-            <h3 className="my-5 text-xl font-semibold">For teachers</h3>
-        </>
-    );
+    const SideBar = () => <h2 className="text-5xl font-black">TIC X</h2>;
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setErrors({ type: "clear", all: true });
 
-        const user = e.currentTarget.elements.namedItem(
-            "user",
+        const dni = e.currentTarget.elements.namedItem(
+            "dni",
         ) as HTMLInputElement;
         const pass = e.currentTarget.elements.namedItem(
             "pass",
         ) as HTMLInputElement;
 
-        if (!user.value) {
+        if (!validateDNI(dni.value)) {
             setTimeout(() => {
-                setErrors({ type: "set", input: "user" });
+                setErrors({ type: "set", input: "dni" });
             }, 50);
             return;
         }
 
-        teacherLogin({ username: user.value, pass: pass.value })
+        login({ dni: formatDni(dni.value), pass: pass.value })
             .then((res) => {
                 if (res.success) {
                     void router.push("/");
@@ -52,12 +55,13 @@ const LoginTeacher = () => {
     };
 
     return (
-        <LoginForm SideBar={SideBar} handleSubmit={handleSubmit}>
-            <Input
-                type="text"
-                placeholder="Usuario"
-                error={errors.user}
-                name="user"
+        <LoginForm
+            SideBar={SideBar}
+            handleSubmit={handleSubmit}
+        >
+            <DniInput
+                error={errors.dni}
+                clearError={() => setErrors({ type: "clear", input: "dni" })}
             />
             <Input
                 type="password"
@@ -69,4 +73,4 @@ const LoginTeacher = () => {
     );
 };
 
-export default LoginTeacher;
+export default Page;
