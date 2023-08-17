@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 const BASE_URL =
     "https://proyecto-final-git-project-management-micaviegas.vercel.app";
 
-export type Credentials = {
+export type StudentCredentials = {
     dni: string;
     pass: string;
 };
@@ -14,73 +14,80 @@ export type TeacherCredentials = {
     pass: string;
 };
 
+type LoginResult<CredentialsType> =
+    | {
+          success: true;
+          accessToken: string;
+          credentials: CredentialsType;
+      }
+    | {
+          success: false;
+          error: string;
+      };
+
+const login = async <CredentialsType>(
+    path: string,
+    credentials: CredentialsType,
+): Promise<LoginResult<CredentialsType>> => {
+    try {
+        const response = await fetch(`${BASE_URL}/${path}/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                // "mode": "no-cors",
+                // "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify(credentials),
+            // credentials: "include",
+        });
+
+        if (!response.ok) {
+            const message = await response.text();
+            throw new Error(message);
+        }
+
+        const accessToken = (
+            (await response.json()) as {
+                token: string;
+            }
+        ).token;
+        
+        return { accessToken, success: true, credentials };
+    } catch (error) {
+        return { success: false, error: (error as Error).message };
+    }
+};
+
 const useLogin = () => {
     const { setAuth } = useAuth();
 
-    const login = async (credentials: Credentials) => {
-        try {
-            const response = await fetch(`${BASE_URL}/students/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // "mode": "no-cors",
-                    // "Access-Control-Allow-Origin": "*",
-                },
-                body: JSON.stringify(credentials),
-                // credentials: "include",
-            });
+    const studentLogin = async (credentials: StudentCredentials) => {
+        const result = await login<StudentCredentials>("students", credentials);
+        if (!result.success) return result;
 
-            if (!response.ok) {
-                const message = await response.text();
-                throw new Error(message);
-            }
+        setAuth({
+            user: credentials.dni,
+            accessToken: result.accessToken,
+            permissions: 1,
+        } as AuthType);
 
-            const accessToken = (
-                (await response.json()) as {
-                    token: string;
-                }
-            ).token;
-            setAuth({ id: credentials.dni, accessToken } as AuthType);
-            return { accessToken, success: true };
-        } catch (error) {
-            return { success: false, error: (error as Error).message };
-        }
+        return result;
     };
 
     const teacherLogin = async (credentials: TeacherCredentials) => {
-        try {
-            const response = await fetch(`${BASE_URL}/teachers/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // "mode": "no-cors",
-                    // "Access-Control-Allow-Origin": "*",
-                },
-                body: JSON.stringify(credentials),
-                // credentials: "include",
-            });
+        const result = await login<TeacherCredentials>("teachers", credentials);
+        if (!result.success) return result;
 
-            if (!response.ok) {
-                const message = await response.text();
-                throw new Error(message);
-            }
+        setAuth({
+            user: credentials.username,
+            accessToken: result.accessToken,
+            permissions: 2,
+        } as AuthType);
 
-            const accessToken = (
-                (await response.json()) as {
-                    token: string;
-                }
-            ).token;
-            setAuth({
-                id: credentials.username,
-                accessToken,
-            } as AuthType);
-            return { accessToken, success: true };
-        } catch (error) {
-            return { success: false, error: (error as Error).message };
-        }
+        return result;
     };
 
-    return { login, teacherLogin };
+    return { studentLogin, teacherLogin };
 };
 
 export default useLogin;

@@ -4,10 +4,7 @@ import DniInput, { validateDNI } from "~/components/utils/form/DniInput";
 import { Input } from "~/components/utils/form/Input";
 import useLogin from "~/hooks/auth/useLogin";
 import useErrors from "~/hooks/utils/useErrors";
-import {
-    LoginForm,
-    type Errors,
-} from "~/components/login/LoginForm";
+import { LoginForm, type Errors } from "~/components/login/LoginForm";
 import { useRouter } from "next/navigation";
 
 const formatDni = (dni: string) => {
@@ -16,7 +13,7 @@ const formatDni = (dni: string) => {
 
 const Page = () => {
     const { errors, setErrors } = useErrors<Errors>();
-    const { login } = useLogin();
+    const { studentLogin } = useLogin();
     const router = useRouter();
 
     const SideBar = () => <h2 className="text-5xl font-black">TIC X</h2>;
@@ -39,7 +36,7 @@ const Page = () => {
             return;
         }
 
-        login({ dni: formatDni(dni.value), pass: pass.value })
+        studentLogin({ dni: formatDni(dni.value), pass: pass.value })
             .then((res) => {
                 if (res.success) {
                     void router.push("/");
@@ -55,10 +52,7 @@ const Page = () => {
     };
 
     return (
-        <LoginForm
-            SideBar={SideBar}
-            handleSubmit={handleSubmit}
-        >
+        <LoginForm SideBar={SideBar} handleSubmit={handleSubmit}>
             <DniInput
                 error={errors.dni}
                 clearError={() => setErrors({ type: "clear", input: "dni" })}

@@ -57,6 +57,13 @@ const Header = () => {
                 router.push("/admin/tracking");
             },
         },
+        {
+            keystrokes: ["ctrl+alt+l"],
+            description: "Go to login",
+            action: () => {
+                router.push("/login");
+            },
+        },
     ];
 
     addShortcuts(headerShortcuts);

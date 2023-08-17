@@ -26,7 +26,7 @@ export const LoginForm = ({
     const pathname = usePathname();
 
     const {
-        auth: { id },
+        auth: { user: id },
     } = useAuth();
 
     useEffect(() => {

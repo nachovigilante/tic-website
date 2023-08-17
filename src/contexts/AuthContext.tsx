@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
     createContext,
@@ -9,8 +9,9 @@ import {
 } from "react";
 
 export type AuthType = {
-    id: string;
+    user: string;
     accessToken: string;
+    permissions: number;
 };
 
 type AuthContextType = {
@@ -24,8 +25,9 @@ const AuthContext = createContext({
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [auth, setAuth] = useState({
-        id: "",
+        user: "",
         accessToken: "",
+        permissions: 0,
     });
 
     const debug = false;

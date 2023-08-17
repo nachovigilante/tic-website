@@ -15,7 +15,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
     // console.log(auth);
 
-    if (!auth.id) return <div>Not logged in</div>;
+    if (!auth.user) return <div>Not logged in</div>;
 
     return (
         <QueryClientProvider client={queryClient}>
