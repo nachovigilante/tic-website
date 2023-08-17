@@ -10,7 +10,7 @@ const FilterButton = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-const FilterInput = () => {
+const FilterInput = ({ onChange }: { onChange: (s: string) => void }) => {
     const textRef = useRef(null);
     const { insertSpan, replageNodeWithTextNode } = useTextManipulation();
 
@@ -55,6 +55,7 @@ const FilterInput = () => {
             onKeyDown={(e) => handleKeyDown(e)}
             onInput={(e) => handleInput(e)}
             ref={textRef}
+            onKeyUp={(e) => onChange(e.currentTarget.textContent!)}
         />
     );
 };
@@ -69,7 +70,7 @@ const SearchBar = ({ onChange }: { onChange: (s: string) => void }) => {
                     width={21}
                     height={21}
                 />
-                <FilterInput />
+                <FilterInput onChange={onChange} />
             </div>
             <div>
                 <FilterButton>

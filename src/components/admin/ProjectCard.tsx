@@ -4,9 +4,11 @@ import { type Project, type StudentType } from "~/hooks/api/useProjects";
 import { roleIcons } from "~/data/images";
 
 const StudentsItem = ({ student }: { student: StudentType }) => {
-    const roleClass = "bg-role-" + student.role.toLowerCase();
-    const roleSvg =
-        roleIcons[student.role.toLowerCase()] ?? "/images/default-role.svg";
+    const role =
+        student.roles.length > 0 ? student.roles[0]!.toLowerCase() : "?";
+
+    const roleClass = "bg-role-" + role;
+    const roleSvg = roleIcons[role] ?? "/images/default-role.svg";
     return (
         <div
             className={twMerge(
@@ -14,7 +16,7 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
                 roleClass,
             )}
         >
-            <Image src={roleSvg} alt={student.role} width={24} height={24} />
+            <Image src={roleSvg} alt={role} width={24} height={24} />
             <span className="flex justify-center text-xs">{student.name}</span>
         </div>
     );
@@ -23,8 +25,12 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
 const ProjectCard = ({ project }: { project: Project }) => {
     return (
         <div className="flex flex-col bg-satellite rounded-xl p-5 w-44 gap-2 shadow-lg">
-            <span className="text-[10px] no-ligature">{"</" + project.category + ">"}</span>
-            <span className="text-xl font-bold">{project.name}</span>
+            <span className="text-[10px] no-ligature">
+                {"</" +
+                    (project.areas.length > 0 ? project.areas[0].name : "?") +
+                    ">"}
+            </span>
+            <span className="text-xl font-bold">{project.title}</span>
             <Image src="/images/IARA.png" alt="IARA" width={200} height={200} />
             <div className="flex flex-col space-y-2">
                 {project.students.map((student) => (

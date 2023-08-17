@@ -2,14 +2,20 @@ import useAuth from "../auth/useAuth";
 import useAPIQuery from "./useAPIQuery";
 
 export type StudentType = {
+    id: number;
     name: string;
-    role: string;
+    lastname: string;
+    roles: string[];
 };
 
 export type Project = {
     id: number;
-    name: string;
-    category: string;
+    title: string;
+    areas: [{
+        id: number;
+        name: string;
+    }];
+    description: string;
     students: StudentType[];
 };
 

@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         accessToken: "",
     });
 
-    const debug = true;
+    const debug = false;
 
     useEffect(() => {
         if (debug) console.log("AuthContext: ", auth);

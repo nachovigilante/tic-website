@@ -5,11 +5,17 @@ import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { twMerge } from "tailwind-merge";
 import AdminLinkList from "~/components/admin/LinkList";
+import useAuth from "~/hooks/auth/useAuth";
 
 const queryClient = new QueryClient();
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const [isCollapsed, setIsCollapsed] = useState(true);
+    const { auth } = useAuth();
+
+    // console.log(auth);
+
+    if (!auth.id) return <div>Not logged in</div>;
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -37,7 +43,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     </div>
                     <AdminLinkList isCollapsed={isCollapsed} />
                 </div>
-                <div className="flex flex-1 overflow-y-auto">{children}</div>
+                <div className="flex flex-1 overflow-y-auto">
+                    <main
+                        className="bg-background-dark w-[100%] min-h-screen font-space text-white p-14 space-y-5"
+                        style={{ backgroundImage: "url('/images/Cloudy.png')" }}
+                    >
+                        {children}
+                    </main>
+                </div>
             </div>
         </QueryClientProvider>
     );
