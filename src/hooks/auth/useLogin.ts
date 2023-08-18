@@ -1,8 +1,10 @@
+import { useRouter } from "next/navigation";
 import { AuthType } from "../../contexts/AuthContext";
 import useAuth from "./useAuth";
 
-const BASE_URL =
-    "https://proyecto-final-git-project-management-micaviegas.vercel.app";
+const BASE_URL = "https://proyecto-final-micaviegas.vercel.app";
+
+// const BASE_URL = "http://localhost:9000";
 
 export type StudentCredentials = {
     dni: string;
@@ -38,7 +40,7 @@ const login = async <CredentialsType>(
                 // "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify(credentials),
-            // credentials: "include",
+            credentials: "include",
         });
 
         if (!response.ok) {
@@ -51,7 +53,7 @@ const login = async <CredentialsType>(
                 token: string;
             }
         ).token;
-        
+
         return { accessToken, success: true, credentials };
     } catch (error) {
         return { success: false, error: (error as Error).message };
@@ -60,6 +62,7 @@ const login = async <CredentialsType>(
 
 const useLogin = () => {
     const { setAuth } = useAuth();
+    const router = useRouter();
 
     const studentLogin = async (credentials: StudentCredentials) => {
         const result = await login<StudentCredentials>("students", credentials);
@@ -87,7 +90,38 @@ const useLogin = () => {
         return result;
     };
 
-    return { studentLogin, teacherLogin };
+    const refreshToken = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:9000/auth/refreshToken`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                },
+            );
+
+            if (response.status === 401) throw new Error("Unauthorized");
+
+            if (!response.ok) throw new Error("Query failed");
+
+            const data = (await response.json()) as {
+                token: string;
+                permissions: number;
+                user: string;
+            };
+
+            setAuth({
+                user: data.user,
+                accessToken: data.token,
+                permissions: data.permissions,
+            } as AuthType);
+        } catch (error) {
+            console.error(error);
+            router.push("/login");
+        }
+    };
+
+    return { studentLogin, teacherLogin, refreshToken };
 };
 
 export default useLogin;

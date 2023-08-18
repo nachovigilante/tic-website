@@ -1,4 +1,6 @@
-const BASE_URL = "https://proyecto-final-micaviegas.vercel.app/";
+const BASE_URL = "https://proyecto-final-micaviegas.vercel.app";
+
+// const BASE_URL = "http://localhost:9000";
 
 const apiQuery = async <T>(path: string, token: string) => {
     // console.log(token);
@@ -6,7 +8,7 @@ const apiQuery = async <T>(path: string, token: string) => {
 
     // console.log(`Fetching data at ${BASE_URL}${path}`);
 
-    const response = await fetch(`${BASE_URL}${path}`, {
+    const response = await fetch(`${BASE_URL}/${path}`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -26,7 +28,7 @@ const apiQuery = async <T>(path: string, token: string) => {
 const apiMutation = async <T>(path: string, token: string, body: any) => {
     if (!token) throw new Error("Can't query without a token");
 
-    const response = await fetch(`${BASE_URL}${path}`, {
+    const response = await fetch(`${BASE_URL}/${path}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

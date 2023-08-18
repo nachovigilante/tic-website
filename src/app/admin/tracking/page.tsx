@@ -37,7 +37,6 @@ const Page = () => {
 
     useEffect(() => {
         if (!projects) return;
-        console.log("AAAAAA");
 
         setFilteredProjects(projects);
     }, [projects]);

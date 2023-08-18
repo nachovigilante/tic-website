@@ -6,16 +6,21 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { twMerge } from "tailwind-merge";
 import AdminLinkList from "~/components/admin/LinkList";
 import useAuth from "~/hooks/auth/useAuth";
+import useLogin from "~/hooks/auth/useLogin";
 
 const queryClient = new QueryClient();
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const [isCollapsed, setIsCollapsed] = useState(true);
     const { auth } = useAuth();
+    const { refreshToken } = useLogin();
 
     // console.log(auth);
 
-    if (!auth.user) return <div>Not logged in</div>;
+    if (!auth.user) {
+        void refreshToken();
+        return <div>Loading...</div>;
+    }
 
     return (
         <QueryClientProvider client={queryClient}>

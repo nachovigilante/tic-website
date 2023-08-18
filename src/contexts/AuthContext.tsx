@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         permissions: 0,
     });
 
-    const debug = false;
+    const debug = true;
 
     useEffect(() => {
         if (debug) console.log("AuthContext: ", auth);

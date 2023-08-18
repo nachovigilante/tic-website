@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { links } from "~/data/links";
 import useShortcuts from "~/utils/useShortcuts";
 
@@ -62,6 +61,13 @@ const Header = () => {
             description: "Go to login",
             action: () => {
                 router.push("/login");
+            },
+        },
+        {
+            keystrokes: ["ctrl+alt+a"],
+            description: "Go to admin",
+            action: () => {
+                router.push("/admin");
             },
         },
     ];
