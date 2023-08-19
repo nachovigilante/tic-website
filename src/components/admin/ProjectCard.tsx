@@ -2,6 +2,7 @@ import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { type Project, type StudentType } from "~/hooks/api/useProjects";
 import { roleIcons } from "~/data/images";
+import Link from "next/link";
 
 const StudentsItem = ({ student }: { student: StudentType }) => {
     const role =
@@ -30,7 +31,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
                     (project.areas.length > 0 ? project.areas[0].name : "?") +
                     ">"}
             </span>
-            <span className="text-xl font-bold">{project.title}</span>
+            <Link href={`/admin/tracking/${project.id}`}>
+                <span className="text-xl font-bold">{project.title}</span>
+            </Link>
             <Image src="/images/IARA.png" alt="IARA" width={200} height={200} />
             <div className="flex flex-col space-y-2">
                 {project.students.map((student) => (

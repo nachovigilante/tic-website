@@ -2,9 +2,9 @@ import { useRouter } from "next/navigation";
 import { AuthType } from "../../contexts/AuthContext";
 import useAuth from "./useAuth";
 
-// const BASE_URL = "https://proyecto-final-micaviegas.vercel.app";
+const BASE_URL = "https://proyecto-final-micaviegas.vercel.app";
 
-const BASE_URL = "http://localhost:9000";
+// const BASE_URL = "http://localhost:9000";
 
 export type StudentCredentials = {
     dni: string;
@@ -36,8 +36,6 @@ const login = async <CredentialsType>(
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                // "mode": "no-cors",
-                // "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify(credentials),
             credentials: "include",

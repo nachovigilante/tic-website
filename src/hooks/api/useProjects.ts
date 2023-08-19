@@ -31,7 +31,13 @@ export const useProjects = () => {
         return data;
     };
 
+    const fetchProject = async (id: string) => {
+        const data = await query<Project>(`projects/${id}`, accessToken);
+        return data;
+    }
+
     return {
         fetchProjects,
+        fetchProject
     };
 };
