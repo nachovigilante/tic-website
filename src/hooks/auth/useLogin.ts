@@ -2,9 +2,9 @@ import { useRouter } from "next/navigation";
 import { AuthType } from "../../contexts/AuthContext";
 import useAuth from "./useAuth";
 
-const BASE_URL = "https://proyecto-final-micaviegas.vercel.app";
+// const BASE_URL = "https://proyecto-final-micaviegas.vercel.app";
 
-// const BASE_URL = "http://localhost:9000";
+const BASE_URL = "http://localhost:9000";
 
 export type StudentCredentials = {
     dni: string;
@@ -92,23 +92,22 @@ const useLogin = () => {
 
     const refreshToken = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:9000/auth/refreshToken`,
-                {
-                    method: "GET",
-                    credentials: "include",
-                },
-            );
+            const response = await fetch(`${BASE_URL}/auth/refreshToken`, {
+                method: "GET",
+                credentials: "include",
+            });
 
-            if (response.status === 401) throw new Error("Unauthorized");
+            // if (response.status === 401) throw new Error("Unauthorized");
 
-            if (!response.ok) throw new Error("Query failed");
+            // if (!response.ok) throw new Error("Query failed");
 
             const data = (await response.json()) as {
                 token: string;
                 permissions: number;
                 user: string;
             };
+
+            console.log(data);
 
             setAuth({
                 user: data.user,
@@ -117,11 +116,24 @@ const useLogin = () => {
             } as AuthType);
         } catch (error) {
             console.error(error);
-            router.push("/login");
+            void router.push("/login");
         }
     };
 
-    return { studentLogin, teacherLogin, refreshToken };
+    const logout = async () => {
+        try {
+            await fetch(`${BASE_URL}/auth/logout`, {
+                method: "POST",
+                credentials: "include",
+            });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setAuth({} as AuthType);
+        }
+    };
+
+    return { studentLogin, teacherLogin, refreshToken, logout };
 };
 
 export default useLogin;

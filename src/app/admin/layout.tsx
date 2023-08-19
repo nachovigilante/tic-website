@@ -24,7 +24,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <div className="flex flex-row max-h-[100vh] min-h-[100vh]">
+            <div className="flex flex-row max-h-screen min-h-screen overflow-auto">
                 <div
                     className={twMerge(
                         "bg-background-default transition-all delay-100 ease-linear text-white font-space font-bold",
@@ -50,7 +50,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </div>
                 <div className="flex flex-1 overflow-y-auto">
                     <main
-                        className="bg-background-dark w-[100%] min-h-screen font-space text-white p-14 space-y-5"
+                        className="bg-background-dark w-[100%] min-h-screen max-h-screen font-space text-white p-14 space-y-5 overflow-auto"
                         style={{ backgroundImage: "url('/images/Cloudy.png')" }}
                     >
                         {children}

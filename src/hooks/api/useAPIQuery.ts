@@ -1,6 +1,6 @@
-const BASE_URL = "https://proyecto-final-micaviegas.vercel.app";
+// const BASE_URL = "https://proyecto-final-micaviegas.vercel.app";
 
-// const BASE_URL = "http://localhost:9000";
+const BASE_URL = "http://localhost:9000";
 
 const apiQuery = async <T>(path: string, token: string) => {
     // console.log(token);

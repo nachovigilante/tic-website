@@ -4,7 +4,7 @@ import ProjectCard from "~/components/admin/ProjectCard";
 import SearchBar from "~/components/admin/Searchbar";
 import { type Project, useProjects } from "~/hooks/api/useProjects";
 import { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 
 const Page = () => {
     const { fetchProjects } = useProjects();
@@ -41,17 +41,17 @@ const Page = () => {
         setFilteredProjects(projects);
     }, [projects]);
 
-    if (isLoading) return <div>Loading...</div>;
-
-    if (isError) return <div>Error</div>;
-
     return (
         <>
             <SearchBar onChange={(s) => filterProjects(s)} />
-            <div className="flex flex-row width-[100%] gap-10 flex-wrap">
-                {filteredProjects.map((project) => (
-                    <ProjectCard project={project} key={project.id} />
-                ))}
+            <div className="flex flex-row width-[100%] gap-10 flex-wrap pt-14">
+                {isLoading && <div>Loading...</div>}
+                {isError && <div>Error</div>}
+                {!isLoading &&
+                    !isError &&
+                    filteredProjects.map((project) => (
+                        <ProjectCard project={project} key={project.id} />
+                    ))}
             </div>
         </>
     );

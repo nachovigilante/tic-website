@@ -35,7 +35,7 @@ export type AdminLinkType = {
 export const adminLinks = [
     {
         name: "Seguimiento",
-        path: "/admin/seguimiento",
+        path: "/admin/tracking",
         svgPath: "/images/admin/seguimiento.svg",
     },
     {
