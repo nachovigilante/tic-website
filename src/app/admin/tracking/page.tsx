@@ -5,6 +5,7 @@ import SearchBar from "~/components/admin/Searchbar";
 import { type Project, useProjects } from "~/hooks/api/useProjects";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import ProjectModal from "~/components/admin/ProjectModal";
 
 const Page = () => {
     const { fetchProjects } = useProjects();
@@ -53,6 +54,7 @@ const Page = () => {
                         <ProjectCard project={project} key={project.id} />
                     ))}
             </div>
+            <ProjectModal />
         </>
     );
 };
