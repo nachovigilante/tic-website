@@ -9,6 +9,8 @@ import ProjectModal from "~/components/admin/ProjectModal";
 
 const Page = () => {
     const { fetchProjects } = useProjects();
+    const [modalOpen, setModalOpen] = useState(false);
+    const [featuredProject, setFeaturedProject] = useState<Project>();
 
     // Queries
     const {
@@ -51,10 +53,21 @@ const Page = () => {
                 {!isLoading &&
                     !isError &&
                     filteredProjects.map((project) => (
-                        <ProjectCard project={project} key={project.id} />
+                        <ProjectCard
+                            project={project}
+                            key={project.id}
+                            onClick={() => {
+                                setFeaturedProject(project);
+                                setModalOpen(true);
+                            }}
+                        />
                     ))}
             </div>
-            <ProjectModal />
+            <ProjectModal
+                isOpen={modalOpen}
+                project={featuredProject}
+                close={() => setModalOpen(false)}
+            />
         </>
     );
 };

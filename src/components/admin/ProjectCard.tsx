@@ -23,9 +23,18 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
     );
 };
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const ProjectCard = ({
+    project,
+    onClick,
+}: {
+    project: Project;
+    onClick: () => void;
+}) => {
     return (
-        <div className="flex flex-col bg-satellite rounded-xl p-5 w-44 gap-2 shadow-lg">
+        <div
+            className="flex flex-col bg-satellite rounded-xl p-5 w-44 gap-2 shadow-lg"
+            onClick={onClick}
+        >
             <span className="text-[10px] no-ligature">
                 {"</" +
                     (project.areas.length > 0 ? project.areas[0].name : "?") +

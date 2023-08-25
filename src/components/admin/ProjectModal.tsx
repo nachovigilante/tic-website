@@ -1,9 +1,26 @@
+import { Project } from "~/hooks/api/useProjects";
 import Modal from "../layout/Modal";
 
-const ProjectModal = () => {
+const ProjectModal = ({
+    isOpen,
+    onClose,
+    project,
+    close,
+}: {
+    isOpen: boolean;
+    onClose?: () => void;
+    project: Project | undefined;
+    close: () => void;
+}) => {
+    if (!project) return <div>Loading...</div>;
+
     return (
-        <Modal title={"AAA"} onClose={() => console.log("A")}>
-            <div>AAA</div>
+        <Modal
+            title={project.title}
+            isOpen={isOpen}
+            close={close}
+        >
+            <div>Project Info</div>
         </Modal>
     );
 };
