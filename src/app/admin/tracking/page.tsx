@@ -6,11 +6,11 @@ import { type Project, useProjects } from "~/hooks/api/useProjects";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import ProjectModal from "~/components/admin/ProjectModal";
+import Link from "next/link";
 
 const Page = () => {
     const { fetchProjects } = useProjects();
     const [modalOpen, setModalOpen] = useState(false);
-    const [featuredProject, setFeaturedProject] = useState<Project>();
 
     // Queries
     const {
@@ -53,21 +53,9 @@ const Page = () => {
                 {!isLoading &&
                     !isError &&
                     filteredProjects.map((project) => (
-                        <ProjectCard
-                            project={project}
-                            key={project.id}
-                            onClick={() => {
-                                setFeaturedProject(project);
-                                setModalOpen(true);
-                            }}
-                        />
+                        <ProjectCard project={project} key={project.id} />
                     ))}
             </div>
-            <ProjectModal
-                isOpen={modalOpen}
-                project={featuredProject}
-                close={() => setModalOpen(false)}
-            />
         </>
     );
 };

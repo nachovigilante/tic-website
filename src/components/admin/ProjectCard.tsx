@@ -23,24 +23,15 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
     );
 };
 
-const ProjectCard = ({
-    project,
-    onClick,
-}: {
-    project: Project;
-    onClick: () => void;
-}) => {
+const ProjectCard = ({ project }: { project: Project }) => {
     return (
-        <div
-            className="flex flex-col bg-satellite rounded-xl p-5 w-44 gap-2 shadow-lg"
-            onClick={onClick}
-        >
+        <div className="flex flex-col bg-satellite rounded-xl p-5 w-44 gap-2 shadow-lg">
             <span className="text-[10px] no-ligature">
                 {"</" +
                     (project.areas.length > 0 ? project.areas[0].name : "?") +
                     ">"}
             </span>
-            <Link href={`/admin/tracking/${project.id}`}>
+            <Link href={`/admin/tracking/project/${project.id}`}>
                 <span className="text-xl font-bold">{project.title}</span>
             </Link>
             <Image src="/images/IARA.png" alt="IARA" width={200} height={200} />

@@ -13,7 +13,7 @@
         "@svgr/webpack": "^6.5.1",
         "@tanstack/react-query": "^4.32.6",
         "@tanstack/react-table": "^8.8.4",
-        "next": "^13.4.4",
+        "next": "^13.4.7",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-query": "^3.39.3",

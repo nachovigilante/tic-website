@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { twMerge } from "tailwind-merge";
 import AdminLinkList from "~/components/admin/LinkList";
@@ -10,7 +10,7 @@ import useLogin from "~/hooks/auth/useLogin";
 
 const queryClient = new QueryClient();
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: ReactNode }) => {
     const [isCollapsed, setIsCollapsed] = useState(true);
     const { auth } = useAuth();
     const { refreshToken } = useLogin();
@@ -19,7 +19,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
     if (!auth.user) {
         void refreshToken();
-        return <div>Loading...</div>;
     }
 
     return (
@@ -53,7 +52,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         className="bg-background-dark w-[100%] min-h-screen max-h-screen font-space text-white p-14 space-y-5 overflow-auto"
                         style={{ backgroundImage: "url('/images/Cloudy.png')" }}
                     >
-                        {children}
+                        {!auth.user ? <div>Loading...</div> : children}
                     </main>
                 </div>
             </div>
