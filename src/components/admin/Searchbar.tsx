@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useRef } from "react";
 import useTextManipulation from "~/hooks/utils/useTextManipulation";
+import filters from "~/data/filters";
 
 const FilterButton = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -41,9 +42,13 @@ const FilterInput = ({ onChange }: { onChange: (s: string) => void }) => {
         } else if (node.nodeName === "#text") {
             const text = window.getSelection()!.anchorNode!.textContent;
             if (!text) return;
-            const p1 = text.search(/\bp1\b/gi);
-            if (p1 === -1) return;
-            insertSpan(e.currentTarget, node, p1);
+ 
+            filters.forEach((filter) => {
+                const regex = new RegExp(`\\b${filter.name}\\b`, "gi");
+                const match = text.search(regex);
+                if (match === -1) return;
+                insertSpan(e.currentTarget, node, match, filter);
+            });
         }
     };
 

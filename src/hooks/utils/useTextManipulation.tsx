@@ -1,3 +1,5 @@
+import type { Filter } from "~/data/filters";
+
 const useTextManipulation = () => {
     const setCaret = (node: Node, index: number) => {
         const range = document.createRange();
@@ -12,7 +14,7 @@ const useTextManipulation = () => {
         sel!.addRange(range);
     };
 
-    const insertSpan = (target: Element, node: Node, index: number) => {
+    const insertSpan = (target: Element, node: Node, index: number, filter: Filter) => {
         const nodeIndex = [...target.childNodes].indexOf(node as ChildNode);
 
         if (!target.childNodes[nodeIndex]) return;
@@ -20,8 +22,8 @@ const useTextManipulation = () => {
         if (target.childNodes[nodeIndex]!.nodeName !== "SPAN") {
             // Create a span element
             const span = document.createElement("span");
-            span.textContent = "P1";
-            span.className = "bg-blue-500 text-white rounded-md px-1";
+            span.textContent = filter.name.toUpperCase();
+            span.className = filter.style;
 
             const nodesBefore = [...target.childNodes].slice(0, nodeIndex);
             const nodesAfter = [...target.childNodes].slice(nodeIndex + 1);
