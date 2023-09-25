@@ -6,6 +6,7 @@ import SearchBar from "~/components/admin/Searchbar";
 import { type Project, useProjects } from "~/hooks/api/useProjects";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import "~/styles/tracking.css"
 
 const Page = () => {
     const { fetchProjects } = useProjects();
@@ -51,22 +52,16 @@ const Page = () => {
         if (!target || !mainContainer) return;
         const scroll = mainContainer.scrollTop;
         if (scroll > 30) {
-            target.classList.add("absolute");
-            target.classList.add("bg-blue-300");
-            target.classList.add("ml-[-3.5rem]");
-            target.classList.add("mt-[-3.5rem]");
+            target.classList.add("fixed-searchbar");
         } else {
-            target.classList.remove("absolute");
-            target.classList.remove("bg-blue-300");
-            target.classList.remove("mt-[-3.5rem]");
-            target.classList.remove("ml-[-3.5rem]");
+            target.classList.remove("fixed-searchbar");
         }
     });
 
     return (
         <>
             <div 
-                className="w-full p-3 transition-all duration-250 ease-linear"
+                className="w-full p-3 transition-all duration-500 ease-in-out"
                 id="searchbar"
             >
                 <SearchBar onChange={(s) => filterProjects(s)} />
@@ -82,7 +77,7 @@ const Page = () => {
                     filteredProjects.map((project) => (
                         <ProjectCard project={project} key={project.id} />
                     ))}
-            </div>
+            </div>  
         </>
     );
 };
