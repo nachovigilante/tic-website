@@ -67,7 +67,8 @@ const FilterInput = ({ onChange }: { onChange: (s: string) => void }) => {
 
 const SearchBar = ({ onChange }: { onChange: (s: string) => void }) => {
     return (
-        <div className="flex bg-black rounded-xl w-1/2 px-3 py-2 space-x-3 shadow-md fixed">
+        <div 
+            className="flex bg-black rounded-xl w-[60%] px-3 py-2 space-x-3 shadow-md"        >
             <div className="space-x-3 flex w-full items-center">
                 <Image
                     src="/images/search.svg"

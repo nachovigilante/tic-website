@@ -1,12 +1,11 @@
 "use client";
 
+import React from "react";
 import ProjectCard from "~/components/admin/ProjectCard";
 import SearchBar from "~/components/admin/Searchbar";
 import { type Project, useProjects } from "~/hooks/api/useProjects";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import ProjectModal from "~/components/admin/ProjectModal";
-import Link from "next/link";
 
 const Page = () => {
     const { fetchProjects } = useProjects();
@@ -44,10 +43,38 @@ const Page = () => {
         setFilteredProjects(projects);
     }, [projects]);
 
+    // Scroll
+    let mainContainer = document.getElementById("main-container");
+    let target = document.getElementById("searchbar");
+    
+    mainContainer?.addEventListener("scroll", () => {
+        if (!target || !mainContainer) return;
+        const scroll = mainContainer.scrollTop;
+        if (scroll > 30) {
+            target.classList.add("absolute");
+            target.classList.add("bg-blue-300");
+            target.classList.add("ml-[-3.5rem]");
+            target.classList.add("mt-[-3.5rem]");
+        } else {
+            target.classList.remove("absolute");
+            target.classList.remove("bg-blue-300");
+            target.classList.remove("mt-[-3.5rem]");
+            target.classList.remove("ml-[-3.5rem]");
+        }
+    });
+
     return (
         <>
-            <SearchBar onChange={(s) => filterProjects(s)} />
-            <div className="flex flex-row width-[100%] gap-10 flex-wrap pt-14">
+            <div 
+                className="w-full p-3 transition-all duration-250 ease-linear"
+                id="searchbar"
+            >
+                <SearchBar onChange={(s) => filterProjects(s)} />
+            </div>
+            <div 
+                className="flex flex-row width-[100%] gap-10 flex-wrap pt-14"
+                id="card-container"
+            >
                 {isLoading && <div>Loading...</div>}
                 {isError && <div>Error</div>}
                 {!isLoading &&
