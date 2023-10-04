@@ -5,4 +5,5 @@ export const roleIcons: Record<string, string> = {
     videojuegos: "/images/videojuegos.svg",
     hardware: "/images/hardware.svg",
     ia: "/images/ia.svg",
+    frontend: "/images/frontend.png",
 };

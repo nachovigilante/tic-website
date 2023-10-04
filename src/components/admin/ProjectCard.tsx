@@ -2,11 +2,12 @@ import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { type Project, type StudentType } from "~/hooks/api/useProjects";
 import { roleIcons } from "~/data/images";
+import { categories } from "~/data/categories";
 import Link from "next/link";
 
 const StudentsItem = ({ student }: { student: StudentType }) => {
     const role =
-        student.roles.length > 0 ? student.roles[0]!.toLowerCase() : "?";
+        student.roles.length > 0 ? student.roles[0]!.name.toLowerCase() : "?";
 
     const roleClass = "bg-role-" + role;
     const roleSvg = roleIcons[role] ?? "/images/default-role.svg";
@@ -24,13 +25,20 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
 };
 
 const ProjectCard = ({ project }: { project: Project }) => {
+    const color = categories[project.categories[0]?.title.toLowerCase()]?.color ?? "#000000";
     return (
-        <div className="flex flex-col bg-satellite rounded-xl p-5 w-44 gap-2 shadow-lg">
-            <span className="text-[10px] no-ligature">
-                {"</" +
-                    (project.areas.length > 0 ? project.areas[0].name : "?") +
-                    ">"}
-            </span>
+        <div 
+            className="flex flex-col rounded-xl p-5 w-[15rem] gap-2 shadow-lg"
+            style={{ backgroundColor: color }}
+        >
+            <div className="flex justify-between">
+                <span className="text-[10px] no-ligature">
+                    {"</" +
+                        (project.areas.length > 0 ? project.areas[0].name : "?") +
+                        ">"}
+                </span>
+                
+            </div>
             <Link href={`/admin/tracking/project/${project.id}`}>
                 <span className="text-xl font-bold">{project.title}</span>
             </Link>

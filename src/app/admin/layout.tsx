@@ -49,7 +49,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 </div>
                 <div className="flex flex-1 overflow-y-auto">
                     <main
-                        className="bg-background-dark w-[100%] min-h-screen max-h-screen p-14 font-space text-white space-y-5 overflow-auto"
+                        className="flex flex-col bg-background-dark w-[100%] min-h-screen max-h-screen p-14 font-space text-white space-y-5 overflow-auto"
                         style={{ backgroundImage: "url('/images/Cloudy.png')" }}
                         id="main-container"
                     >

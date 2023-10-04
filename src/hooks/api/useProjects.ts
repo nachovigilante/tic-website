@@ -1,11 +1,16 @@
 import useAuth from "../auth/useAuth";
 import useAPIQuery from "./useAPIQuery";
 
+export type RoleType = {
+    id: number;
+    name: string;
+};
+
 export type StudentType = {
     id: number;
     name: string;
     lastname: string;
-    roles: string[];
+    roles: RoleType[];
 };
 
 export type Project = {
@@ -14,6 +19,10 @@ export type Project = {
     areas: [{
         id: number;
         name: string;
+    }];
+    categories: [{
+        id: number;
+        title: string;
     }];
     description: string;
     students: StudentType[];

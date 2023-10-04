@@ -12,8 +12,6 @@ const Layout = ({
     return (
         <>
             {children}
-            asdasñdjhaslkjd
-            {modal}
         </>
     );
 };
