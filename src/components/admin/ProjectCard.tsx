@@ -1,16 +1,21 @@
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { type Project, type StudentType } from "~/hooks/api/useProjects";
-import { roleIcons } from "~/data/images";
-import { categories } from "~/data/categories";
+import { categories, roles } from "~/data/categories";
 import Link from "next/link";
 
-const StudentsItem = ({ student }: { student: StudentType }) => {
-    const role =
-        student.roles.length > 0 ? student.roles[0]!.name.toLowerCase() : "?";
+const defaultRole = {
+    color: "#000000",
+    name: "Sin rol",
+    icon: "/images/default.svg",
+}
 
-    const roleClass = "bg-role-" + role;
-    const roleSvg = roleIcons[role] ?? "/images/default-role.svg";
+const StudentsItem = ({ student }: { student: StudentType }) => {
+    if (student.roles.length == 0) return null;
+    const role = roles[student.roles[0]!.name] ?? defaultRole;
+
+    const roleClass = "bg-role-" + role.name;
+    const roleSvg = role.icon ?? "/images/default-role.svg";
     return (
         <div
             className={twMerge(
@@ -18,7 +23,7 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
                 roleClass,
             )}
         >
-            <Image src={roleSvg} alt={role} width={24} height={24} />
+            <Image src={roleSvg} alt={role.name ?? "Sin rol"} width={24} height={24} />
             <span className="flex justify-center text-xs">{student.name}</span>
         </div>
     );
