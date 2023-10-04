@@ -7,12 +7,13 @@ import Link from "next/link";
 const defaultRole = {
     color: "#000000",
     name: "Sin rol",
-    icon: "/images/default.svg",
+    icon: "/images/default-role.svg",
 }
 
 const StudentsItem = ({ student }: { student: StudentType }) => {
     if (student.roles.length == 0) return null;
-    const role = roles[student.roles[0]!.name] ?? defaultRole;
+    console.log(student.roles[0]!.name)
+    const role = roles[student.roles[0]!.name.toLowerCase()] ?? defaultRole;
 
     const roleClass = "bg-role-" + role.name;
     const roleSvg = role.icon ?? "/images/default-role.svg";
