@@ -11,6 +11,7 @@ import "~/styles/tracking.css"
 const Page = () => {
     const { fetchProjects } = useProjects();
     const [modalOpen, setModalOpen] = useState(false);
+    const [searchedStudents, setSearchedStudents] = useState<number[]>([]);
 
     // Queries
     const {
@@ -25,16 +26,27 @@ const Page = () => {
 
     const filterProjects = (search: string) => {
         if (!projects) return;
+        if (search === "") { // Reset
+            setFilteredProjects(projects);
+            setSearchedStudents([]);
+            return;
+        };
 
-        // console.log(projects);
-
+        setSearchedStudents([]);
+        const searchStudents: number[] = []; // Array of students ids
         const filtered = projects.filter((project) => {
             const name = project.title.toLowerCase();
-            // const category = project.category.toLowerCase();
-
-            // return name.includes(search) || category.includes(search);
-            return name.includes(search);
+            let hasStudent = false;
+            project.students.forEach(student => {
+                if (student.name.toLowerCase().includes(search.toLowerCase())) { 
+                    searchStudents.push(student.id)
+                    hasStudent = true;
+                }
+            });
+            return name.includes(search) || hasStudent;
         });
+
+        setSearchedStudents(searchStudents);
         setFilteredProjects(filtered);
     };
 
@@ -75,7 +87,11 @@ const Page = () => {
                 {!isLoading &&
                     !isError &&
                     filteredProjects.map((project) => (
-                        <ProjectCard project={project} key={project.id} />
+                        <ProjectCard 
+                            project={project} 
+                            key={project.id} 
+                            searchedStudents={searchedStudents} 
+                        />
                     ))}
             </div>  
         </>
