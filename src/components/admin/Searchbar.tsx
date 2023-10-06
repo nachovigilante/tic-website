@@ -1,7 +1,14 @@
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useRef, Dispatch } from "react";
 import useTextManipulation from "~/hooks/utils/useTextManipulation";
 import filters from "~/data/filters";
+import { type ActionType } from "~/hooks/utils/useFilters";
+
+type SearchbarProps = {
+    onChange: (s: string) => void;
+    filterDispatch: Dispatch<ActionType>
+};
+
 
 const FilterButton = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -11,7 +18,7 @@ const FilterButton = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-const FilterInput = ({ onChange }: { onChange: (s: string) => void }) => {
+const FilterInput = ({ onChange, filterDispatch }: SearchbarProps) => {
     const textRef = useRef(null);
     const { insertSpan, replageNodeWithTextNode } = useTextManipulation();
 
@@ -38,6 +45,8 @@ const FilterInput = ({ onChange }: { onChange: (s: string) => void }) => {
         const target = e.currentTarget;
 
         if (node.parentElement!.nodeName === "SPAN") {
+            // Removes filter
+            filterDispatch({type: "REMOVE", payload: node.nodeValue!.toLowerCase()});
             replageNodeWithTextNode(node, target);
         } else if (node.nodeName === "#text") {
             const text = window.getSelection()!.anchorNode!.textContent;
@@ -47,6 +56,8 @@ const FilterInput = ({ onChange }: { onChange: (s: string) => void }) => {
                 const regex = new RegExp(`\\b${filter.name}\\b`, "gi");
                 const match = text.search(regex);
                 if (match === -1) return;
+                // Inserts filter 
+                filterDispatch({type: "ADD", payload: filter.name});
                 insertSpan(e.currentTarget, node, match, filter);
             });
         }
@@ -65,7 +76,7 @@ const FilterInput = ({ onChange }: { onChange: (s: string) => void }) => {
     );
 };
 
-const SearchBar = ({ onChange }: { onChange: (s: string) => void }) => {
+const SearchBar = ({ onChange, filterDispatch }: SearchbarProps) => {
     return (
         <div 
             className="flex bg-black rounded-xl w-[60%] px-3 py-2 space-x-3 shadow-md"        >
@@ -76,7 +87,7 @@ const SearchBar = ({ onChange }: { onChange: (s: string) => void }) => {
                     width={21}
                     height={21}
                 />
-                <FilterInput onChange={onChange} />
+                <FilterInput onChange={onChange} filterDispatch={filterDispatch}  />
             </div>
             <div>
                 <FilterButton>

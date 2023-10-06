@@ -31,7 +31,7 @@ const useTextManipulation = () => {
             const text = target.childNodes[nodeIndex]!.textContent;
 
             const textBefore = text!.slice(0, index) + " ";
-            const textAfter = "\u00A0" + text!.slice(index + 2);
+            const textAfter = "\u00A0" + text!.slice(index + filter.name.length);
 
             nodesBefore.push(document.createTextNode(textBefore));
 
