@@ -8,11 +8,11 @@ const defaultRole = {
     color: "#000000",
     name: "Sin rol",
     icon: "/images/default-role.svg",
-}
+};
 
 const StudentsItem = ({ student }: { student: StudentType }) => {
     if (student.roles.length == 0) return null;
-    console.log(student.roles[0]!.name)
+    //console.log(student.roles[0]!.name);
     const role = roles[student.roles[0]!.name.toLowerCase()] ?? defaultRole;
 
     const roleClass = "bg-role-" + role.name;
@@ -20,30 +20,40 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
     return (
         <div
             className={twMerge(
-                "flex flex-row items-center bg-fuchsia-400 rounded-md px-1 space-x-1 shadow-md",
+                "flex flex-row items-center space-x-1 rounded-md bg-fuchsia-400 px-1 shadow-md",
                 roleClass,
             )}
         >
-            <Image src={roleSvg} alt={role.name ?? "Sin rol"} width={24} height={24} />
-            <span className="flex justify-center text-xs">{student.name}</span>
+            <Image
+                src={roleSvg}
+                alt={role.name ?? "Sin rol"}
+                width={24}
+                height={24}
+            />
+            <span className="flex justify-center text-xs">
+                {student.name + " " + student.lastName}
+            </span>
         </div>
     );
 };
 
 const ProjectCard = ({ project }: { project: Project }) => {
-    const color = categories[project.categories[0]?.title.toLowerCase()]?.color ?? "#000000";
+    const color =
+        categories[project.categories[0]?.title.toLowerCase()]?.color ??
+        "#000000";
     return (
-        <div 
-            className="flex flex-col rounded-xl p-5 w-[15rem] gap-2 shadow-lg"
+        <div
+            className="flex w-[15rem] flex-col gap-2 rounded-xl p-5 shadow-lg"
             style={{ backgroundColor: color }}
         >
             <div className="flex justify-between">
-                <span className="text-[10px] no-ligature">
+                <span className="no-ligature text-[10px]">
                     {"</" +
-                        (project.areas.length > 0 ? project.areas[0].name : "?") +
+                        (project.areas.length > 0
+                            ? project.areas[0].name
+                            : "?") +
                         ">"}
                 </span>
-                
             </div>
             <Link href={`/admin/tracking/project/${project.id}`}>
                 <span className="text-xl font-bold">{project.title}</span>
@@ -51,11 +61,11 @@ const ProjectCard = ({ project }: { project: Project }) => {
             <Image src="/images/IARA.png" alt="IARA" width={200} height={200} />
             <div className="flex flex-col space-y-2">
                 {project.students.map((student) => (
-                    <StudentsItem student={student} key={student.name} />
+                    <StudentsItem student={student} key={student.id} />
                 ))}
             </div>
         </div>
     );
 };
-
+export { StudentsItem };
 export default ProjectCard;

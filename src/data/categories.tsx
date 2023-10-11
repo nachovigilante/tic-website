@@ -4,17 +4,17 @@ export type CategoryType = {
         name?: string;
         icon?: string;
     };
-}
+};
 
 export const categories: CategoryType = {
     ia: {
-        color: "#9FEA18"
+        color: "#9FEA18",
     },
-    satellite: { 
-        color: "#FF6C31"
+    satellite: {
+        color: "#FF6C31",
     },
     blockchain: {
-        color: "#390040"
+        color: "#390040",
     },
     videojuegos: {
         color: "2AB9FF",
@@ -26,17 +26,16 @@ export const categories: CategoryType = {
         color: "#ddb900",
     },
     "impacto social": {
-        color: "#8d3ccf"
+        color: "#8d3ccf",
     },
-}
+};
 
 export const roles: CategoryType = {
-    
     arte: {
         color: "#FF6C31",
         icon: "/images/arte.svg",
     },
-    "ui/ux": {
+    uxui: {
         color: "#FF6C31",
         icon: "/images/arte.svg",
     },
@@ -54,7 +53,18 @@ export const roles: CategoryType = {
     },
     frontend: {
         color: "#0094dd",
-        icon: "/images/frontend.png",
-    },  
-}
-
+        icon: "/images/frontend.svg",
+    },
+    backend: {
+        color: "#0094dd",
+        icon: "/images/sat.svg",
+    },
+    fullstack: {
+        color: "#0094dd",
+        icon: "/images/fullstack.svg",
+    },
+    po: {
+        color: "#ddb900",
+        icon: "/images/po.svg",
+    },
+};

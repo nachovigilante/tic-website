@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "react-query";
+import ProjectHeader from "~/components/admin/project/ProjectHeader";
 import { useProjects } from "~/hooks/api/useProjects";
 
 const Page = ({ params: { id } }: { params: { id: string } }) => {
@@ -15,10 +16,15 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
         queryFn: () => fetchProject(id),
     });
 
-    if (isLoading) return <div>Loading...</div>;
-    if (isError) return <div>Error</div>;
-
-    return <div>{project!.title}</div>;
+    return (
+        <>
+            {isLoading && <div>Loading...</div>}
+            {isError && <div>Error</div>}
+            {!isLoading && !isError && project && (
+                <ProjectHeader project={project} key={project.id} />
+            )}
+        </>
+    );
 };
 
 export default Page;

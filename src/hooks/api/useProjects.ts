@@ -6,24 +6,36 @@ export type RoleType = {
     name: string;
 };
 
+export type ClassesType = {
+    id: number;
+    year: number;
+    level: number;
+    division: string;
+};
+
 export type StudentType = {
     id: number;
     name: string;
-    lastname: string;
+    lastName: string;
     roles: RoleType[];
+    classes: ClassesType[];
 };
 
 export type Project = {
     id: number;
     title: string;
-    areas: [{
-        id: number;
-        name: string;
-    }];
-    categories: [{
-        id: number;
-        title: string;
-    }];
+    areas: [
+        {
+            id: number;
+            name: string;
+        },
+    ];
+    categories: [
+        {
+            id: number;
+            title: string;
+        },
+    ];
     description: string;
     students: StudentType[];
 };
@@ -43,10 +55,10 @@ export const useProjects = () => {
     const fetchProject = async (id: string) => {
         const data = await query<Project>(`projects/${id}`, accessToken);
         return data;
-    }
+    };
 
     return {
         fetchProjects,
-        fetchProject
+        fetchProject,
     };
 };
