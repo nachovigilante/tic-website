@@ -64,6 +64,10 @@
     .fade-bottom {
         mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
     }
+    
+    .fade-top {
+        mask-image: linear-gradient(to top, black 100%, transparent 0%);
+    }
 
     .scroll-sm {
         overflow-y: scroll;
@@ -73,6 +77,19 @@
 
     .theme-border {
         box-shadow: inset 0px 0px 0px 2px white;
+    }
+
+    .scroll-xs::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .scroll-xs::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    .scroll-xs::-webkit-scrollbar-thumb {
+        @apply bg-gray-500;
+        border-radius: 10px;
     }
 
     .scroll-sm::-webkit-scrollbar {
