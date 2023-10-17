@@ -39,9 +39,17 @@ export const roles: CategoryType = {
         color: "#FF6C31",
         icon: "/images/arte.svg",
     },
-    videojuegos: {
+    "game designer": {
         color: "#2AB9FF",
         icon: "/images/videojuegos.svg",
+    },
+    "game developer": {
+        color: "#2AB9FF",
+        icon: "/images/videojuegos.svg",
+    },
+    "3d designer": {
+        color: "#2AB9FF",
+        icon: "/images/3d.svg",
     },
     hardware: {
         color: "#390040",

@@ -21,6 +21,18 @@ export type StudentType = {
     classes: ClassesType[];
 };
 
+export type AssignmentType = {
+    id: number;
+    title: string;
+    description: string;
+    issueDate: Date;
+    deadline: Date;
+    secondDeadline: Date;
+    link: string;
+    individual: boolean;
+    students: StudentType[];
+};
+
 export type Project = {
     id: number;
     title: string;
@@ -38,6 +50,7 @@ export type Project = {
     ];
     description: string;
     students: StudentType[];
+    assignemts: AssignmentType[];
 };
 
 export const useProjects = () => {

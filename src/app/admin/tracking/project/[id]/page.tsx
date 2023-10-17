@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "react-query";
-import ProjectHeader from "~/components/admin/project/ProjectHeader";
+import Project from "~/components/admin/project/Project";
 import { useProjects } from "~/hooks/api/useProjects";
 
 const Page = ({ params: { id } }: { params: { id: string } }) => {
@@ -21,7 +21,7 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
             {isLoading && <div>Loading...</div>}
             {isError && <div>Error</div>}
             {!isLoading && !isError && project && (
-                <ProjectHeader project={project} key={project.id} />
+                <Project project={project} key={project.id} />
             )}
         </>
     );
