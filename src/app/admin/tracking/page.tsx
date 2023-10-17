@@ -6,7 +6,6 @@ import SearchBar from "~/components/admin/Searchbar";
 import { type Project, useProjects } from "~/hooks/api/useProjects";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import "~/styles/tracking.css"
 
 const Page = () => {
     const { fetchProjects } = useProjects();
@@ -45,8 +44,8 @@ const Page = () => {
     }, [projects]);
 
     // Scroll
-    let mainContainer = document.getElementById("main-container");
-    let target = document.getElementById("searchbar");
+    const mainContainer = document.getElementById("main-container");
+    const target = document.getElementById("searchbar");
     
     mainContainer?.addEventListener("scroll", () => {
         if (!target || !mainContainer) return;

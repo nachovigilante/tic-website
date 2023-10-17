@@ -55,7 +55,7 @@ const NoteItem = ({ title, content }: { title: string; content: string }) => {
     );
 };
 
-const Timeline = () => {
+const Timeline = ({ className }: { className?: string }) => {
     const scroll = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
@@ -71,7 +71,10 @@ const Timeline = () => {
     return (
         <div
             ref={scroll}
-            className="w-[460px] max-h-[500px] overflow-y-auto overflow-x-hidden grid grid-cols-[1fr_30fr] scroll-xs relative"
+            className={twMerge(
+                "w-[470px] max-h-[450px] overflow-y-auto overflow-x-hidden grid grid-cols-[1fr_30fr] scroll-xs relative",
+                className,
+            )}
         >
             <div className="left-[33px] h-[calc(100%-80px)] relative bg-gray-500 w-[4px] mt-10 " />
             <ul className="flex flex-col gap-6 relative">

@@ -15,7 +15,7 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
     //console.log(student.roles[0]!.name);
     const role = roles[student.roles[0]!.name.toLowerCase()] ?? defaultRole;
 
-    const roleClass = "bg-role-" + role.name;
+    const roleClass = "bg-role-" + (role.name as string);
     const roleSvg = role.icon ?? "/images/default-role.svg";
     return (
         <div

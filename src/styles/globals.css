@@ -54,6 +54,20 @@
     .input {
         @apply bg-white/10 rounded-md p-3 placeholder:text-white/30 outline-none font-space font-medium;
     }
+
+    .fixed-searchbar {
+        position: absolute;
+        background-color: #45249d;
+        margin-left: -3.5rem;
+        margin-top: -3.5rem;
+        padding: 0.75rem;
+    }
+
+    .project-card {
+        background-color: #00000085;
+        margin: 0.5rem;
+        padding: 1.5rem;
+    }
 }
 
 @layer utilities {
@@ -69,20 +83,16 @@
         mask-image: linear-gradient(to top, black 0%, transparent 100%);
     }
 
-    .scroll-sm {
-        overflow-y: scroll;
-        scrollbar-width: thin;
-        scrollbar-color: #020116 transparent;
-    }
-
+    
     .theme-border {
         box-shadow: inset 0px 0px 0px 2px white;
     }
-
+    
     .scroll-xs::-webkit-scrollbar {
         width: 5px;
+        height: 5px;
     }
-
+    
     .scroll-xs::-webkit-scrollbar-track {
         background-color: transparent;
     }
@@ -90,6 +100,12 @@
     .scroll-xs::-webkit-scrollbar-thumb {
         @apply bg-gray-500;
         border-radius: 10px;
+    }
+
+    .scroll-sm {
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: #020116 transparent;
     }
 
     .scroll-sm::-webkit-scrollbar {

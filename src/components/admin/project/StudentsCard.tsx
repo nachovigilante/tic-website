@@ -1,7 +1,6 @@
 import { StudentType } from "~/hooks/api/useProjects";
 import { twMerge } from "tailwind-merge";
 import { roles } from "~/data/categories";
-import "~/styles/tracking.css";
 import Image from "next/image";
 
 const StudentsCard = ({ students }: { students: StudentType[] }) => {
@@ -13,11 +12,8 @@ const StudentsCard = ({ students }: { students: StudentType[] }) => {
                         {students.map(
                             (student, index) =>
                                 index < 3 && (
-                                    <div>
-                                        <StudentsItem
-                                            student={student}
-                                            key={student.id}
-                                        />
+                                    <div key={student.id}>
+                                        <StudentsItem student={student} />
                                     </div>
                                 ),
                         )}
@@ -26,11 +22,8 @@ const StudentsCard = ({ students }: { students: StudentType[] }) => {
                         {students.map(
                             (student, index) =>
                                 index >= 3 && (
-                                    <div>
-                                        <StudentsItem
-                                            student={student}
-                                            key={student.id}
-                                        />
+                                    <div key={student.id}>
+                                        <StudentsItem student={student} />
                                     </div>
                                 ),
                         )}
@@ -42,11 +35,8 @@ const StudentsCard = ({ students }: { students: StudentType[] }) => {
                         {students.map(
                             (student, index) =>
                                 index < 4 && (
-                                    <div>
-                                        <StudentsItem
-                                            student={student}
-                                            key={student.id}
-                                        />
+                                    <div key={student.id}>
+                                        <StudentsItem student={student} />
                                     </div>
                                 ),
                         )}
@@ -55,11 +45,8 @@ const StudentsCard = ({ students }: { students: StudentType[] }) => {
                         {students.map(
                             (student, index) =>
                                 index >= 4 && (
-                                    <div>
-                                        <StudentsItem
-                                            student={student}
-                                            key={student.id}
-                                        />
+                                    <div key={student.id}>
+                                        <StudentsItem student={student} />
                                     </div>
                                 ),
                         )}
@@ -83,7 +70,7 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
         roles[student.roles[0]!.name.toLowerCase().replace("/", "")] ??
         defaultRole;
 
-    const roleClass = "bg-role-" + role.name;
+    const roleClass = "bg-role-" + (role.name as string);
     const roleSvg = role.icon ?? "/images/default-role.svg";
     return (
         <div
@@ -94,9 +81,7 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
         >
             {student.classes && student.classes[0] && (
                 <p>
-                    {student.classes[0].level +
-                        "°" +
-                        student.classes[0].division}
+                    {`${student.classes[0].level}° ${student.classes[0].division}`}
                 </p>
             )}
 
