@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 type ItemProps =
@@ -55,8 +56,23 @@ const NoteItem = ({ title, content }: { title: string; content: string }) => {
 };
 
 const Timeline = () => {
+    const scroll = useRef<HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+        const element = scroll.current;
+        element?.scrollTo({
+            top: element.scrollHeight,
+            behavior: "smooth",
+        });
+    };
+
+    if (scroll.current) scrollToBottom();
+
     return (
-        <div className="w-[460px] max-h-[500px] overflow-y-auto overflow-x-hidden grid grid-cols-[1fr_30fr] scroll-xs relative">
+        <div
+            ref={scroll}
+            className="w-[460px] max-h-[500px] overflow-y-auto overflow-x-hidden grid grid-cols-[1fr_30fr] scroll-xs relative"
+        >
             <div className="left-[33px] h-[calc(100%-80px)] relative bg-gray-500 w-[4px] mt-10 " />
             <ul className="flex flex-col gap-6 relative">
                 <NoteItem title="Primera entrega" content="Login, Register" />
