@@ -1,7 +1,7 @@
 import { Project } from "~/hooks/api/useProjects";
 import StudentsCard from "./StudentsCard";
 import ProjectCard from "./ProjectCard";
-import ProjectAssignemts from "./ProjectTasks";
+import ProjectAssignemts from "./ProjectAssignments";
 import Timeline from "../Timeline";
 import { twMerge } from "tailwind-merge";
 import { useState } from "react";
@@ -35,22 +35,22 @@ const ProjectBody = ({ project }: { project: Project }) => {
             )}
             <div
                 className={twMerge(
-                    "project-card rounded-xl max-w-full",
+                    "project-card max-w-full rounded-xl",
                     "pt-0",
                 )}
             >
-                <div className="py-5 flex justify-between">
+                <div className="flex justify-between py-5">
                     <h2 className="text-xl">Notas</h2>
                     <div
                         onClick={() => setExpanded((e) => !e)}
-                        className="rounded-full h-10 w-10 flex justify-center items-center bg-white/10 cursor-pointer"
+                        className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10"
                     />
                 </div>
-                <div className="pb-4 pr-4 flex items-center">
+                <div className="flex items-center pb-4 pr-4">
                     <Timeline className="mb-10" />
                     <div className="w-8 border-r-2 border-gray-500" />
                     {expanded && (
-                        <div className="flex basis-[500px] gap-10 overflow-x-auto scroll-xs flex-grow pb-10">
+                        <div className="scroll-xs flex flex-grow basis-[500px] gap-10 overflow-x-auto pb-10">
                             <div className="w-[550px] px-10">
                                 <Timeline />
                             </div>

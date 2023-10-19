@@ -30,6 +30,7 @@ export type AssignmentType = {
     secondDeadline: Date;
     link: string;
     individual: boolean;
+    completed: Date;
     students: StudentType[];
 };
 
@@ -50,7 +51,7 @@ export type Project = {
     ];
     description: string;
     students: StudentType[];
-    assignemts: AssignmentType[];
+    assignments: AssignmentType[];
 };
 
 export const useProjects = () => {
