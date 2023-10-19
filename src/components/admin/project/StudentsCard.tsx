@@ -81,7 +81,7 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
         >
             {student.classes && student.classes[0] && (
                 <p>
-                    {`${student.classes[0].level}° ${student.classes[0].division}`}
+                    {`${student.classes[0].level}°${student.classes[0].division}`}
                 </p>
             )}
 

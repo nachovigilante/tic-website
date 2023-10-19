@@ -1,10 +1,10 @@
 import { Project } from "~/hooks/api/useProjects";
 import StudentsCard from "./StudentsCard";
 import ProjectCard from "./ProjectCard";
-import ProjectAssignemts from "./ProjectTasks";
 import Timeline, { Grade, Note } from "../Timeline";
 import { twMerge } from "tailwind-merge";
 import { useState } from "react";
+import ProjectAssignemts from "./ProjectAssignments";
 
 const Project = ({ project }: { project: Project }) => {
     console.log(project);
@@ -102,7 +102,7 @@ const ProjectBody = ({ project }: { project: Project }) => {
                     <h2 className="text-xl">Notas</h2>
                     <div
                         onClick={() => setExpanded((e) => !e)}
-                        className="rounded-full h-10 w-10 flex justify-center items-center bg-white/10 cursor-pointer"
+                        className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10"
                     />
                 </div>
                 <div
