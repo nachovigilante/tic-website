@@ -2,74 +2,84 @@ import { Project } from "~/hooks/api/useProjects";
 import Assignemt from "../Assignment";
 import { ReactNode, useRef } from "react";
 
-const Masonry = ({ children }: { children: ReactNode }) => {
-    const col1 = useRef<HTMLDivElement>(null);
-    const col2 = useRef<HTMLDivElement>(null);
-    const col3 = useRef<HTMLDivElement>(null);
+const MasonryColumn = ({ children }: { children: ReactNode }) => {
+    return <div className="flex gap-4 flex-col justify-start">{children}</div>;
+};
 
-    const cols = [col1, col2, col3];
-
-    if (children && col1 && col2 && col3) {
-        Array.from(children as Iterable<ReactNode>).forEach(
-            async (child, i) => {
-                if (!(child instanceof Promise)) {
-                    cols[i % 3]!.current?.appendChild(child as Node);
-                } else {
-                    const resolvedChild = await child;
-                    cols[i % 3]!.current?.appendChild(resolvedChild as Node);
-                }
-            },
-        );
-    }
+const Masonry = ({
+    children,
+    cols = 3,
+}: {
+    children: ReactNode;
+    cols: number;
+}) => {
+    const childrenArray = Array.from(children as Iterable<ReactNode>).flat();
+    console.log(childrenArray);
 
     return (
-        <div className="grid w-full grid-cols-3 gap-4">
-            <div ref={col1} className="flex flex-col gap-4" />
-            <div ref={col2} className="flex flex-col gap-4" />
-            <div ref={col3} className="flex flex-col gap-4" />
+        <div className="grid w-full grid-cols-3 gap-4 max-h-full overflow-y-auto scroll-xs pr-3">
+            {Array.from({ length: cols }).map((_, i) => (
+                <MasonryColumn key={i}>
+                    {childrenArray
+                        .filter((_, idx) => idx % cols === i)
+                        .map((child) => (
+                            <>{child}</>
+                        ))}
+                </MasonryColumn>
+            ))}
         </div>
     );
 };
 
 const ProjectAssignemts = ({ project }: { project: Project }) => {
     return (
-        <div className="project-card flex-grow rounded-xl">
-            <Masonry>
+        <div className="project-card flex-grow rounded-xl pr-4">
+            <Masonry cols={3}>
                 {project.assignments &&
-                    project.assignments.map((assignment) => (
-                        <Assignemt
-                            assignment={assignment}
-                            key={assignment.id}
-                        />
-                    ))}
+                    project.assignments
+                        .sort((a, b) => -1)
+                        .map((assignment) => (
+                            <Assignemt
+                                assignment={assignment}
+                                key={assignment.id}
+                            />
+                        ))}
                 {project.assignments &&
-                    project.assignments.map((assignment) => (
-                        <Assignemt
-                            assignment={assignment}
-                            key={assignment.id}
-                        />
-                    ))}
+                    project.assignments
+                        .sort((a, b) => -1)
+                        .map((assignment) => (
+                            <Assignemt
+                                assignment={assignment}
+                                key={assignment.id}
+                            />
+                        ))}
                 {project.assignments &&
-                    project.assignments.map((assignment) => (
-                        <Assignemt
-                            assignment={assignment}
-                            key={assignment.id}
-                        />
-                    ))}
+                    project.assignments
+                        .sort((a, b) => -1)
+                        .map((assignment) => (
+                            <Assignemt
+                                assignment={assignment}
+                                key={assignment.id}
+                            />
+                        ))}
                 {project.assignments &&
-                    project.assignments.map((assignment) => (
-                        <Assignemt
-                            assignment={assignment}
-                            key={assignment.id}
-                        />
-                    ))}
+                    project.assignments
+                        .sort((a, b) => -1)
+                        .map((assignment) => (
+                            <Assignemt
+                                assignment={assignment}
+                                key={assignment.id}
+                            />
+                        ))}
                 {project.assignments &&
-                    project.assignments.map((assignment) => (
-                        <Assignemt
-                            assignment={assignment}
-                            key={assignment.id}
-                        />
-                    ))}
+                    project.assignments
+                        .sort((a, b) => -1)
+                        .map((assignment) => (
+                            <Assignemt
+                                assignment={assignment}
+                                key={assignment.id}
+                            />
+                        ))}
             </Masonry>
         </div>
     );

@@ -37,7 +37,7 @@ const config = {
                 teal: "#02C2A1",
                 red: "#CC2624",
                 green: "#3b8952",
-                "green-transparen": "#49ff6766",
+                "green-transparent": "#49ff6766",
                 "grade-yellow": "#d2a218",
                 "dark-blue": "#0c043f",
                 "button-grey": "#292929",
