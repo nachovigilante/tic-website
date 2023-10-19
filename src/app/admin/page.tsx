@@ -1,5 +1,6 @@
 "use client";
 
+import Timeline from "~/components/admin/Timeline";
 import useLogin from "~/hooks/auth/useLogin";
 
 const Page = () => {
