@@ -15,7 +15,7 @@ const Assignemt = ({ assignment }: { assignment: AssignmentType }) => {
         <div
             className={twMerge(
                 "flex h-auto min-h-[70px] w-full flex-col items-start justify-center rounded-xl bg-white/10 px-6 py-4 text-xl font-normal",
-                assignment.completed && "bg-green",
+                assignment.completed && "bg-green-transparent",
             )}
         >
             <div className="flex flex-row gap-4">
