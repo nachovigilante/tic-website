@@ -10,9 +10,16 @@ const Masonry = ({ children }: { children: ReactNode }) => {
     const cols = [col1, col2, col3];
 
     if (children && col1 && col2 && col3) {
-        Array.from(children as Iterable<ReactNode>).forEach((child, i) => {
-            cols[i % 3]!.current?.appendChild(child as Node);
-        });
+        Array.from(children as Iterable<ReactNode>).forEach(
+            async (child, i) => {
+                if (!(child instanceof Promise)) {
+                    cols[i % 3]!.current?.appendChild(child as Node);
+                } else {
+                    const resolvedChild = await child;
+                    cols[i % 3]!.current?.appendChild(resolvedChild as Node);
+                }
+            },
+        );
     }
 
     return (
