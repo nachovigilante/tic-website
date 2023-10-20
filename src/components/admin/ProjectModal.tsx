@@ -5,21 +5,15 @@ const ProjectModal = ({
     isOpen,
     onClose,
     project,
-    close,
 }: {
     isOpen: boolean;
     onClose?: () => void;
     project: Project | undefined;
-    close: () => void;
 }) => {
     if (!project) return <div>Loading...</div>;
 
     return (
-        <Modal
-            title={project.title}
-            isOpen={isOpen}
-            close={close}
-        >
+        <Modal title={project.title} isOpen={isOpen} onClose={close}>
             <div>Project Info</div>
         </Modal>
     );

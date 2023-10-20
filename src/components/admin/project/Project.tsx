@@ -6,21 +6,22 @@ import { twMerge } from "tailwind-merge";
 import { useState } from "react";
 import ProjectAssignemts from "./ProjectAssignments";
 
-const Project = ({ project }: { project: Project }) => {
-    console.log(project);
-    return (
-        <div className="max-h-full overflow-hidden">
-            <ProjectHeader project={project} key={project.id} />
-            <ProjectBody project={project} key={project.id} />
-        </div>
-    );
-};
-
-const ProjectHeader = ({ project }: { project: Project }) => {
+export const ProjectHeader = ({
+    project,
+    onStudentClick,
+}: {
+    project: Project;
+    onStudentClick: (student: StudentType) => void;
+}) => {
     return (
         <div className="mb4 flex">
             <ProjectCard project={project} key={project.id} />
-            {project.students && <StudentsCard students={project.students} />}
+            {project.students && (
+                <StudentsCard
+                    onStudentClick={onStudentClick}
+                    students={project.students}
+                />
+            )}
         </div>
     );
 };
@@ -29,13 +30,18 @@ const StudentTimeLine = ({
     notes,
     grades,
     student,
+    onStudentClick,
 }: {
     notes: Note[];
     grades: Grade[];
     student: StudentType;
+    onStudentClick: (student: StudentType) => void;
 }) => {
     return (
-        <div className="rounded-xl bg-white/10 p-5 flex flex-col overflow-y-auto items-center gap-4 h-fit min-w-[120px]">
+        <div
+            className="rounded-xl bg-white/10 p-5 flex flex-col items-center gap-4 h-fit min-w-[120px] cursor-pointer"
+            onClick={() => onStudentClick(student)}
+        >
             <div className="flex flex-col justify-center items-center">
                 <div className="rounded-full h-12 w-12 border border-white mb-1" />
                 <span>{student.name.split(" ")[0]}</span>
@@ -46,53 +52,18 @@ const StudentTimeLine = ({
     );
 };
 
-const ProjectBody = ({ project }: { project: Project }) => {
+export const ProjectBody = ({
+    project,
+    notes,
+    grades,
+    onStudentClick,
+}: {
+    project: Project;
+    notes: Note[];
+    grades: Grade[];
+    onStudentClick: (student: StudentType) => void;
+}) => {
     const [expanded, setExpanded] = useState(false);
-    const notes = [
-        {
-            title: "Primera entrega",
-            content: "Login, Register",
-            issueDate: new Date("2023-03-01"),
-        },
-        {
-            title: "Segunda entrega",
-            content: "Login, Register",
-            issueDate: new Date("2023-05-01"),
-        },
-        {
-            title: "Tercera entrega",
-            content: "Login, Register",
-            issueDate: new Date("2023-07-01"),
-        },
-        {
-            title: "Última entrega",
-            content: "Login, Register",
-            issueDate: new Date("2023-09-01"),
-        },
-    ] as Note[];
-
-    const grades = [
-        {
-            grade: "A",
-            title: "1° Bimestre",
-            issueDate: new Date("2023-04-01"),
-        },
-        {
-            grade: "4",
-            title: "2° Bimestre",
-            issueDate: new Date("2023-06-01"),
-        },
-        {
-            grade: "S",
-            title: "3° Bimestre",
-            issueDate: new Date("2023-08-01"),
-        },
-        {
-            grade: "7",
-            title: "4° Bimestre",
-            issueDate: new Date("2023-10-01"),
-        },
-    ] as Grade[];
 
     return (
         <div className="mb4 flex max-h-[550px]">
@@ -120,7 +91,7 @@ const ProjectBody = ({ project }: { project: Project }) => {
                 >
                     {expanded && (
                         <>
-                            <div className="flex basis-[500px] gap-10 overflow-x-auto scroll-xs flex-grow mb-5 px-5 justify-center items-center">
+                            <div className="flex basis-[500px] gap-5 overflow-x-auto scroll-xs flex-grow mb-5 px-5 justify-center items-center">
                                 {project.students &&
                                     project.students.map((student) => (
                                         <StudentTimeLine
@@ -128,6 +99,7 @@ const ProjectBody = ({ project }: { project: Project }) => {
                                             notes={notes}
                                             grades={grades}
                                             key={student.id}
+                                            onStudentClick={onStudentClick}
                                         />
                                     ))}
                             </div>
@@ -140,5 +112,3 @@ const ProjectBody = ({ project }: { project: Project }) => {
         </div>
     );
 };
-
-export default Project;

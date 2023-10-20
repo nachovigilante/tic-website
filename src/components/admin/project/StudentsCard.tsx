@@ -3,7 +3,13 @@ import { twMerge } from "tailwind-merge";
 import { roles } from "~/data/categories";
 import Image from "next/image";
 
-const StudentsCard = ({ students }: { students: StudentType[] }) => {
+const StudentsCard = ({
+    students,
+    onStudentClick,
+}: {
+    students: StudentType[];
+    onStudentClick: (student: StudentType) => void;
+}) => {
     return (
         <div className="project-card flex w-2/5 flex-col justify-center gap-2 rounded-xl">
             {students.length === 5 ? (
@@ -13,7 +19,10 @@ const StudentsCard = ({ students }: { students: StudentType[] }) => {
                             (student, index) =>
                                 index < 3 && (
                                     <div key={student.id}>
-                                        <StudentsItem student={student} />
+                                        <StudentsItem
+                                            onStudentClick={onStudentClick}
+                                            student={student}
+                                        />
                                     </div>
                                 ),
                         )}
@@ -23,7 +32,10 @@ const StudentsCard = ({ students }: { students: StudentType[] }) => {
                             (student, index) =>
                                 index >= 3 && (
                                     <div key={student.id}>
-                                        <StudentsItem student={student} />
+                                        <StudentsItem
+                                            onStudentClick={onStudentClick}
+                                            student={student}
+                                        />
                                     </div>
                                 ),
                         )}
@@ -36,7 +48,10 @@ const StudentsCard = ({ students }: { students: StudentType[] }) => {
                             (student, index) =>
                                 index < 4 && (
                                     <div key={student.id}>
-                                        <StudentsItem student={student} />
+                                        <StudentsItem
+                                            onStudentClick={onStudentClick}
+                                            student={student}
+                                        />
                                     </div>
                                 ),
                         )}
@@ -46,7 +61,10 @@ const StudentsCard = ({ students }: { students: StudentType[] }) => {
                             (student, index) =>
                                 index >= 4 && (
                                     <div key={student.id}>
-                                        <StudentsItem student={student} />
+                                        <StudentsItem
+                                            onStudentClick={onStudentClick}
+                                            student={student}
+                                        />
                                     </div>
                                 ),
                         )}
@@ -63,7 +81,13 @@ const defaultRole = {
     icon: "/images/default-role.svg",
 };
 
-const StudentsItem = ({ student }: { student: StudentType }) => {
+const StudentsItem = ({
+    student,
+    onStudentClick,
+}: {
+    student: StudentType;
+    onStudentClick: (student: StudentType) => void;
+}) => {
     if (student.roles.length == 0) return null;
     console.log(student.roles[0]!.name.toLowerCase().replace("/", ""));
     const role =
@@ -75,9 +99,10 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
     return (
         <div
             className={twMerge(
-                "justify-left gaprounded-md flex items-center space-x-2 px-1",
+                "justify-left gaprounded-md flex items-center space-x-2 px-2 cursor-pointer hover:bg-white/10 rounded-md active:bg-white/20",
                 roleClass,
             )}
+            onClick={() => onStudentClick(student)}
         >
             {student.classes && student.classes[0] && (
                 <p>
