@@ -33,7 +33,7 @@ const StudentTimeLine = ({
     grades: Grade[];
 }) => {
     return (
-        <div className="rounded-md bg-white/10 p-5 flex flex-col overflow-y-auto">
+        <div className="rounded-xl bg-white/10 p-5 flex flex-col overflow-y-auto items-center gap-4 h-fit">
             <div className="flex flex-col items-center">
                 <div className="rounded-full h-12 w-12 border border-white" />
                 <span>Nombre</span>
@@ -97,7 +97,12 @@ const ProjectBody = ({ project }: { project: Project }) => {
             {!expanded && (
                 <ProjectAssignemts project={project} key={project.id} />
             )}
-            <div className="project-card rounded-xl max-w-full pt-0">
+            <div
+                className={twMerge(
+                    "project-card rounded-xl max-w-full pt-0",
+                    expanded && "w-full",
+                )}
+            >
                 <div className="py-5 flex justify-between">
                     <h2 className="text-xl">Notas</h2>
                     <div
@@ -113,7 +118,7 @@ const ProjectBody = ({ project }: { project: Project }) => {
                 >
                     {expanded && (
                         <>
-                            <div className="flex basis-[500px] gap-10 overflow-x-auto scroll-xs flex-grow mb-5">
+                            <div className="flex basis-[500px] gap-10 overflow-x-auto scroll-xs flex-grow mb-5 px-5 justify-center items-center">
                                 <StudentTimeLine
                                     notes={notes}
                                     grades={grades}

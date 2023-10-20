@@ -105,7 +105,7 @@ const Timeline = ({
             className={twMerge(
                 "w-[370px] overflow-y-auto overflow-x-hidden grid grid-cols-[1fr_30fr] scroll-xs relative",
                 className,
-                size === "small" && "w-[50px]",
+                size === "small" && "w-[55px]",
             )}
         >
             <div
@@ -119,7 +119,7 @@ const Timeline = ({
                     "grade" in item ? (
                         <GradeItem g={item} key={i} size={size} />
                     ) : (
-                        <NoteItem n={item} key={i} size={size} />
+                        size === "large" && <NoteItem n={item} key={i} size={size} />
                     ),
                 )}
             </ul>

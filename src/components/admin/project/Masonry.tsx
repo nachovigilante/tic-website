@@ -8,7 +8,6 @@ export const Masonry = ({
     cols?: number;
 }) => {
     const childrenArray = Array.from(children as Iterable<ReactNode>).flat();
-    console.log(childrenArray);
 
     return (
         <div className="grid w-full grid-cols-3 gap-4 max-h-full overflow-y-auto scroll-xs pr-3">
