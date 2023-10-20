@@ -1,4 +1,4 @@
-import { Project } from "~/hooks/api/useProjects";
+import { Project, StudentType } from "~/hooks/api/useProjects";
 import StudentsCard from "./StudentsCard";
 import ProjectCard from "./ProjectCard";
 import Timeline, { Grade, Note } from "../Timeline";
@@ -28,16 +28,18 @@ const ProjectHeader = ({ project }: { project: Project }) => {
 const StudentTimeLine = ({
     notes,
     grades,
+    student,
 }: {
     notes: Note[];
     grades: Grade[];
+    student: StudentType;
 }) => {
     return (
         <div className="rounded-xl bg-white/10 p-5 flex flex-col overflow-y-auto items-center gap-4 h-fit">
-            <div className="flex flex-col items-center">
-                <div className="rounded-full h-12 w-12 border border-white" />
-                <span>Nombre</span>
-                <span>Apellido</span>
+            <div className="flex flex-col justify-center items-center">
+                <div className="rounded-full h-12 w-12 border border-white mb-1" />
+                <span>{student.name.split(" ")[0]}</span>
+                <span>{student.lastName}</span>
             </div>
             <Timeline notes={notes} grades={grades} size="small" />
         </div>
@@ -119,26 +121,15 @@ const ProjectBody = ({ project }: { project: Project }) => {
                     {expanded && (
                         <>
                             <div className="flex basis-[500px] gap-10 overflow-x-auto scroll-xs flex-grow mb-5 px-5 justify-center items-center">
-                                <StudentTimeLine
-                                    notes={notes}
-                                    grades={grades}
-                                />
-                                <StudentTimeLine
-                                    notes={notes}
-                                    grades={grades}
-                                />
-                                <StudentTimeLine
-                                    notes={notes}
-                                    grades={grades}
-                                />
-                                <StudentTimeLine
-                                    notes={notes}
-                                    grades={grades}
-                                />
-                                <StudentTimeLine
-                                    notes={notes}
-                                    grades={grades}
-                                />
+                                {project.students &&
+                                    project.students.map((student) => (
+                                        <StudentTimeLine
+                                            student={student}
+                                            notes={notes}
+                                            grades={grades}
+                                            key={student.id}
+                                        />
+                                    ))}
                             </div>
                             <div className="w-8 border-r-2 border-gray-500/50 h-[400px] mr-5" />
                         </>

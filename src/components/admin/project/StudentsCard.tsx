@@ -91,7 +91,9 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
                 width={30}
                 height={30}
             />
-            <p className="truncate">{student.name + " " + student.lastName}</p>
+            <p className="truncate">{`${student.name.split(" ")[0]!} ${
+                student.lastName
+            }`}</p>
         </div>
     );
 };
