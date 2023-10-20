@@ -35,7 +35,7 @@ const StudentTimeLine = ({
     student: StudentType;
 }) => {
     return (
-        <div className="rounded-xl bg-white/10 p-5 flex flex-col overflow-y-auto items-center gap-4 h-fit">
+        <div className="rounded-xl bg-white/10 p-5 flex flex-col overflow-y-auto items-center gap-4 h-fit min-w-[120px]">
             <div className="flex flex-col justify-center items-center">
                 <div className="rounded-full h-12 w-12 border border-white mb-1" />
                 <span>{student.name.split(" ")[0]}</span>
