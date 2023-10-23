@@ -1,25 +1,21 @@
 import { Project, StudentType } from "~/hooks/api/useProjects";
-import StudentsCard from "./StudentsCard";
+import StudentsContainer from "./StudentsCard";
 import ProjectCard from "./ProjectCard";
 import Timeline, { Grade, Note } from "../Timeline";
 import { twMerge } from "tailwind-merge";
 import { useState } from "react";
-import ProjectAssignemts from "./ProjectAssignments";
+import ProjectAssignments from "./ProjectAssignments";
+import useFeaturedProject from "~/hooks/useFeaturedProject";
 
-export const ProjectHeader = ({
-    project,
-    onStudentClick,
-}: {
-    project: Project;
-    onStudentClick: (student: StudentType) => void;
-}) => {
+export const ProjectHeader = () => {
+    const { featuredProject } = useFeaturedProject();
+
     return (
         <div className="mb4 flex">
-            <ProjectCard project={project} key={project.id} />
-            {project.students && (
-                <StudentsCard
-                    onStudentClick={onStudentClick}
-                    students={project.students}
+            <ProjectCard />
+            {featuredProject && featuredProject.students && (
+                <StudentsContainer
+                    students={featuredProject.students}
                 />
             )}
         </div>
@@ -53,23 +49,20 @@ const StudentTimeLine = ({
 };
 
 export const ProjectBody = ({
-    project,
     notes,
     grades,
     onStudentClick,
 }: {
-    project: Project;
     notes: Note[];
     grades: Grade[];
     onStudentClick: (student: StudentType) => void;
 }) => {
     const [expanded, setExpanded] = useState(false);
+    const { featuredProject } = useFeaturedProject();
 
     return (
         <div className="mb4 flex max-h-[550px]">
-            {!expanded && (
-                <ProjectAssignemts project={project} key={project.id} />
-            )}
+            {!expanded && <ProjectAssignments />}
             <div
                 className={twMerge(
                     "project-card rounded-xl max-w-full pt-0",
@@ -89,11 +82,11 @@ export const ProjectBody = ({
                         expanded && "w-full",
                     )}
                 >
-                    {expanded && (
+                    {featuredProject && expanded && (
                         <>
                             <div className="flex basis-[500px] gap-5 overflow-x-auto scroll-xs flex-grow mb-5 px-5 justify-center items-center">
-                                {project.students &&
-                                    project.students.map((student) => (
+                                {featuredProject.students &&
+                                    featuredProject.students.map((student) => (
                                         <StudentTimeLine
                                             student={student}
                                             notes={notes}

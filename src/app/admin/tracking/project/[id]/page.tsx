@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { useQuery } from "react-query";
 import { Grade, Note } from "~/components/admin/Timeline";
 import { ProjectBody, ProjectHeader } from "~/components/admin/project/Project";
 import StudentTimelineModal from "~/components/admin/project/StudentTimeLineModal";
-import { StudentType, useProjects } from "~/hooks/api/useProjects";
+import { FeaturedProjectProvider } from "~/contexts/FeaturedProjectContext";
+import { Project, useProjects } from "~/hooks/api/useProjects";
+import useFeaturedProject from "~/hooks/useFeaturedProject";
 
 const notes = [
     {
@@ -55,8 +56,6 @@ const grades = [
 
 const Page = ({ params: { id } }: { params: { id: string } }) => {
     const { fetchProject } = useProjects();
-    const [modalOpen, setModalOpen] = useState(false);
-    const [featuredStudent, setFeaturedStudent] = useState<StudentType>();
 
     const {
         data: project,
@@ -72,36 +71,46 @@ const Page = ({ params: { id } }: { params: { id: string } }) => {
             {isLoading && <div>Loading...</div>}
             {isError && <div>Error</div>}
             {!isLoading && !isError && project && (
-                <>
-                    <div className="max-h-full overflow-hidden">
-                        <ProjectHeader
-                            project={project}
-                            key={project.id}
-                            onStudentClick={(student) => {
-                                setFeaturedStudent(student);
-                                setModalOpen(true);
-                            }}
-                        />
-                        <ProjectBody
-                            project={project}
-                            key={project.id}
-                            notes={notes}
-                            grades={grades}
-                            onStudentClick={(student) => {
-                                setFeaturedStudent(student);
-                                setModalOpen(true);
-                            }}
-                        />
-                    </div>
-                    <StudentTimelineModal
-                        notes={notes}
-                        grades={grades}
-                        student={featuredStudent || project.students[0]!}
-                        isOpen={modalOpen}
-                        onClose={() => setModalOpen(false)}
-                    />
-                </>
+                <FeaturedProjectProvider>
+                    <Project project={project} />
+                </FeaturedProjectProvider>
             )}
+        </>
+    );
+};
+
+const Project = ({ project }: { project: Project }) => {
+    const {
+        featuredProject,
+        setFeaturedProject,
+        featuredStudent,
+        setFeaturedStudent,
+        modalOpen,
+        setModalOpen,
+    } = useFeaturedProject();
+
+    setFeaturedProject(project);
+
+    return (
+        <>
+            <div className="max-h-full overflow-hidden">
+                <ProjectHeader />
+                <ProjectBody
+                    notes={notes}
+                    grades={grades}
+                    onStudentClick={(student) => {
+                        setFeaturedStudent(student);
+                        setModalOpen(true);
+                    }}
+                />
+            </div>
+            <StudentTimelineModal
+                notes={notes}
+                grades={grades}
+                student={featuredStudent || project.students[0]!}
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+            />
         </>
     );
 };
