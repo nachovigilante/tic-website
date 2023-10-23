@@ -2,10 +2,10 @@
 
 import { createContext, useState } from "react";
 import { useQuery } from "react-query";
-import { Project, StudentType, useProjects } from "~/hooks/api/useProjects";
+import { ProjectType, StudentType, useProjects } from "~/hooks/api/useProjects";
 
 type FeaturedProjectContextType = {
-    featuredProject: Project | undefined;
+    featuredProject: ProjectType | undefined;
     featuredStudent: StudentType | undefined;
     modalOpen: boolean;
     setModalOpen: (open: boolean) => void;

@@ -1,4 +1,4 @@
-import { Project, StudentType } from "~/hooks/api/useProjects";
+import { ProjectType, StudentType } from "~/hooks/api/useProjects";
 import StudentsContainer from "./StudentsCard";
 import ProjectCard from "./ProjectCard";
 import Timeline, { Grade, Note } from "../Timeline";
@@ -33,14 +33,14 @@ const StudentTimeLine = ({
 
     return (
         <div
-            className="rounded-xl bg-white/10 p-5 flex flex-col items-center gap-4 h-fit min-w-[120px] cursor-pointer"
+            className="flex h-fit min-w-[120px] cursor-pointer flex-col items-center gap-4 rounded-xl bg-white/10 p-5"
             onClick={() => {
                 setFeaturedStudent(student);
                 setModalOpen(true);
             }}
         >
-            <div className="flex flex-col justify-center items-center">
-                <div className="rounded-full h-12 w-12 border border-white mb-1" />
+            <div className="flex flex-col items-center justify-center">
+                <div className="mb-1 h-12 w-12 rounded-full border border-white" />
                 <span>{student.name.split(" ")[0]}</span>
                 <span>{student.lastName}</span>
             </div>
@@ -64,11 +64,11 @@ export const ProjectBody = ({
             {!expanded && <ProjectAssignments />}
             <div
                 className={twMerge(
-                    "project-card rounded-xl max-w-full pt-0",
+                    "project-card max-w-full rounded-xl pt-0",
                     expanded && "w-full",
                 )}
             >
-                <div className="py-5 flex justify-between">
+                <div className="flex justify-between py-5">
                     <h2 className="text-xl">Notas</h2>
                     <div
                         onClick={() => setExpanded((e) => !e)}
@@ -77,13 +77,13 @@ export const ProjectBody = ({
                 </div>
                 <div
                     className={twMerge(
-                        "pr-4 flex max-h-[450px] overflow-y-auto scroll-xs",
+                        "scroll-xs flex max-h-[450px] overflow-y-auto pr-4",
                         expanded && "w-full",
                     )}
                 >
                     {featuredProject && expanded && (
                         <>
-                            <div className="flex basis-[500px] gap-5 overflow-x-auto scroll-xs flex-grow mb-5 px-5 justify-center items-center">
+                            <div className="scroll-xs mb-5 flex flex-grow basis-[500px] items-center justify-center gap-5 overflow-x-auto px-5">
                                 {featuredProject.students &&
                                     featuredProject.students.map((student) => (
                                         <StudentTimeLine
@@ -94,7 +94,7 @@ export const ProjectBody = ({
                                         />
                                     ))}
                             </div>
-                            <div className="w-8 border-r-2 border-gray-500/50 h-[400px] mr-5" />
+                            <div className="mr-5 h-[400px] w-8 border-r-2 border-gray-500/50" />
                         </>
                     )}
                     <Timeline className="mb-10" notes={notes} grades={grades} />

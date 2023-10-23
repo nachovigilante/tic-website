@@ -34,18 +34,23 @@ export type AdminLinkType = {
 
 export const adminLinks = [
     {
-        name: "Seguimiento",
+        name: "Proyectos",
         path: "/admin/tracking",
-        svgPath: "/images/admin/seguimiento.svg",
+        svgPath: "/images/admin/people.svg",
+    },
+    {
+        name: "Tareas",
+        path: "/admin/assignments",
+        svgPath: "/images/admin/tasks.svg",
     },
     {
         name: "Notas",
         path: "/admin/notas",
-        svgPath: "/images/admin/notas.svg",
+        svgPath: "/images/admin/notebook.svg",
     },
     {
         name: "Asistencias",
         path: "/admin/asistencias",
-        svgPath: "/images/admin/asistencias.svg",
+        svgPath: "/images/admin/happy-face.svg",
     },
 ] as AdminLinkType[];

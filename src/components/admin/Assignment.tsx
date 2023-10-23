@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import { AssignmentType } from "~/hooks/api/useProjects";
+import { AssignmentType } from "~/hooks/api/useAssignments";
 
 const Assignemt = ({ assignment }: { assignment: AssignmentType }) => {
     if (assignment == null) return <></>;
@@ -18,7 +18,7 @@ const Assignemt = ({ assignment }: { assignment: AssignmentType }) => {
                 assignment.completed && "bg-green-transparent",
             )}
         >
-            <div className="flex flex-row gap-4">
+            <div className="flex w-full flex-row gap-4">
                 <Image
                     className="h-8 w-8 object-scale-down md:h-auto"
                     src={
@@ -30,8 +30,8 @@ const Assignemt = ({ assignment }: { assignment: AssignmentType }) => {
                     width={25}
                     height={25}
                 />
-                <div className="flex flex-col">
-                    <div className="flex w-full justify-between">
+                <div className="flex w-full flex-col">
+                    <div className="flex justify-between">
                         <h1 className="bold text-lg font-bold tracking-wider">
                             {assignment.title}
                         </h1>

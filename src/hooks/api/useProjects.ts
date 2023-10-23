@@ -1,5 +1,6 @@
 import useAuth from "../auth/useAuth";
 import useAPIQuery from "./useAPIQuery";
+import { AssignmentType } from "./useAssignments";
 
 export type RoleType = {
     id: number;
@@ -21,20 +22,7 @@ export type StudentType = {
     classes: ClassesType[];
 };
 
-export type AssignmentType = {
-    id: number;
-    title: string;
-    description: string;
-    issueDate: Date;
-    deadline: Date;
-    secondDeadline: Date;
-    link: string;
-    individual: boolean;
-    completed: Date;
-    students: StudentType[];
-};
-
-export type Project = {
+export type ProjectType = {
     id: number;
     title: string;
     areas: [
@@ -62,12 +50,12 @@ export const useProjects = () => {
     const { query } = useAPIQuery();
 
     const fetchProjects = async () => {
-        const data = await query<Project[]>(`projects`, accessToken);
+        const data = await query<ProjectType[]>(`projects`, accessToken);
         return data;
     };
 
     const fetchProject = async (id: string) => {
-        const data = await query<Project>(`projects/${id}`, accessToken);
+        const data = await query<ProjectType>(`projects/${id}`, accessToken);
         return data;
     };
 

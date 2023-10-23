@@ -1,4 +1,4 @@
-import { Project } from "~/hooks/api/useProjects";
+import { ProjectType } from "~/hooks/api/useProjects";
 import Assignemt from "../Assignment";
 import { Masonry } from "./Masonry";
 import useFeaturedProject from "~/hooks/useFeaturedProject";

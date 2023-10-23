@@ -3,7 +3,7 @@
 import React from "react";
 import ProjectCard from "~/components/admin/ProjectCard";
 import SearchBar from "~/components/admin/Searchbar";
-import { type Project, useProjects } from "~/hooks/api/useProjects";
+import { type ProjectType, useProjects } from "~/hooks/api/useProjects";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
@@ -18,7 +18,7 @@ const Page = () => {
         isError,
     } = useQuery({ queryKey: ["todos"], queryFn: fetchProjects });
 
-    const [filteredProjects, setFilteredProjects] = useState<Project[]>(
+    const [filteredProjects, setFilteredProjects] = useState<ProjectType[]>(
         projects || [],
     );
 
@@ -46,7 +46,7 @@ const Page = () => {
     // Scroll
     const mainContainer = document.getElementById("main-container");
     const target = document.getElementById("searchbar");
-    
+
     mainContainer?.addEventListener("scroll", () => {
         if (!target || !mainContainer) return;
         const scroll = mainContainer.scrollTop;
@@ -59,14 +59,14 @@ const Page = () => {
 
     return (
         <>
-            <div 
+            <div
                 className="w-full transition-all duration-500 ease-in-out"
                 id="searchbar"
             >
                 <SearchBar onChange={(s) => filterProjects(s)} />
             </div>
-            <div 
-                className="flex flex-row width-[100%] gap-10 flex-wrap pt-14"
+            <div
+                className="width-[100%] flex flex-row flex-wrap gap-10 pt-14"
                 id="card-container"
             >
                 {isLoading && <div>Loading...</div>}
@@ -76,7 +76,7 @@ const Page = () => {
                     filteredProjects.map((project) => (
                         <ProjectCard project={project} key={project.id} />
                     ))}
-            </div>  
+            </div>
         </>
     );
 };

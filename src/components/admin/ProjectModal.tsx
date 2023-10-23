@@ -1,4 +1,4 @@
-import { Project } from "~/hooks/api/useProjects";
+import { ProjectType } from "~/hooks/api/useProjects";
 import Modal from "../layout/Modal";
 
 const ProjectModal = ({
@@ -8,7 +8,7 @@ const ProjectModal = ({
 }: {
     isOpen: boolean;
     onClose?: () => void;
-    project: Project | undefined;
+    project: ProjectType | undefined;
 }) => {
     if (!project) return <div>Loading...</div>;
 

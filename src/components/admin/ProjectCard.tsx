@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import { type Project, type StudentType } from "~/hooks/api/useProjects";
+import { type ProjectType, type StudentType } from "~/hooks/api/useProjects";
 import { categories, roles } from "~/data/categories";
 import Link from "next/link";
 
@@ -37,7 +37,7 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
     );
 };
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const ProjectCard = ({ project }: { project: ProjectType }) => {
     const color =
         categories[project.categories[0]?.title.toLowerCase()]?.color ??
         "#000000";
