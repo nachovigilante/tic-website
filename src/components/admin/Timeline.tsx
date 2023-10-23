@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -80,10 +81,19 @@ const GradeItem = ({
                     >
                         <h2>{title}</h2>
                         <div
-                            className="cursor-pointer hover:bg-black/10 py-1 px-2 rounded-md"
+                            className="cursor-pointer hover:bg-black/10 p-1 rounded-md"
                             onClick={() => setExpanded(!expanded)}
                         >
-                            V
+                            <Image
+                                className={twMerge(
+                                    "transition-transform duration-300",
+                                    expanded && "rotate-180",
+                                )}
+                                src="/images/caret.svg"
+                                alt="caret"
+                                width={20}
+                                height={20}
+                            />
                         </div>
                     </div>
                 )}
