@@ -14,9 +14,7 @@ export const ProjectHeader = () => {
         <div className="mb4 flex">
             <ProjectCard />
             {featuredProject && featuredProject.students && (
-                <StudentsContainer
-                    students={featuredProject.students}
-                />
+                <StudentsContainer students={featuredProject.students} />
             )}
         </div>
     );
@@ -26,17 +24,20 @@ const StudentTimeLine = ({
     notes,
     grades,
     student,
-    onStudentClick,
 }: {
     notes: Note[];
     grades: Grade[];
     student: StudentType;
-    onStudentClick: (student: StudentType) => void;
 }) => {
+    const { setFeaturedStudent, setModalOpen } = useFeaturedProject();
+
     return (
         <div
             className="rounded-xl bg-white/10 p-5 flex flex-col items-center gap-4 h-fit min-w-[120px] cursor-pointer"
-            onClick={() => onStudentClick(student)}
+            onClick={() => {
+                setFeaturedStudent(student);
+                setModalOpen(true);
+            }}
         >
             <div className="flex flex-col justify-center items-center">
                 <div className="rounded-full h-12 w-12 border border-white mb-1" />
@@ -51,11 +52,9 @@ const StudentTimeLine = ({
 export const ProjectBody = ({
     notes,
     grades,
-    onStudentClick,
 }: {
     notes: Note[];
     grades: Grade[];
-    onStudentClick: (student: StudentType) => void;
 }) => {
     const [expanded, setExpanded] = useState(false);
     const { featuredProject } = useFeaturedProject();
@@ -92,7 +91,6 @@ export const ProjectBody = ({
                                             notes={notes}
                                             grades={grades}
                                             key={student.id}
-                                            onStudentClick={onStudentClick}
                                         />
                                     ))}
                             </div>

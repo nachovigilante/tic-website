@@ -1,11 +1,9 @@
 "use client";
 
-import { useQuery } from "react-query";
 import { Grade, Note } from "~/components/admin/Timeline";
 import { ProjectBody, ProjectHeader } from "~/components/admin/project/Project";
 import StudentTimelineModal from "~/components/admin/project/StudentTimeLineModal";
 import { FeaturedProjectProvider } from "~/contexts/FeaturedProjectContext";
-import { Project, useProjects } from "~/hooks/api/useProjects";
 import useFeaturedProject from "~/hooks/useFeaturedProject";
 
 const notes = [
@@ -13,21 +11,25 @@ const notes = [
         title: "Primera entrega",
         content: "Login, Register",
         issueDate: new Date("2023-03-01"),
+        term: "1° Bimestre",
     },
     {
         title: "Segunda entrega",
         content: "Login, Register",
         issueDate: new Date("2023-05-01"),
+        term: "2° Bimestre",
     },
     {
         title: "Tercera entrega",
         content: "Login, Register",
         issueDate: new Date("2023-07-01"),
+        term: "3° Bimestre",
     },
     {
         title: "Última entrega",
         content: "Login, Register",
         issueDate: new Date("2023-09-01"),
+        term: "4° Bimestre",
     },
 ] as Note[];
 
@@ -55,59 +57,27 @@ const grades = [
 ] as Grade[];
 
 const Page = ({ params: { id } }: { params: { id: string } }) => {
-    const { fetchProject } = useProjects();
-
-    const {
-        data: project,
-        isLoading,
-        isError,
-    } = useQuery({
-        queryKey: ["todos", id],
-        queryFn: () => fetchProject(id),
-    });
-
     return (
-        <>
-            {isLoading && <div>Loading...</div>}
-            {isError && <div>Error</div>}
-            {!isLoading && !isError && project && (
-                <FeaturedProjectProvider>
-                    <Project project={project} />
-                </FeaturedProjectProvider>
-            )}
-        </>
+        <FeaturedProjectProvider projectId={id}>
+            <Project />
+        </FeaturedProjectProvider>
     );
 };
 
-const Project = ({ project }: { project: Project }) => {
-    const {
-        featuredProject,
-        setFeaturedProject,
-        featuredStudent,
-        setFeaturedStudent,
-        modalOpen,
-        setModalOpen,
-    } = useFeaturedProject();
-
-    setFeaturedProject(project);
+const Project = () => {
+    const { featuredProject, featuredStudent, modalOpen, setModalOpen } =
+        useFeaturedProject();
 
     return (
         <>
             <div className="max-h-full overflow-hidden">
                 <ProjectHeader />
-                <ProjectBody
-                    notes={notes}
-                    grades={grades}
-                    onStudentClick={(student) => {
-                        setFeaturedStudent(student);
-                        setModalOpen(true);
-                    }}
-                />
+                <ProjectBody notes={notes} grades={grades} />
             </div>
             <StudentTimelineModal
                 notes={notes}
                 grades={grades}
-                student={featuredStudent || project.students[0]!}
+                student={featuredStudent}
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}
             />

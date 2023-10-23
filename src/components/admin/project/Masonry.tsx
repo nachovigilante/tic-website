@@ -15,8 +15,8 @@ export const Masonry = ({
                 <MasonryColumn key={i}>
                     {childrenArray
                         .filter((_, idx) => idx % cols === i)
-                        .map((child) => (
-                            <>{child}</>
+                        .map((child, i) => (
+                            <div key={i}>{child}</div>
                         ))}
                 </MasonryColumn>
             ))}

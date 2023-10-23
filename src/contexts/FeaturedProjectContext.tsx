@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useState } from "react";
-import { Project, StudentType } from "~/hooks/api/useProjects";
+import { useQuery } from "react-query";
+import { Project, StudentType, useProjects } from "~/hooks/api/useProjects";
 
 type FeaturedProjectContextType = {
     featuredProject: Project | undefined;
@@ -9,33 +10,48 @@ type FeaturedProjectContextType = {
     modalOpen: boolean;
     setModalOpen: (open: boolean) => void;
     setFeaturedStudent: (student: StudentType) => void;
-    setFeaturedProject: (project: Project) => void;
 };
 
 const FeaturedProjectContext = createContext({} as FeaturedProjectContextType);
 
 export const FeaturedProjectProvider = ({
     children,
+    projectId,
 }: {
     children: React.ReactNode;
+    projectId: string;
 }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [featuredStudent, setFeaturedStudent] = useState<StudentType>();
-    const [featuredProject, setFeaturedProject] = useState<Project>();
+    const { fetchProject } = useProjects();
+
+    const {
+        data: featuredProject,
+        isLoading,
+        isError,
+    } = useQuery({
+        queryKey: ["todos", projectId],
+        queryFn: () => fetchProject(projectId),
+    });
 
     return (
-        <FeaturedProjectContext.Provider
-            value={{
-                featuredProject,
-                featuredStudent,
-                modalOpen,
-                setModalOpen,
-                setFeaturedStudent,
-                setFeaturedProject,
-            }}
-        >
-            {children}
-        </FeaturedProjectContext.Provider>
+        <>
+            {isLoading && <div>Loading...</div>}
+            {isError && <div>Error</div>}
+            {!isLoading && !isError && featuredProject && (
+                <FeaturedProjectContext.Provider
+                    value={{
+                        featuredProject,
+                        featuredStudent,
+                        modalOpen,
+                        setModalOpen,
+                        setFeaturedStudent,
+                    }}
+                >
+                    {children}
+                </FeaturedProjectContext.Provider>
+            )}
+        </>
     );
 };
 

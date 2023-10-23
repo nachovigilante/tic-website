@@ -1,55 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 export type Note = {
     title: string;
     content: string;
     issueDate: Date;
+    term: "1° Bimestre" | "2° Bimestre" | "3° Bimestre" | "4° Bimestre";
 };
+
+type GradeTitle = "1° Bimestre" | "2° Bimestre" | "3° Bimestre" | "4° Bimestre";
 
 export type Grade = {
-    title: string;
+    title: GradeTitle;
     grade: string;
     issueDate: Date;
-};
-
-const GradeItem = ({
-    g: { grade, title },
-    size,
-}: {
-    g: Grade;
-    size: "large" | "small";
-}) => {
-    const color =
-        grade === "A" || parseInt(grade) > 5
-            ? "bg-green"
-            : grade === "S" || (parseInt(grade) >= 5 && parseInt(grade) <= 6)
-            ? "bg-grade-yellow"
-            : "bg-red";
-
-    return (
-        <li className="flex gap-6 items-center">
-            <div
-                className={twMerge(
-                    "rounded-full h-10 w-10 flex justify-center items-center text-2xl",
-                    color,
-                    size === "small" && "h-11 w-11"
-                )}
-            >
-                {grade}
-            </div>
-            {size === "large" && (
-                <div
-                    className={twMerge(
-                        "rounded-xl px-6 py-2 font-normal w-[270px] min-h-[60px] items-start justify-center flex text-xl flex-col",
-                        color,
-                    )}
-                >
-                    <h2>{title}</h2>
-                </div>
-            )}
-        </li>
-    );
 };
 
 const NoteItem = ({
@@ -61,7 +25,12 @@ const NoteItem = ({
 }) => {
     return (
         <li className="flex gap-6 items-center">
-            <div className={twMerge("rounded-full bg-gray-500 h-5 w-5 mx-[10px]", size === "small" && "mx-[13px]")} />
+            <div
+                className={twMerge(
+                    "rounded-full bg-gray-500 h-5 w-5 mx-[10px]",
+                    size === "small" && "mx-[13px]",
+                )}
+            />
             {size === "large" && (
                 <div className="rounded-xl px-5 py-3 font-normal w-[270px] min-h-[70px] items-start justify-center flex text-base flex-col bg-white/10">
                     <h2>{title}</h2>
@@ -69,6 +38,61 @@ const NoteItem = ({
                 </div>
             )}
         </li>
+    );
+};
+
+const GradeItem = ({
+    g: { grade, title },
+    size,
+    notes,
+}: {
+    g: Grade;
+    size: "large" | "small";
+    notes: Note[];
+}) => {
+    const color =
+        grade === "A" || parseInt(grade) > 5
+            ? "bg-green"
+            : grade === "S" || (parseInt(grade) >= 5 && parseInt(grade) <= 6)
+            ? "bg-grade-yellow"
+            : "bg-red";
+
+    const [expanded, setExpanded] = useState(false);
+
+    return (
+        <>
+            <li className="flex gap-6 items-center">
+                <div
+                    className={twMerge(
+                        "rounded-full h-10 w-10 flex justify-center items-center text-2xl",
+                        color,
+                        size === "small" && "h-11 w-11",
+                    )}
+                >
+                    {grade}
+                </div>
+                {size === "large" && (
+                    <div
+                        className={twMerge(
+                            "rounded-xl pl-6 pr-4 py-2 font-normal w-[270px] min-h-[60px] items-center justify-between flex text-xl",
+                            color,
+                        )}
+                    >
+                        <h2>{title}</h2>
+                        <div
+                            className="cursor-pointer hover:bg-black/10 py-1 px-2 rounded-md"
+                            onClick={() => setExpanded(!expanded)}
+                        >
+                            V
+                        </div>
+                    </div>
+                )}
+            </li>
+            {expanded &&
+                notes.map((item, i) => (
+                    <NoteItem n={item} key={i} size={size} />
+                ))}
+        </>
     );
 };
 
@@ -95,10 +119,6 @@ const Timeline = ({
 
     if (scroll.current) scrollToBottom();
 
-    const items = [...notes, ...grades].sort(
-        (a, b) => a.issueDate.getTime() - b.issueDate.getTime(),
-    );
-
     return (
         <div
             ref={scroll}
@@ -115,13 +135,14 @@ const Timeline = ({
                 )}
             />
             <ul className="flex flex-col gap-4 relative">
-                {items.map((item, i) =>
-                    "grade" in item ? (
-                        <GradeItem g={item} key={i} size={size} />
-                    ) : (
-                        size === "large" && <NoteItem n={item} key={i} size={size} />
-                    ),
-                )}
+                {grades.map((item, i) => (
+                    <GradeItem
+                        g={item}
+                        key={i}
+                        size={size}
+                        notes={notes.filter((note) => note.term === item.title)}
+                    />
+                ))}
             </ul>
         </div>
     );
