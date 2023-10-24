@@ -68,6 +68,8 @@ const Project = () => {
     const { featuredProject, featuredStudent, modalOpen, setModalOpen } =
         useFeaturedProject();
 
+    console.log(featuredProject);
+
     return (
         <>
             <div className="max-h-full overflow-hidden">

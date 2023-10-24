@@ -50,7 +50,10 @@ export const useProjects = () => {
     const { query } = useAPIQuery();
 
     const fetchProjects = async () => {
-        const data = await query<ProjectType[]>(`projects`, accessToken);
+        const data = await query<ProjectType[]>(
+            `projects/private`,
+            accessToken,
+        );
         return data;
     };
 

@@ -2,7 +2,15 @@ import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { AssignmentType } from "~/hooks/api/useAssignments";
 
-const Assignemt = ({ assignment }: { assignment: AssignmentType }) => {
+const Assignemt = ({
+    assignment,
+    onClick,
+    selected,
+}: {
+    assignment: AssignmentType;
+    onClick?: () => void;
+    selected?: boolean;
+}) => {
     if (assignment == null) return <></>;
 
     const date = new Date(
@@ -14,15 +22,19 @@ const Assignemt = ({ assignment }: { assignment: AssignmentType }) => {
     return (
         <div
             className={twMerge(
-                "flex h-auto min-h-[70px] w-full flex-col items-start justify-center rounded-xl bg-white/10 px-6 py-4 text-xl font-normal",
-                assignment.completed && "bg-green-transparent",
+                "flex h-auto min-h-[70px] w-full cursor-pointer flex-col items-start justify-center rounded-xl bg-white/10 px-6 py-4 text-xl font-normal",
+                (selected ||
+                    (selected === undefined && assignment.completed)) &&
+                    "bg-green-transparent",
             )}
+            onClick={onClick}
         >
             <div className="flex w-full flex-row gap-4">
                 <Image
                     className="h-8 w-8 object-scale-down md:h-auto"
                     src={
-                        assignment.completed
+                        selected ||
+                        (selected === undefined && assignment.completed)
                             ? "/images/check-transparent.png"
                             : "/images/todo-transparent.png"
                     }

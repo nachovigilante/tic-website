@@ -1,6 +1,7 @@
+import { useState } from "react";
 import useAuth from "../auth/useAuth";
 import useAPIQuery from "./useAPIQuery";
-import { StudentType } from "./useProjects";
+import { ProjectType, StudentType } from "./useProjects";
 
 export type AssignmentType = {
     id: number;
@@ -34,6 +35,19 @@ export const useAssignments = () => {
         );
         return data;
     };
-
-    return { fetchAssignments, fetchAssignment };
+    /*
+    const fetchProjectsByAssignments = async () => {
+        const data = await query<ProjectType[]>(
+            `projects/assignments?${filteredAssignments
+                .map((a) => `id=${a.id}`)
+                .join("&")}`,
+            accessToken,
+        );
+        return data;
+    };
+    */
+    return {
+        fetchAssignments,
+        fetchAssignment,
+    };
 };

@@ -37,7 +37,15 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
     );
 };
 
-const ProjectCard = ({ project }: { project: ProjectType }) => {
+const ProjectCard = ({
+    project,
+    noImage = false,
+    noArea = false,
+}: {
+    project: ProjectType;
+    noImage?: boolean;
+    noArea?: boolean;
+}) => {
     const color =
         categories[project.categories[0]?.title.toLowerCase()]?.color ??
         "#000000";
@@ -46,19 +54,28 @@ const ProjectCard = ({ project }: { project: ProjectType }) => {
             className="flex w-[15rem] flex-col gap-2 rounded-xl p-5 shadow-lg"
             style={{ backgroundColor: color }}
         >
-            <div className="flex justify-between">
-                <span className="no-ligature text-[10px]">
-                    {"</" +
-                        (project.areas.length > 0
-                            ? project.areas[0].name
-                            : "?") +
-                        ">"}
-                </span>
-            </div>
+            {!noArea && (
+                <div className="flex justify-between">
+                    <span className="no-ligature text-[10px]">
+                        {"</" +
+                            (project.areas.length > 0
+                                ? project.areas[0].name
+                                : "?") +
+                            ">"}
+                    </span>
+                </div>
+            )}
             <Link href={`/admin/tracking/project/${project.id}`}>
                 <span className="text-xl font-bold">{project.title}</span>
             </Link>
-            <Image src="/images/IARA.png" alt="IARA" width={200} height={200} />
+            {!noImage && (
+                <Image
+                    src="/images/IARA.png"
+                    alt="IARA"
+                    width={200}
+                    height={200}
+                />
+            )}
             <div className="flex flex-col space-y-2">
                 {project.students.map((student) => (
                     <StudentsItem student={student} key={student.id} />
