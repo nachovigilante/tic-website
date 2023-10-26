@@ -17,7 +17,7 @@ export const categories: CategoryType = {
         color: "#390040"
     },
     videojuegos: {
-        color: "2AB9FF",
+        color: "#2AB9FF",
     },
     "web app": {
         color: "#0094dd",
