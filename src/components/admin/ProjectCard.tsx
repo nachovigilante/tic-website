@@ -14,7 +14,7 @@ const StudentsItem = ({ student, isSearched }: { student: StudentType, isSearche
     if (student.roles.length == 0) return null;
     const role = roles[student.roles[0]!.name.toLowerCase()] ?? defaultRole;
 
-    const roleClass = "bg-role-" + role.name;
+    const roleClass = "bg-role-" + role.name!;
     const roleSvg = role.icon ?? "/images/default-role.svg";
     return (
         <div

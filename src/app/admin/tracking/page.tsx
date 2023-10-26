@@ -35,7 +35,7 @@ const Page = () => {
             setFilteredProjects(projects);
             setSearchedStudents([]);
             return;
-        };
+        }
         
         search = search.toLowerCase();
         // Removes categories from search
@@ -77,8 +77,8 @@ const Page = () => {
     }, [projects]);
 
     // Scroll
-    let mainContainer = document.getElementById("main-container");
-    let target = document.getElementById("searchbar");
+    const mainContainer = document.getElementById("main-container");
+    const target = document.getElementById("searchbar");
     
     mainContainer?.addEventListener("scroll", () => {
         if (!target || !mainContainer) return;

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useRef, Dispatch } from "react";
+import React, { useRef, type Dispatch } from "react";
 import useTextManipulation from "~/hooks/utils/useTextManipulation";
 import filters from "~/data/filters";
 import { type ActionType } from "~/hooks/utils/useFilters";
