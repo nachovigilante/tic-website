@@ -18,7 +18,7 @@ const ProjectModal = ({
         <Modal
             title={project.title}
             isOpen={isOpen}
-            close={close}
+            // close={close}
         >
             <div>Project Info</div>
         </Modal>

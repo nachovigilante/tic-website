@@ -5,7 +5,7 @@ export type Filter = {
 
 const filters: Filter[] = [
     {
-        name: "p1",
+        name: "videojuegos",
         style: "bg-blue-500 text-white rounded-md px-1",
     },
     {

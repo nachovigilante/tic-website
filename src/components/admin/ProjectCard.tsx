@@ -10,18 +10,18 @@ const defaultRole = {
     icon: "/images/default-role.svg",
 }
 
-const StudentsItem = ({ student }: { student: StudentType }) => {
+const StudentsItem = ({ student, isSearched }: { student: StudentType, isSearched: boolean }) => {
     if (student.roles.length == 0) return null;
-    console.log(student.roles[0]!.name)
     const role = roles[student.roles[0]!.name.toLowerCase()] ?? defaultRole;
 
-    const roleClass = "bg-role-" + role.name;
+    const roleClass = "bg-role-" + role.name!;
     const roleSvg = role.icon ?? "/images/default-role.svg";
     return (
         <div
             className={twMerge(
                 "flex flex-row items-center bg-fuchsia-400 rounded-md px-1 space-x-1 shadow-md",
                 roleClass,
+                isSearched ? "border-white border-2" : ""
             )}
         >
             <Image src={roleSvg} alt={role.name ?? "Sin rol"} width={24} height={24} />
@@ -30,7 +30,7 @@ const StudentsItem = ({ student }: { student: StudentType }) => {
     );
 };
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const ProjectCard = ({ project, searchedStudents }: { project: Project, searchedStudents: number[] }) => {
     const color = categories[project.categories[0]?.title.toLowerCase()]?.color ?? "#000000";
     return (
         <div 
@@ -51,7 +51,11 @@ const ProjectCard = ({ project }: { project: Project }) => {
             <Image src="/images/IARA.png" alt="IARA" width={200} height={200} />
             <div className="flex flex-col space-y-2">
                 {project.students.map((student) => (
-                    <StudentsItem student={student} key={student.name} />
+                    <StudentsItem 
+                        student={student} 
+                        key={student.id} 
+                        isSearched={searchedStudents.includes(student.id)}
+                    />
                 ))}
             </div>
         </div>
