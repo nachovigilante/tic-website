@@ -59,7 +59,7 @@ const Page = () => {
 
             const name = project.title.toLowerCase();
             return (
-                name.includes(search) || hasStudent
+                name.includes(search.toLowerCase()) || hasStudent
             ) && (
                 categoryFilters.length === 0 
                     || categoryFilters.includes(project.categories[0]?.title.toLowerCase()) 
