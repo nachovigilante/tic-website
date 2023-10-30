@@ -70,8 +70,7 @@ const Page = () => {
                             project.assignments.some((assignment) =>
                                 filteredAssignments.some(
                                     (filteredAssignment) =>
-                                        assignment.title ===
-                                        filteredAssignment.title,
+                                        assignment.id === filteredAssignment.id,
                                 ),
                             ),
                         )
@@ -84,7 +83,26 @@ const Page = () => {
                             />
                         ))}
             </div>
-            <div className="project-card flex h-full w-1/3 flex-col gap-4 rounded-xl"></div>
+            <div className="project-card flex h-full w-1/3 flex-col gap-4 rounded-xl">
+                {projects &&
+                    projects
+                        .filter((project) =>
+                            project.assignments.some((assignment) =>
+                                filteredAssignments.some(
+                                    (filteredAssignment) =>
+                                        assignment.id === filteredAssignment.id,
+                                ),
+                            ),
+                        )
+                        .map((project) => (
+                            <ProjectCard
+                                project={project}
+                                key={project.id}
+                                noImage
+                                noArea
+                            />
+                        ))}
+            </div>
         </div>
     );
 };

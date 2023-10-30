@@ -57,11 +57,6 @@ const Assignemt = ({
                             />
                         </div>
                     </div>
-                    <p className="text-sm text-white/50">
-                        {assignment.description}
-                        {assignment.completed &&
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel egestas dolor, nec dignissim metus"}
-                    </p>
                 </div>
             </div>
         </div>

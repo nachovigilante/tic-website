@@ -3,17 +3,35 @@ import useAuth from "../auth/useAuth";
 import useAPIQuery from "./useAPIQuery";
 import { ProjectType, StudentType } from "./useProjects";
 
+export type AssignmentsProjectsType = ProjectType & {
+    assignments_projects: {
+        completed: Date;
+        description: string;
+        teacherId: number;
+    };
+};
+
+export type AssignmentsStudentsType = StudentType & {
+    assignments_projects: {
+        completed: Date;
+        description: string;
+        teacherId: number;
+    };
+};
+
 export type AssignmentType = {
     id: number;
     title: string;
-    description: string;
     issueDate: Date;
     deadline: Date;
     secondDeadline: Date;
     link: string;
     individual: boolean;
+    mainAssignment: boolean;
+    roleId: number;
     completed: Date;
-    students: StudentType[];
+    students: AssignmentsStudentsType[];
+    projects: AssignmentsProjectsType[];
 };
 
 export const useAssignments = () => {
