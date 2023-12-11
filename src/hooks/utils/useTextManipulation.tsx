@@ -14,7 +14,12 @@ const useTextManipulation = () => {
         sel!.addRange(range);
     };
 
-    const insertSpan = (target: Element, node: Node, index: number, filter: Filter) => {
+    const insertSpan = (
+        target: Element,
+        node: Node,
+        index: number,
+        filter: Filter,
+    ) => {
         const nodeIndex = [...target.childNodes].indexOf(node as ChildNode);
 
         if (!target.childNodes[nodeIndex]) return;
@@ -22,7 +27,7 @@ const useTextManipulation = () => {
         if (target.childNodes[nodeIndex]!.nodeName !== "SPAN") {
             // Create a span element
             const span = document.createElement("span");
-            span.textContent = filter.name.toUpperCase();
+            span.textContent = filter.name.toUpperCase() + ":";
             span.className = filter.style;
 
             const nodesBefore = [...target.childNodes].slice(0, nodeIndex);
@@ -56,7 +61,7 @@ const useTextManipulation = () => {
         }
     };
 
-    const replageNodeWithTextNode = (
+    const replaceNodeWithTextNode = (
         node: Node,
         target: EventTarget & HTMLElement,
     ) => {
@@ -68,7 +73,7 @@ const useTextManipulation = () => {
         setCaret(newTextNode, offset);
     };
 
-    return { insertSpan, replageNodeWithTextNode };
+    return { insertSpan, replaceNodeWithTextNode };
 };
 
 export default useTextManipulation;

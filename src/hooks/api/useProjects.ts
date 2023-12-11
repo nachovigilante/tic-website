@@ -1,6 +1,6 @@
 import useAuth from "../auth/useAuth";
 import useAPIQuery from "./useAPIQuery";
-import { AssignmentType } from "./useAssignments";
+import { AssignmentType, AssignmentsProjectsType } from "./useAssignments";
 
 export type RoleType = {
     id: number;
@@ -39,7 +39,7 @@ export type ProjectType = {
     ];
     description: string;
     students: StudentType[];
-    assignments: AssignmentType[];
+    assignments: AssignmentsProjectsType[];
 };
 
 export const useProjects = () => {

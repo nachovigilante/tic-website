@@ -60,7 +60,7 @@ const Page = () => {
     return (
         <>
             <div
-                className="w-full transition-all duration-500 ease-in-out"
+                className="z-10 flex h-9 w-full transition-all duration-500 ease-in-out"
                 id="searchbar"
             >
                 <SearchBar onChange={(s) => filterProjects(s)} />

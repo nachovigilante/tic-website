@@ -50,7 +50,8 @@ const ProjectCard = ({
         categories[project.categories[0]?.title.toLowerCase()]?.color ??
         "#000000";
     return (
-        <div
+        <Link
+            href={`/admin/tracking/project/${project.id}`}
             className="flex w-[15rem] flex-col gap-2 rounded-xl p-5 shadow-lg"
             style={{ backgroundColor: color }}
         >
@@ -65,9 +66,7 @@ const ProjectCard = ({
                     </span>
                 </div>
             )}
-            <Link href={`/admin/tracking/project/${project.id}`}>
-                <span className="text-xl font-bold">{project.title}</span>
-            </Link>
+            <span className="text-xl font-bold">{project.title}</span>
             {!noImage && (
                 <Image
                     src="/images/IARA.png"
@@ -81,7 +80,7 @@ const ProjectCard = ({
                     <StudentsItem student={student} key={student.id} />
                 ))}
             </div>
-        </div>
+        </Link>
     );
 };
 export { StudentsItem };

@@ -39,11 +39,6 @@ export const adminLinks = [
         svgPath: "/images/admin/people.svg",
     },
     {
-        name: "Tareas",
-        path: "/admin/assignments",
-        svgPath: "/images/admin/tasks.svg",
-    },
-    {
         name: "Notas",
         path: "/admin/notas",
         svgPath: "/images/admin/notebook.svg",
